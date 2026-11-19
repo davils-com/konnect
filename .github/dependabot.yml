@@ -22,9 +22,22 @@ version: 2
 # The Kotlin version is never updated by Dependabot. It governs the language of the sources and the API level
 # consumers are compiled against, so raising it is a deliberate change.
 
+# Kore and Kreate come from the Davils repository, which the proxy of Dependabot only reaches when it is declared
+# here. Both paths are read without credentials.
+registries:
+  davils-releases:
+    type: maven-repository
+    url: https://repo.davils.com/releases
+  davils-snapshots:
+    type: maven-repository
+    url: https://repo.davils.com/snapshots
+
 updates:
   - package-ecosystem: "gradle"
     directory: "/"
+    registries:
+      - davils-releases
+      - davils-snapshots
     schedule:
       interval: "weekly"
     target-branch: "develop"
