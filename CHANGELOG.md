@@ -25,3 +25,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Exact address counts.** `AddressCount` holds the number of addresses of a range or a network exactly, up to the
   `2^128` addresses of the whole IPv6 space, on the JVM and on Wasm; `toBigInteger()` turns it into a
   `java.math.BigInteger` on the JVM.
+- **Test values.** `konnect-testing` holds `TestAddresses` and `TestNetworks` from the documentation ranges of RFC
+  5737 and RFC 3849 and `TestPorts` from the dynamic range of RFC 6335.

@@ -1,0 +1,24 @@
+public final class com/davils/konnect/testing/TestAddresses {
+	public static final field INSTANCE Lcom/davils/konnect/testing/TestAddresses;
+	public final fun ipv4 (I)Lcom/davils/konnect/internetprotocol/address/Ipv4Address;
+	public static synthetic fun ipv4$default (Lcom/davils/konnect/testing/TestAddresses;IILjava/lang/Object;)Lcom/davils/konnect/internetprotocol/address/Ipv4Address;
+	public final fun ipv6 (I)Lcom/davils/konnect/internetprotocol/address/Ipv6Address;
+	public static synthetic fun ipv6$default (Lcom/davils/konnect/testing/TestAddresses;IILjava/lang/Object;)Lcom/davils/konnect/internetprotocol/address/Ipv6Address;
+}
+
+public final class com/davils/konnect/testing/TestNetworks {
+	public static final field INSTANCE Lcom/davils/konnect/testing/TestNetworks;
+	public final fun ipv4 (I)Lcom/davils/konnect/internetprotocol/subnet/Ipv4Network;
+	public static synthetic fun ipv4$default (Lcom/davils/konnect/testing/TestNetworks;IILjava/lang/Object;)Lcom/davils/konnect/internetprotocol/subnet/Ipv4Network;
+	public final fun ipv6 (I)Lcom/davils/konnect/internetprotocol/subnet/Ipv6Network;
+	public static synthetic fun ipv6$default (Lcom/davils/konnect/testing/TestNetworks;IILjava/lang/Object;)Lcom/davils/konnect/internetprotocol/subnet/Ipv6Network;
+}
+
+public final class com/davils/konnect/testing/TestPorts {
+	public static final field INSTANCE Lcom/davils/konnect/testing/TestPorts;
+	public final fun dynamic-Huor80M (I)I
+	public static synthetic fun dynamic-Huor80M$default (Lcom/davils/konnect/testing/TestPorts;IILjava/lang/Object;)I
+	public final fun dynamicRange (I)Lcom/davils/konnect/core/port/PortRange;
+	public static synthetic fun dynamicRange$default (Lcom/davils/konnect/testing/TestPorts;IILjava/lang/Object;)Lcom/davils/konnect/core/port/PortRange;
+}
+

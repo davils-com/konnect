@@ -1,0 +1,22 @@
+// Klib ABI Dump
+// Targets: [wasmJs]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <com.davils:konnect-testing>
+final object com.davils.konnect.testing/TestAddresses { // com.davils.konnect.testing/TestAddresses|null[0]
+    final fun ipv4(kotlin/Int = ...): com.davils.konnect.internetprotocol.address/Ipv4Address // com.davils.konnect.testing/TestAddresses.ipv4|ipv4(kotlin.Int){}[0]
+    final fun ipv6(kotlin/Int = ...): com.davils.konnect.internetprotocol.address/Ipv6Address // com.davils.konnect.testing/TestAddresses.ipv6|ipv6(kotlin.Int){}[0]
+}
+
+final object com.davils.konnect.testing/TestNetworks { // com.davils.konnect.testing/TestNetworks|null[0]
+    final fun ipv4(kotlin/Int = ...): com.davils.konnect.internetprotocol.subnet/Ipv4Network // com.davils.konnect.testing/TestNetworks.ipv4|ipv4(kotlin.Int){}[0]
+    final fun ipv6(kotlin/Int = ...): com.davils.konnect.internetprotocol.subnet/Ipv6Network // com.davils.konnect.testing/TestNetworks.ipv6|ipv6(kotlin.Int){}[0]
+}
+
+final object com.davils.konnect.testing/TestPorts { // com.davils.konnect.testing/TestPorts|null[0]
+    final fun dynamic(kotlin/Int = ...): com.davils.konnect.core.port/Port // com.davils.konnect.testing/TestPorts.dynamic|dynamic(kotlin.Int){}[0]
+    final fun dynamicRange(kotlin/Int = ...): com.davils.konnect.core.port/PortRange // com.davils.konnect.testing/TestPorts.dynamicRange|dynamicRange(kotlin.Int){}[0]
+}
