@@ -1,0 +1,21 @@
+[versions]
+kotlin = "2.4.21"
+kreate = "5.2.0"
+coroutines = "1.11.0"
+kore = "2.0.0"
+# Floors for the classpaths of build tools, raised past known vulnerabilities.
+tooling-jackson = "2.22.3"
+tooling-bouncycastle = "1.85"
+
+[libraries]
+kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+kreate-gradle-plugin = { module = "com.davils.kreate:com.davils.kreate.gradle.plugin", version.ref = "kreate" }
+kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
+kore-core = { module = "com.davils:kore-core", version.ref = "kore" }
+kore-testing = { module = "com.davils:kore-testing", version.ref = "kore" }
+
+[bundles]
+build-logic = [
+    "kotlin-gradle-plugin",
+    "kreate-gradle-plugin"
+]

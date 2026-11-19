@@ -1,0 +1,112 @@
+#
+# Copyright 2026 Davils
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+# What the pipeline of Konnect does. Every key overrides a default of
+# actions/plan/defaults.yml in davils-com/kotlin-workflow; a key that is not there stops the run.
+version: 1
+gradle:
+  args: ["--stacktrace"]
+
+check:
+  tasks: [check]
+  reproducible:
+    clean-tasks: [":konnect-core:clean", ":konnect-internet-protocol:clean", ":konnect-testing:clean"]
+    tasks: [":konnect-core:jvmJar", ":konnect-internet-protocol:jvmJar", ":konnect-testing:jvmJar"]
+    artifacts: ["konnect-core/build/libs/*.jar", "konnect-internet-protocol/build/libs/*.jar", "konnect-testing/build/libs/*.jar"]
+
+policy:
+  # Konnect runs on Windows as well, so develop, main and a tag are checked there too.
+  push-develop:
+    stages: [check, snapshot]
+    os: [ubuntu-latest, windows-latest]
+    overrides:
+      check:
+        reproducible: { enabled: true }
+  push-main:
+    os: [ubuntu-latest, windows-latest]
+    overrides:
+      check:
+        reproducible: { enabled: true }
+  tag:
+    os: [ubuntu-latest, windows-latest]
+
+security:
+  gradle:
+    tasks: ["kreateAssurance"]
+  dependency-submission:
+    enabled: false
+
+publish:
+  build-tasks: [assemble]
+  tasks:
+    - ":konnect-core:publishAllPublicationsToDavilsRepository"
+    - ":konnect-internet-protocol:publishAllPublicationsToDavilsRepository"
+    - ":konnect-testing:publishAllPublicationsToDavilsRepository"
+
+snapshot:
+  # Konnect's own build makes every build without a release tag a snapshot.
+  kreate-snapshot: false
+
+release:
+  publications:
+    discovery: explicit
+    # In upload order: the publication of every target before the multiplatform publication that names them.
+    list:
+      - path: com/davils/konnect-core-jvm
+        artifact: konnect-core-jvm
+        task: ":konnect-core:publishJvmPublicationToDavilsRepository"
+      - path: com/davils/konnect-core-wasm-js
+        artifact: konnect-core-wasm-js
+        task: ":konnect-core:publishWasmJsPublicationToDavilsRepository"
+      - path: com/davils/konnect-core
+        artifact: konnect-core
+        task: ":konnect-core:publishKotlinMultiplatformPublicationToDavilsRepository"
+      - path: com/davils/konnect-internet-protocol-jvm
+        artifact: konnect-internet-protocol-jvm
+        task: ":konnect-internet-protocol:publishJvmPublicationToDavilsRepository"
+      - path: com/davils/konnect-internet-protocol-wasm-js
+        artifact: konnect-internet-protocol-wasm-js
+        task: ":konnect-internet-protocol:publishWasmJsPublicationToDavilsRepository"
+      - path: com/davils/konnect-internet-protocol
+        artifact: konnect-internet-protocol
+        task: ":konnect-internet-protocol:publishKotlinMultiplatformPublicationToDavilsRepository"
+      - path: com/davils/konnect-testing-jvm
+        artifact: konnect-testing-jvm
+        task: ":konnect-testing:publishJvmPublicationToDavilsRepository"
+      - path: com/davils/konnect-testing-wasm-js
+        artifact: konnect-testing-wasm-js
+        task: ":konnect-testing:publishWasmJsPublicationToDavilsRepository"
+      - path: com/davils/konnect-testing
+        artifact: konnect-testing
+        task: ":konnect-testing:publishKotlinMultiplatformPublicationToDavilsRepository"
+  attest:
+    subjects:
+      - "konnect-core/build/libs/*.jar"
+      - "konnect-core/build/libs/*.klib"
+      - "konnect-internet-protocol/build/libs/*.jar"
+      - "konnect-internet-protocol/build/libs/*.klib"
+      - "konnect-testing/build/libs/*.jar"
+      - "konnect-testing/build/libs/*.klib"
+  github-release:
+    enabled: false
+
+# How a pull request of Dependabot repairs itself, see CONTRIBUTING.md, "Changing a Dependency".
+dependencies:
+  lock:
+    invocations:
+      - ["kreateResolveAndLockAll", "--write-locks", "--no-configuration-cache"]
+  verification:
+    tasks: [check]
