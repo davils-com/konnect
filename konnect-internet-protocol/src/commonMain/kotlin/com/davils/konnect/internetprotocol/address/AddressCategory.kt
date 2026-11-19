@@ -18,7 +18,7 @@ package com.davils.konnect.internetprotocol.address
 
 /**
  * The purpose of an IP address, as the IANA IPv4 and IPv6 Special-Purpose Address Registries of RFC 6890 and the
- * IANA address space registries assign it.
+ * IANA address space registries assign it. Konnect 1.0.0 follows both special-purpose registries as of 2025-10-09.
  *
  * An [IpAddress] belongs to exactly one category, which [IpAddress.category] returns: the category of the most
  * specific block of the registry that holds the address, or [Public] if no block holds it. A block inside another
@@ -27,6 +27,7 @@ package com.davils.konnect.internetprotocol.address
  *
  * Whether an address is reachable from the public internet is a separate question that [IpAddress.isPublic]
  * answers; a few addresses of the categories [ProtocolAssignment] and [Translation] are globally reachable as well.
+ * Where the registry leaves reachability open, as for [Tunnel], Konnect treats the address as not globally reachable.
  *
  * @since 1.0.0
  */
@@ -111,9 +112,15 @@ public enum class AddressCategory {
 
     /**
      * The blocks that the IETF assigns to protocols: `192.0.0.0/24` of RFC 6890, `2001::/23` of RFC 2928 and
-     * `5f00::/16` of RFC 9602 for SRv6 SIDs, with the anycast and service blocks inside them, such as the Port
-     * Control Protocol and TURN anycast addresses `192.0.0.9`, `192.0.0.10`, `2001:1::1` and `2001:1::2`, AMT
-     * `2001:3::/32`, AS112 `2001:4:112::/48` and ORCHIDv2 `2001:20::/28`, which are globally reachable.
+     * `5f00::/16` of RFC 9602 for SRv6 SIDs, with the blocks inside them, and the protocol blocks outside them.
+     *
+     * Not globally reachable are, among others, the IPv4 service continuity prefix `192.0.0.0/29` of RFC 7335, the
+     * dummy addresses `192.0.0.8` of RFC 7600 and `100:0:0:1::/64` of RFC 9780, the NAT64 discovery addresses
+     * `192.0.0.170` and `192.0.0.171` of RFC 7050 and the 6a44 relay anycast address `192.88.99.2` of RFC 6751.
+     * Globally reachable are the Port Control Protocol, TURN and DNS-SD SRP anycast addresses `192.0.0.9`,
+     * `192.0.0.10`, `2001:1::1`, `2001:1::2` and `2001:1::3`, AMT `192.52.193.0/24` and `2001:3::/32`, AS112
+     * `192.31.196.0/24` and `2001:4:112::/48`, the AS112 direct delegation blocks `192.175.48.0/24` and
+     * `2620:4f:8000::/48` of RFC 7534, ORCHIDv2 `2001:20::/28` and the drone entity tags `2001:30::/28`.
      *
      * @since 1.0.0
      */
@@ -156,6 +163,18 @@ public enum class AddressCategory {
      * @since 1.0.0
      */
     Discard,
+
+    /**
+     * The IPv6 transition tunnels that carry an IPv4 address inside the IPv6 address: Teredo `2001::/32` of RFC
+     * 4380 and 6to4 `2002::/16` of RFC 3056.
+     *
+     * The registry leaves their reachability open, because it depends on the embedded IPv4 address: `2002:7f00:1::`
+     * carries the loopback address `127.0.0.1`. Konnect therefore never counts them as globally reachable, so a
+     * check with [IpAddress.isPublic] cannot be passed through a tunnel address.
+     *
+     * @since 1.0.0
+     */
+    Tunnel,
 
     /**
      * Every address that no block of the registry holds: an ordinary unicast address of the public internet.

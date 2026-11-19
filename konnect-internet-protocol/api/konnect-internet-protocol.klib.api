@@ -22,6 +22,7 @@ final enum class com.davils.konnect.internetprotocol.address/AddressCategory : k
     enum entry SharedAddressSpace // com.davils.konnect.internetprotocol.address/AddressCategory.SharedAddressSpace|null[0]
     enum entry ThisNetwork // com.davils.konnect.internetprotocol.address/AddressCategory.ThisNetwork|null[0]
     enum entry Translation // com.davils.konnect.internetprotocol.address/AddressCategory.Translation|null[0]
+    enum entry Tunnel // com.davils.konnect.internetprotocol.address/AddressCategory.Tunnel|null[0]
     enum entry UniqueLocal // com.davils.konnect.internetprotocol.address/AddressCategory.UniqueLocal|null[0]
     enum entry Unspecified // com.davils.konnect.internetprotocol.address/AddressCategory.Unspecified|null[0]
 

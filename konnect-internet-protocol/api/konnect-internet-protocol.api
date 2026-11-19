@@ -67,6 +67,7 @@ public final class com/davils/konnect/internetprotocol/address/AddressCategory :
 	public static final field SharedAddressSpace Lcom/davils/konnect/internetprotocol/address/AddressCategory;
 	public static final field ThisNetwork Lcom/davils/konnect/internetprotocol/address/AddressCategory;
 	public static final field Translation Lcom/davils/konnect/internetprotocol/address/AddressCategory;
+	public static final field Tunnel Lcom/davils/konnect/internetprotocol/address/AddressCategory;
 	public static final field UniqueLocal Lcom/davils/konnect/internetprotocol/address/AddressCategory;
 	public static final field Unspecified Lcom/davils/konnect/internetprotocol/address/AddressCategory;
 	public static fun getEntries ()Lkotlin/enums/EnumEntries;
