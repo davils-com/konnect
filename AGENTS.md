@@ -102,8 +102,8 @@ the octets and groups handed to a factory. Konnect is built so that a mistake of
 - **Never echo input.** A message, a reason or a report says what is wrong in constant text and never quotes the
   text it refused. Canonical values with a restricted alphabet, such as addresses, networks and ports, are shown as
   they are.
-- **Fail closed.** Text that is not exactly one canonical or accepted form is refused: no leading zeros that could
-  be read as octal, no zone identifiers, no whitespace, no partial reads. A network with host bits set is an error,
+- **Fail closed.** Text that is not exactly one documented form is refused: no leading zeros that could be read as
+  octal, no zone identifiers, no whitespace inside a value, no partial reads. A network with host bits set is an error,
   not silently masked.
 - **Secure randomness only.** No `java.util.Random`, `kotlin.random.Random` or `ThreadLocalRandom`.
 - **Every sink has an injection test.** Every parser is tested with hostile text, and a property test shows that

@@ -1,0 +1,93 @@
+public final class com/davils/konnect/core/Limits {
+	public static final field INSTANCE Lcom/davils/konnect/core/Limits;
+	public static final field MAX_TEXT_LENGTH I
+}
+
+public final class com/davils/konnect/core/port/Port : java/lang/Comparable {
+	public static final field Companion Lcom/davils/konnect/core/port/Port$Companion;
+	public static final synthetic fun box-impl (I)Lcom/davils/konnect/core/port/Port;
+	public synthetic fun compareTo (Ljava/lang/Object;)I
+	public fun compareTo-nxrjWs4 (I)I
+	public static fun compareTo-nxrjWs4 (II)I
+	public static fun constructor-impl (I)I
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (ILjava/lang/Object;)Z
+	public static final fun equals-impl0 (II)Z
+	public static final fun getCategory-impl (I)Lcom/davils/konnect/core/port/PortCategory;
+	public final fun getValue ()I
+	public fun hashCode ()I
+	public static fun hashCode-impl (I)I
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (I)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()I
+}
+
+public final class com/davils/konnect/core/port/Port$Companion {
+	public final fun getMAX-KoCe0UA ()I
+	public final fun getMIN-KoCe0UA ()I
+	public final fun parse-Huor80M (Ljava/lang/String;)I
+	public final fun parseOrNull-4dPbOhs (Ljava/lang/String;)Lcom/davils/konnect/core/port/Port;
+}
+
+public final class com/davils/konnect/core/port/PortCategory : java/lang/Enum {
+	public static final field Dynamic Lcom/davils/konnect/core/port/PortCategory;
+	public static final field Registered Lcom/davils/konnect/core/port/PortCategory;
+	public static final field WellKnown Lcom/davils/konnect/core/port/PortCategory;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/davils/konnect/core/port/PortCategory;
+	public static fun values ()[Lcom/davils/konnect/core/port/PortCategory;
+}
+
+public final class com/davils/konnect/core/port/PortRange : com/davils/kore/core/validation/Validatable, java/lang/Iterable, kotlin/jvm/internal/markers/KMappedMarker {
+	public static final field Companion Lcom/davils/konnect/core/port/PortRange$Companion;
+	public final fun contains (Lcom/davils/konnect/core/port/PortRange;)Z
+	public final fun contains-nxrjWs4 (I)Z
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getFirst-KoCe0UA ()I
+	public final fun getLast-KoCe0UA ()I
+	public final fun getSize ()I
+	public fun hashCode ()I
+	public fun iterator ()Ljava/util/Iterator;
+	public final fun overlaps (Lcom/davils/konnect/core/port/PortRange;)Z
+	public fun toString ()Ljava/lang/String;
+	public fun validate (Lcom/davils/kore/core/validation/ValidationScope;)V
+}
+
+public final class com/davils/konnect/core/port/PortRange$Companion {
+	public final fun getALL ()Lcom/davils/konnect/core/port/PortRange;
+	public final fun invoke-NNuiHKQ (II)Lcom/davils/konnect/core/port/PortRange;
+	public final fun parse (Ljava/lang/String;)Lcom/davils/konnect/core/port/PortRange;
+	public final fun parseOrNull (Ljava/lang/String;)Lcom/davils/konnect/core/port/PortRange;
+}
+
+public final class com/davils/konnect/core/port/PortRangeBuilder : com/davils/kore/core/dsl/ValidatingBuilder {
+	public synthetic fun assemble ()Lcom/davils/kore/core/validation/Validatable;
+	public final fun getFirst-KoCe0UA ()I
+	public final fun getLast-KoCe0UA ()I
+	public final fun setFirst-nxrjWs4 (I)V
+	public final fun setLast-nxrjWs4 (I)V
+}
+
+public final class com/davils/konnect/core/port/PortRangesKt {
+	public static final fun merge (Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun portRange (Lkotlin/jvm/functions/Function1;)Lcom/davils/konnect/core/port/PortRange;
+}
+
+public final class com/davils/konnect/core/port/PortStringsKt {
+	public static final fun toPort (Ljava/lang/String;)I
+	public static final fun toPortOrNull (Ljava/lang/String;)Lcom/davils/konnect/core/port/Port;
+	public static final fun toPortRange (Ljava/lang/String;)Lcom/davils/konnect/core/port/PortRange;
+	public static final fun toPortRangeOrNull (Ljava/lang/String;)Lcom/davils/konnect/core/port/PortRange;
+}
+
+public final class com/davils/konnect/core/port/PortValidationsKt {
+	public static final fun port (Lcom/davils/kore/core/validation/ValidationScope;Lkotlin/reflect/KProperty;Ljava/lang/String;)Lcom/davils/konnect/core/port/Port;
+	public static final fun portRange (Lcom/davils/kore/core/validation/ValidationScope;Lkotlin/reflect/KProperty;Ljava/lang/String;)Lcom/davils/konnect/core/port/PortRange;
+}
+
+public final class com/davils/konnect/core/port/PortViolationCodes {
+	public static final field INSTANCE Lcom/davils/konnect/core/port/PortViolationCodes;
+	public final fun getINVALID_PORT-J_S2PC0 ()Ljava/lang/String;
+	public final fun getINVALID_PORT_RANGE-J_S2PC0 ()Ljava/lang/String;
+}
+

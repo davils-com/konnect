@@ -1,0 +1,100 @@
+// Klib ABI Dump
+// Targets: [wasmJs]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <com.davils:konnect-core>
+final enum class com.davils.konnect.core.port/PortCategory : kotlin/Enum<com.davils.konnect.core.port/PortCategory> { // com.davils.konnect.core.port/PortCategory|null[0]
+    enum entry Dynamic // com.davils.konnect.core.port/PortCategory.Dynamic|null[0]
+    enum entry Registered // com.davils.konnect.core.port/PortCategory.Registered|null[0]
+    enum entry WellKnown // com.davils.konnect.core.port/PortCategory.WellKnown|null[0]
+
+    final val entries // com.davils.konnect.core.port/PortCategory.entries|#static{}entries[0]
+        final fun <get-entries>(): kotlin.enums/EnumEntries<com.davils.konnect.core.port/PortCategory> // com.davils.konnect.core.port/PortCategory.entries.<get-entries>|<get-entries>#static(){}[0]
+
+    final fun valueOf(kotlin/String): com.davils.konnect.core.port/PortCategory // com.davils.konnect.core.port/PortCategory.valueOf|valueOf#static(kotlin.String){}[0]
+    final fun values(): kotlin/Array<com.davils.konnect.core.port/PortCategory> // com.davils.konnect.core.port/PortCategory.values|values#static(){}[0]
+}
+
+final class com.davils.konnect.core.port/PortRange : com.davils.kore.core.validation/Validatable, kotlin.collections/Iterable<com.davils.konnect.core.port/Port> { // com.davils.konnect.core.port/PortRange|null[0]
+    final val first // com.davils.konnect.core.port/PortRange.first|{}first[0]
+        final fun <get-first>(): com.davils.konnect.core.port/Port // com.davils.konnect.core.port/PortRange.first.<get-first>|<get-first>(){}[0]
+    final val last // com.davils.konnect.core.port/PortRange.last|{}last[0]
+        final fun <get-last>(): com.davils.konnect.core.port/Port // com.davils.konnect.core.port/PortRange.last.<get-last>|<get-last>(){}[0]
+    final val size // com.davils.konnect.core.port/PortRange.size|{}size[0]
+        final fun <get-size>(): kotlin/Int // com.davils.konnect.core.port/PortRange.size.<get-size>|<get-size>(){}[0]
+
+    final fun (com.davils.kore.core.validation/ValidationScope).validate() // com.davils.konnect.core.port/PortRange.validate|validate@com.davils.kore.core.validation.ValidationScope(){}[0]
+    final fun contains(com.davils.konnect.core.port/Port): kotlin/Boolean // com.davils.konnect.core.port/PortRange.contains|contains(com.davils.konnect.core.port.Port){}[0]
+    final fun contains(com.davils.konnect.core.port/PortRange): kotlin/Boolean // com.davils.konnect.core.port/PortRange.contains|contains(com.davils.konnect.core.port.PortRange){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // com.davils.konnect.core.port/PortRange.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // com.davils.konnect.core.port/PortRange.hashCode|hashCode(){}[0]
+    final fun iterator(): kotlin.collections/Iterator<com.davils.konnect.core.port/Port> // com.davils.konnect.core.port/PortRange.iterator|iterator(){}[0]
+    final fun overlaps(com.davils.konnect.core.port/PortRange): kotlin/Boolean // com.davils.konnect.core.port/PortRange.overlaps|overlaps(com.davils.konnect.core.port.PortRange){}[0]
+    final fun toString(): kotlin/String // com.davils.konnect.core.port/PortRange.toString|toString(){}[0]
+
+    final object Companion { // com.davils.konnect.core.port/PortRange.Companion|null[0]
+        final val ALL // com.davils.konnect.core.port/PortRange.Companion.ALL|{}ALL[0]
+            final fun <get-ALL>(): com.davils.konnect.core.port/PortRange // com.davils.konnect.core.port/PortRange.Companion.ALL.<get-ALL>|<get-ALL>(){}[0]
+
+        final fun invoke(com.davils.konnect.core.port/Port, com.davils.konnect.core.port/Port): com.davils.konnect.core.port/PortRange // com.davils.konnect.core.port/PortRange.Companion.invoke|invoke(com.davils.konnect.core.port.Port;com.davils.konnect.core.port.Port){}[0]
+        final fun parse(kotlin/String): com.davils.konnect.core.port/PortRange // com.davils.konnect.core.port/PortRange.Companion.parse|parse(kotlin.String){}[0]
+        final fun parseOrNull(kotlin/String): com.davils.konnect.core.port/PortRange? // com.davils.konnect.core.port/PortRange.Companion.parseOrNull|parseOrNull(kotlin.String){}[0]
+    }
+}
+
+final class com.davils.konnect.core.port/PortRangeBuilder : com.davils.kore.core.dsl/ValidatingBuilder<com.davils.konnect.core.port/PortRange> { // com.davils.konnect.core.port/PortRangeBuilder|null[0]
+    final var first // com.davils.konnect.core.port/PortRangeBuilder.first|{}first[0]
+        final fun <get-first>(): com.davils.konnect.core.port/Port // com.davils.konnect.core.port/PortRangeBuilder.first.<get-first>|<get-first>(){}[0]
+        final fun <set-first>(com.davils.konnect.core.port/Port) // com.davils.konnect.core.port/PortRangeBuilder.first.<set-first>|<set-first>(com.davils.konnect.core.port.Port){}[0]
+    final var last // com.davils.konnect.core.port/PortRangeBuilder.last|{}last[0]
+        final fun <get-last>(): com.davils.konnect.core.port/Port // com.davils.konnect.core.port/PortRangeBuilder.last.<get-last>|<get-last>(){}[0]
+        final fun <set-last>(com.davils.konnect.core.port/Port) // com.davils.konnect.core.port/PortRangeBuilder.last.<set-last>|<set-last>(com.davils.konnect.core.port.Port){}[0]
+}
+
+final value class com.davils.konnect.core.port/Port : kotlin/Comparable<com.davils.konnect.core.port/Port> { // com.davils.konnect.core.port/Port|null[0]
+    constructor <init>(kotlin/Int) // com.davils.konnect.core.port/Port.<init>|<init>(kotlin.Int){}[0]
+
+    final val category // com.davils.konnect.core.port/Port.category|{}category[0]
+        final fun <get-category>(): com.davils.konnect.core.port/PortCategory // com.davils.konnect.core.port/Port.category.<get-category>|<get-category>(){}[0]
+    final val value // com.davils.konnect.core.port/Port.value|{}value[0]
+        final fun <get-value>(): kotlin/Int // com.davils.konnect.core.port/Port.value.<get-value>|<get-value>(){}[0]
+
+    final fun compareTo(com.davils.konnect.core.port/Port): kotlin/Int // com.davils.konnect.core.port/Port.compareTo|compareTo(com.davils.konnect.core.port.Port){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // com.davils.konnect.core.port/Port.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // com.davils.konnect.core.port/Port.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // com.davils.konnect.core.port/Port.toString|toString(){}[0]
+
+    final object Companion { // com.davils.konnect.core.port/Port.Companion|null[0]
+        final val MAX // com.davils.konnect.core.port/Port.Companion.MAX|{}MAX[0]
+            final fun <get-MAX>(): com.davils.konnect.core.port/Port // com.davils.konnect.core.port/Port.Companion.MAX.<get-MAX>|<get-MAX>(){}[0]
+        final val MIN // com.davils.konnect.core.port/Port.Companion.MIN|{}MIN[0]
+            final fun <get-MIN>(): com.davils.konnect.core.port/Port // com.davils.konnect.core.port/Port.Companion.MIN.<get-MIN>|<get-MIN>(){}[0]
+
+        final fun parse(kotlin/String): com.davils.konnect.core.port/Port // com.davils.konnect.core.port/Port.Companion.parse|parse(kotlin.String){}[0]
+        final fun parseOrNull(kotlin/String): com.davils.konnect.core.port/Port? // com.davils.konnect.core.port/Port.Companion.parseOrNull|parseOrNull(kotlin.String){}[0]
+    }
+}
+
+final object com.davils.konnect.core.port/PortViolationCodes { // com.davils.konnect.core.port/PortViolationCodes|null[0]
+    final val INVALID_PORT // com.davils.konnect.core.port/PortViolationCodes.INVALID_PORT|{}INVALID_PORT[0]
+        final fun <get-INVALID_PORT>(): com.davils.kore.core.validation.violation/ViolationCode // com.davils.konnect.core.port/PortViolationCodes.INVALID_PORT.<get-INVALID_PORT>|<get-INVALID_PORT>(){}[0]
+    final val INVALID_PORT_RANGE // com.davils.konnect.core.port/PortViolationCodes.INVALID_PORT_RANGE|{}INVALID_PORT_RANGE[0]
+        final fun <get-INVALID_PORT_RANGE>(): com.davils.kore.core.validation.violation/ViolationCode // com.davils.konnect.core.port/PortViolationCodes.INVALID_PORT_RANGE.<get-INVALID_PORT_RANGE>|<get-INVALID_PORT_RANGE>(){}[0]
+}
+
+final object com.davils.konnect.core/Limits { // com.davils.konnect.core/Limits|null[0]
+    final const val MAX_TEXT_LENGTH // com.davils.konnect.core/Limits.MAX_TEXT_LENGTH|{}MAX_TEXT_LENGTH[0]
+        final fun <get-MAX_TEXT_LENGTH>(): kotlin/Int // com.davils.konnect.core/Limits.MAX_TEXT_LENGTH.<get-MAX_TEXT_LENGTH>|<get-MAX_TEXT_LENGTH>(){}[0]
+}
+
+final fun (com.davils.kore.core.validation/ValidationScope).com.davils.konnect.core.port/port(kotlin.reflect/KProperty<*>, kotlin/String): com.davils.konnect.core.port/Port? // com.davils.konnect.core.port/port|port@com.davils.kore.core.validation.ValidationScope(kotlin.reflect.KProperty<*>;kotlin.String){}[0]
+final fun (com.davils.kore.core.validation/ValidationScope).com.davils.konnect.core.port/portRange(kotlin.reflect/KProperty<*>, kotlin/String): com.davils.konnect.core.port/PortRange? // com.davils.konnect.core.port/portRange|portRange@com.davils.kore.core.validation.ValidationScope(kotlin.reflect.KProperty<*>;kotlin.String){}[0]
+final fun (kotlin.collections/Iterable<com.davils.konnect.core.port/PortRange>).com.davils.konnect.core.port/merge(): kotlin.collections/List<com.davils.konnect.core.port/PortRange> // com.davils.konnect.core.port/merge|merge@kotlin.collections.Iterable<com.davils.konnect.core.port.PortRange>(){}[0]
+final fun (kotlin/String).com.davils.konnect.core.port/toPort(): com.davils.konnect.core.port/Port // com.davils.konnect.core.port/toPort|toPort@kotlin.String(){}[0]
+final fun (kotlin/String).com.davils.konnect.core.port/toPortOrNull(): com.davils.konnect.core.port/Port? // com.davils.konnect.core.port/toPortOrNull|toPortOrNull@kotlin.String(){}[0]
+final fun (kotlin/String).com.davils.konnect.core.port/toPortRange(): com.davils.konnect.core.port/PortRange // com.davils.konnect.core.port/toPortRange|toPortRange@kotlin.String(){}[0]
+final fun (kotlin/String).com.davils.konnect.core.port/toPortRangeOrNull(): com.davils.konnect.core.port/PortRange? // com.davils.konnect.core.port/toPortRangeOrNull|toPortRangeOrNull@kotlin.String(){}[0]
+final fun com.davils.konnect.core.port/portRange(kotlin/Function1<com.davils.konnect.core.port/PortRangeBuilder, kotlin/Unit>): com.davils.konnect.core.port/PortRange // com.davils.konnect.core.port/portRange|portRange(kotlin.Function1<com.davils.konnect.core.port.PortRangeBuilder,kotlin.Unit>){}[0]
