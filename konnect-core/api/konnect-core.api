@@ -1,5 +1,7 @@
 public final class com/davils/konnect/core/Limits {
 	public static final field INSTANCE Lcom/davils/konnect/core/Limits;
+	public static final field MAX_IPV6_ADDRESS_LENGTH I
+	public static final field MAX_SPLIT_COUNT I
 	public static final field MAX_TEXT_LENGTH I
 }
 

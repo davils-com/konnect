@@ -86,6 +86,10 @@ final object com.davils.konnect.core.port/PortViolationCodes { // com.davils.kon
 }
 
 final object com.davils.konnect.core/Limits { // com.davils.konnect.core/Limits|null[0]
+    final const val MAX_IPV6_ADDRESS_LENGTH // com.davils.konnect.core/Limits.MAX_IPV6_ADDRESS_LENGTH|{}MAX_IPV6_ADDRESS_LENGTH[0]
+        final fun <get-MAX_IPV6_ADDRESS_LENGTH>(): kotlin/Int // com.davils.konnect.core/Limits.MAX_IPV6_ADDRESS_LENGTH.<get-MAX_IPV6_ADDRESS_LENGTH>|<get-MAX_IPV6_ADDRESS_LENGTH>(){}[0]
+    final const val MAX_SPLIT_COUNT // com.davils.konnect.core/Limits.MAX_SPLIT_COUNT|{}MAX_SPLIT_COUNT[0]
+        final fun <get-MAX_SPLIT_COUNT>(): kotlin/Int // com.davils.konnect.core/Limits.MAX_SPLIT_COUNT.<get-MAX_SPLIT_COUNT>|<get-MAX_SPLIT_COUNT>(){}[0]
     final const val MAX_TEXT_LENGTH // com.davils.konnect.core/Limits.MAX_TEXT_LENGTH|{}MAX_TEXT_LENGTH[0]
         final fun <get-MAX_TEXT_LENGTH>(): kotlin/Int // com.davils.konnect.core/Limits.MAX_TEXT_LENGTH.<get-MAX_TEXT_LENGTH>|<get-MAX_TEXT_LENGTH>(){}[0]
 }

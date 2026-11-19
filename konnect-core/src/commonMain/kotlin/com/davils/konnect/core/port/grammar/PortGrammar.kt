@@ -22,6 +22,7 @@ internal const val PORT_MAX: Int = 65_535
 
 private const val PORT_DIGITS: Int = 5
 private const val RANGE_SEPARATOR: Char = '-'
+private const val SPACE: Char = ' '
 private const val EMPTY_REASON: String = "is empty"
 private const val TOO_LONG_REASON: String = "is longer than ${Limits.MAX_TEXT_LENGTH} characters"
 private const val DIGIT_REASON: String = "is not a decimal number"
@@ -47,7 +48,7 @@ private fun readParts(parts: List<String>): PortRangeReading {
     if (parts.size > 2) return PortRangeReading.Refused(SHAPE_REASON)
     val first = parts.first()
     val last = parts.last()
-    return readBounds(first = readPort(first.trim()), last = readPort(last.trim()))
+    return readBounds(first = readPort(first.trim(SPACE)), last = readPort(last.trim(SPACE)))
 }
 
 private fun readBounds(first: PortReading, last: PortReading): PortRangeReading {

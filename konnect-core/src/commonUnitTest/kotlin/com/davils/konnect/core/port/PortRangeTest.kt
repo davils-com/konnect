@@ -40,6 +40,7 @@ private val refused: Map<String, String> = mapOf(
     "x-8080" to "has a first port that is not a decimal number",
     "8000-70000" to "has a last port that is above 65535",
     "-8080" to "has a first port that is empty",
+    "8000\t-8080" to "has a first port that is not a decimal number",
     " ".repeat(Limits.MAX_TEXT_LENGTH) + "1" to "is longer than 128 characters",
 )
 
@@ -117,6 +118,14 @@ class PortRangeTest : FunSpec({
 
             report.subject shouldBe "port range"
             report.errors.single().code shouldBe PortViolationCodes.INVALID_PORT_RANGE
+        }
+
+        test("refuses a change after the evaluation in the DSL") {
+            val builder = PortRangeBuilder()
+            builder.build()
+
+            shouldThrow<IllegalStateException> { builder.first = Port.MAX }
+            shouldThrow<IllegalStateException> { builder.last = Port.MIN }
         }
     }
 

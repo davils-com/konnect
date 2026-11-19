@@ -22,7 +22,8 @@ import com.davils.kore.core.dsl.ValidatingBuilder
 /**
  * The builder behind [portRange], which collects the first and the last port of a [PortRange].
  *
- * A builder is not thread-safe; it is meant to be configured and evaluated by one thread, for one range.
+ * A builder is not thread-safe; it is meant to be configured and evaluated by one thread, for one range. Once
+ * it was evaluated by `build()` or `validate()`, setting a bound throws an [IllegalStateException].
  *
  * @since 1.0.0
  */
@@ -36,6 +37,10 @@ public class PortRangeBuilder internal constructor() : ValidatingBuilder<PortRan
      * @since 1.0.0
      */
     public var first: Port = Port.MIN
+        set(value) {
+            checkOpen()
+            field = value
+        }
 
     /**
      * The highest port of the range; [Port.MAX] unless it is set.
@@ -43,6 +48,10 @@ public class PortRangeBuilder internal constructor() : ValidatingBuilder<PortRan
      * @since 1.0.0
      */
     public var last: Port = Port.MAX
+        set(value) {
+            checkOpen()
+            field = value
+        }
 
     override fun assemble(): PortRange = PortRange.assembled(first = first, last = last)
 }
