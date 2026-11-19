@@ -1,0 +1,513 @@
+public final class com/davils/konnect/internetprotocol/AddressCount : java/lang/Comparable {
+	public static final field Companion Lcom/davils/konnect/internetprotocol/AddressCount$Companion;
+	public fun compareTo (Lcom/davils/konnect/internetprotocol/AddressCount;)I
+	public synthetic fun compareTo (Ljava/lang/Object;)I
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public final fun plus (Lcom/davils/konnect/internetprotocol/AddressCount;)Lcom/davils/konnect/internetprotocol/AddressCount;
+	public fun toString ()Ljava/lang/String;
+	public final fun toULongOrNull-6VbMDqA ()Lkotlin/ULong;
+}
+
+public final class com/davils/konnect/internetprotocol/AddressCount$Companion {
+	public final fun getMAX ()Lcom/davils/konnect/internetprotocol/AddressCount;
+	public final fun getZERO ()Lcom/davils/konnect/internetprotocol/AddressCount;
+	public final fun of-VKZWuLQ (J)Lcom/davils/konnect/internetprotocol/AddressCount;
+	public final fun ofPowerOfTwo (I)Lcom/davils/konnect/internetprotocol/AddressCount;
+}
+
+public final class com/davils/konnect/internetprotocol/AddressCountConversionsKt {
+	public static final fun toBigInteger (Lcom/davils/konnect/internetprotocol/AddressCount;)Ljava/math/BigInteger;
+}
+
+public final class com/davils/konnect/internetprotocol/IpValidationsKt {
+	public static final fun ipAddress (Lcom/davils/kore/core/validation/ValidationScope;Lkotlin/reflect/KProperty;Ljava/lang/String;)Lcom/davils/konnect/internetprotocol/address/IpAddress;
+	public static final fun ipv4Address (Lcom/davils/kore/core/validation/ValidationScope;Lkotlin/reflect/KProperty;Ljava/lang/String;)Lcom/davils/konnect/internetprotocol/address/Ipv4Address;
+	public static final fun ipv4Interface (Lcom/davils/kore/core/validation/ValidationScope;Lkotlin/reflect/KProperty;Ljava/lang/String;)Lcom/davils/konnect/internetprotocol/subnet/Ipv4Interface;
+	public static final fun ipv4Network (Lcom/davils/kore/core/validation/ValidationScope;Lkotlin/reflect/KProperty;Ljava/lang/String;)Lcom/davils/konnect/internetprotocol/subnet/Ipv4Network;
+	public static final fun ipv4Range (Lcom/davils/kore/core/validation/ValidationScope;Lkotlin/reflect/KProperty;Ljava/lang/String;)Lcom/davils/konnect/internetprotocol/range/Ipv4Range;
+	public static final fun ipv6Address (Lcom/davils/kore/core/validation/ValidationScope;Lkotlin/reflect/KProperty;Ljava/lang/String;)Lcom/davils/konnect/internetprotocol/address/Ipv6Address;
+	public static final fun ipv6Interface (Lcom/davils/kore/core/validation/ValidationScope;Lkotlin/reflect/KProperty;Ljava/lang/String;)Lcom/davils/konnect/internetprotocol/subnet/Ipv6Interface;
+	public static final fun ipv6Network (Lcom/davils/kore/core/validation/ValidationScope;Lkotlin/reflect/KProperty;Ljava/lang/String;)Lcom/davils/konnect/internetprotocol/subnet/Ipv6Network;
+	public static final fun ipv6Range (Lcom/davils/kore/core/validation/ValidationScope;Lkotlin/reflect/KProperty;Ljava/lang/String;)Lcom/davils/konnect/internetprotocol/range/Ipv6Range;
+}
+
+public final class com/davils/konnect/internetprotocol/IpVersion : java/lang/Enum {
+	public static final field V4 Lcom/davils/konnect/internetprotocol/IpVersion;
+	public static final field V6 Lcom/davils/konnect/internetprotocol/IpVersion;
+	public final fun getBitLength ()I
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/davils/konnect/internetprotocol/IpVersion;
+	public static fun values ()[Lcom/davils/konnect/internetprotocol/IpVersion;
+}
+
+public final class com/davils/konnect/internetprotocol/IpViolationCodes {
+	public static final field INSTANCE Lcom/davils/konnect/internetprotocol/IpViolationCodes;
+	public final fun getHOST_BITS_SET-J_S2PC0 ()Ljava/lang/String;
+	public final fun getINVALID_ADDRESS-J_S2PC0 ()Ljava/lang/String;
+	public final fun getINVALID_INTERFACE-J_S2PC0 ()Ljava/lang/String;
+	public final fun getINVALID_NETWORK-J_S2PC0 ()Ljava/lang/String;
+	public final fun getINVALID_PREFIX-J_S2PC0 ()Ljava/lang/String;
+	public final fun getINVALID_RANGE-J_S2PC0 ()Ljava/lang/String;
+}
+
+public final class com/davils/konnect/internetprotocol/address/AddressCategory : java/lang/Enum {
+	public static final field Benchmarking Lcom/davils/konnect/internetprotocol/address/AddressCategory;
+	public static final field Broadcast Lcom/davils/konnect/internetprotocol/address/AddressCategory;
+	public static final field Discard Lcom/davils/konnect/internetprotocol/address/AddressCategory;
+	public static final field Documentation Lcom/davils/konnect/internetprotocol/address/AddressCategory;
+	public static final field Ipv4Mapped Lcom/davils/konnect/internetprotocol/address/AddressCategory;
+	public static final field LinkLocal Lcom/davils/konnect/internetprotocol/address/AddressCategory;
+	public static final field Loopback Lcom/davils/konnect/internetprotocol/address/AddressCategory;
+	public static final field Multicast Lcom/davils/konnect/internetprotocol/address/AddressCategory;
+	public static final field Private Lcom/davils/konnect/internetprotocol/address/AddressCategory;
+	public static final field ProtocolAssignment Lcom/davils/konnect/internetprotocol/address/AddressCategory;
+	public static final field Public Lcom/davils/konnect/internetprotocol/address/AddressCategory;
+	public static final field Reserved Lcom/davils/konnect/internetprotocol/address/AddressCategory;
+	public static final field SharedAddressSpace Lcom/davils/konnect/internetprotocol/address/AddressCategory;
+	public static final field ThisNetwork Lcom/davils/konnect/internetprotocol/address/AddressCategory;
+	public static final field Translation Lcom/davils/konnect/internetprotocol/address/AddressCategory;
+	public static final field UniqueLocal Lcom/davils/konnect/internetprotocol/address/AddressCategory;
+	public static final field Unspecified Lcom/davils/konnect/internetprotocol/address/AddressCategory;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/davils/konnect/internetprotocol/address/AddressCategory;
+	public static fun values ()[Lcom/davils/konnect/internetprotocol/address/AddressCategory;
+}
+
+public abstract class com/davils/konnect/internetprotocol/address/IpAddress : java/lang/Comparable {
+	public static final field Companion Lcom/davils/konnect/internetprotocol/address/IpAddress$Companion;
+	public final fun compareTo (Lcom/davils/konnect/internetprotocol/address/IpAddress;)I
+	public synthetic fun compareTo (Ljava/lang/Object;)I
+	public final fun equals (Ljava/lang/Object;)Z
+	public final fun getCategory ()Lcom/davils/konnect/internetprotocol/address/AddressCategory;
+	public final fun getReverseDnsName ()Ljava/lang/String;
+	public abstract fun getVersion ()Lcom/davils/konnect/internetprotocol/IpVersion;
+	public final fun hashCode ()I
+	public final fun isLinkLocal ()Z
+	public final fun isLoopback ()Z
+	public final fun isMulticast ()Z
+	public final fun isPrivate ()Z
+	public final fun isPublic ()Z
+	public final fun isUnspecified ()Z
+	public abstract fun next ()Lcom/davils/konnect/internetprotocol/address/IpAddress;
+	public abstract fun previous ()Lcom/davils/konnect/internetprotocol/address/IpAddress;
+	public abstract fun shiftedBy (J)Lcom/davils/konnect/internetprotocol/address/IpAddress;
+	public final fun toBinaryString ()Ljava/lang/String;
+	public final fun toByteArray ()[B
+	public final fun toHexString ()Ljava/lang/String;
+}
+
+public final class com/davils/konnect/internetprotocol/address/IpAddress$Companion {
+	public final fun parse (Ljava/lang/String;)Lcom/davils/konnect/internetprotocol/address/IpAddress;
+	public final fun parseOrNull (Ljava/lang/String;)Lcom/davils/konnect/internetprotocol/address/IpAddress;
+}
+
+public final class com/davils/konnect/internetprotocol/address/IpAddressStringsKt {
+	public static final fun toIpAddress (Ljava/lang/String;)Lcom/davils/konnect/internetprotocol/address/IpAddress;
+	public static final fun toIpAddressOrNull (Ljava/lang/String;)Lcom/davils/konnect/internetprotocol/address/IpAddress;
+	public static final fun toIpv4Address (Ljava/lang/String;)Lcom/davils/konnect/internetprotocol/address/Ipv4Address;
+	public static final fun toIpv4AddressOrNull (Ljava/lang/String;)Lcom/davils/konnect/internetprotocol/address/Ipv4Address;
+	public static final fun toIpv6Address (Ljava/lang/String;)Lcom/davils/konnect/internetprotocol/address/Ipv6Address;
+	public static final fun toIpv6AddressOrNull (Ljava/lang/String;)Lcom/davils/konnect/internetprotocol/address/Ipv6Address;
+}
+
+public final class com/davils/konnect/internetprotocol/address/Ipv4Address : com/davils/konnect/internetprotocol/address/IpAddress {
+	public static final field Companion Lcom/davils/konnect/internetprotocol/address/Ipv4Address$Companion;
+	public final fun getAddressClass ()Lcom/davils/konnect/internetprotocol/address/Ipv4Class;
+	public final fun getOctets ()Ljava/util/List;
+	public fun getVersion ()Lcom/davils/konnect/internetprotocol/IpVersion;
+	public synthetic fun next ()Lcom/davils/konnect/internetprotocol/address/IpAddress;
+	public fun next ()Lcom/davils/konnect/internetprotocol/address/Ipv4Address;
+	public synthetic fun previous ()Lcom/davils/konnect/internetprotocol/address/IpAddress;
+	public fun previous ()Lcom/davils/konnect/internetprotocol/address/Ipv4Address;
+	public synthetic fun shiftedBy (J)Lcom/davils/konnect/internetprotocol/address/IpAddress;
+	public fun shiftedBy (J)Lcom/davils/konnect/internetprotocol/address/Ipv4Address;
+	public final fun toMappedIpv6 ()Lcom/davils/konnect/internetprotocol/address/Ipv6Address;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/davils/konnect/internetprotocol/address/Ipv4Address$Companion {
+	public final fun fromByteArray ([B)Lcom/davils/konnect/internetprotocol/address/Ipv4Address;
+	public final fun getBROADCAST ()Lcom/davils/konnect/internetprotocol/address/Ipv4Address;
+	public final fun getLOOPBACK ()Lcom/davils/konnect/internetprotocol/address/Ipv4Address;
+	public final fun getUNSPECIFIED ()Lcom/davils/konnect/internetprotocol/address/Ipv4Address;
+	public final fun invoke (IIII)Lcom/davils/konnect/internetprotocol/address/Ipv4Address;
+	public final fun parse (Ljava/lang/String;)Lcom/davils/konnect/internetprotocol/address/Ipv4Address;
+	public final fun parseOrNull (Ljava/lang/String;)Lcom/davils/konnect/internetprotocol/address/Ipv4Address;
+}
+
+public final class com/davils/konnect/internetprotocol/address/Ipv4Class : java/lang/Enum {
+	public static final field A Lcom/davils/konnect/internetprotocol/address/Ipv4Class;
+	public static final field B Lcom/davils/konnect/internetprotocol/address/Ipv4Class;
+	public static final field C Lcom/davils/konnect/internetprotocol/address/Ipv4Class;
+	public static final field D Lcom/davils/konnect/internetprotocol/address/Ipv4Class;
+	public static final field E Lcom/davils/konnect/internetprotocol/address/Ipv4Class;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/davils/konnect/internetprotocol/address/Ipv4Class;
+	public static fun values ()[Lcom/davils/konnect/internetprotocol/address/Ipv4Class;
+}
+
+public final class com/davils/konnect/internetprotocol/address/Ipv6Address : com/davils/konnect/internetprotocol/address/IpAddress {
+	public static final field Companion Lcom/davils/konnect/internetprotocol/address/Ipv6Address$Companion;
+	public final fun getGroups ()Ljava/util/List;
+	public fun getVersion ()Lcom/davils/konnect/internetprotocol/IpVersion;
+	public synthetic fun next ()Lcom/davils/konnect/internetprotocol/address/IpAddress;
+	public fun next ()Lcom/davils/konnect/internetprotocol/address/Ipv6Address;
+	public synthetic fun previous ()Lcom/davils/konnect/internetprotocol/address/IpAddress;
+	public fun previous ()Lcom/davils/konnect/internetprotocol/address/Ipv6Address;
+	public synthetic fun shiftedBy (J)Lcom/davils/konnect/internetprotocol/address/IpAddress;
+	public fun shiftedBy (J)Lcom/davils/konnect/internetprotocol/address/Ipv6Address;
+	public final fun toFullString ()Ljava/lang/String;
+	public final fun toIpv4OrNull ()Lcom/davils/konnect/internetprotocol/address/Ipv4Address;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/davils/konnect/internetprotocol/address/Ipv6Address$Companion {
+	public final fun fromByteArray ([B)Lcom/davils/konnect/internetprotocol/address/Ipv6Address;
+	public final fun getLOOPBACK ()Lcom/davils/konnect/internetprotocol/address/Ipv6Address;
+	public final fun getUNSPECIFIED ()Lcom/davils/konnect/internetprotocol/address/Ipv6Address;
+	public final fun invoke (Ljava/util/List;)Lcom/davils/konnect/internetprotocol/address/Ipv6Address;
+	public final fun parse (Ljava/lang/String;)Lcom/davils/konnect/internetprotocol/address/Ipv6Address;
+	public final fun parseOrNull (Ljava/lang/String;)Lcom/davils/konnect/internetprotocol/address/Ipv6Address;
+}
+
+public final class com/davils/konnect/internetprotocol/mask/Ipv4Netmask : com/davils/konnect/internetprotocol/mask/Netmask {
+	public static final field Companion Lcom/davils/konnect/internetprotocol/mask/Ipv4Netmask$Companion;
+	public synthetic fun getAddress ()Lcom/davils/konnect/internetprotocol/address/IpAddress;
+	public fun getAddress ()Lcom/davils/konnect/internetprotocol/address/Ipv4Address;
+	public fun getPrefixLength ()I
+	public fun getVersion ()Lcom/davils/konnect/internetprotocol/IpVersion;
+	public synthetic fun getWildcard ()Lcom/davils/konnect/internetprotocol/address/IpAddress;
+	public fun getWildcard ()Lcom/davils/konnect/internetprotocol/address/Ipv4Address;
+}
+
+public final class com/davils/konnect/internetprotocol/mask/Ipv4Netmask$Companion {
+	public final fun ofPrefix (I)Lcom/davils/konnect/internetprotocol/mask/Ipv4Netmask;
+	public final fun parse (Ljava/lang/String;)Lcom/davils/konnect/internetprotocol/mask/Ipv4Netmask;
+	public final fun parseOrNull (Ljava/lang/String;)Lcom/davils/konnect/internetprotocol/mask/Ipv4Netmask;
+}
+
+public final class com/davils/konnect/internetprotocol/mask/Ipv6Netmask : com/davils/konnect/internetprotocol/mask/Netmask {
+	public static final field Companion Lcom/davils/konnect/internetprotocol/mask/Ipv6Netmask$Companion;
+	public synthetic fun getAddress ()Lcom/davils/konnect/internetprotocol/address/IpAddress;
+	public fun getAddress ()Lcom/davils/konnect/internetprotocol/address/Ipv6Address;
+	public fun getPrefixLength ()I
+	public fun getVersion ()Lcom/davils/konnect/internetprotocol/IpVersion;
+	public synthetic fun getWildcard ()Lcom/davils/konnect/internetprotocol/address/IpAddress;
+	public fun getWildcard ()Lcom/davils/konnect/internetprotocol/address/Ipv6Address;
+}
+
+public final class com/davils/konnect/internetprotocol/mask/Ipv6Netmask$Companion {
+	public final fun ofPrefix (I)Lcom/davils/konnect/internetprotocol/mask/Ipv6Netmask;
+	public final fun parse (Ljava/lang/String;)Lcom/davils/konnect/internetprotocol/mask/Ipv6Netmask;
+	public final fun parseOrNull (Ljava/lang/String;)Lcom/davils/konnect/internetprotocol/mask/Ipv6Netmask;
+}
+
+public abstract class com/davils/konnect/internetprotocol/mask/Netmask {
+	public final fun equals (Ljava/lang/Object;)Z
+	public abstract fun getAddress ()Lcom/davils/konnect/internetprotocol/address/IpAddress;
+	public final fun getHostBits ()I
+	public abstract fun getPrefixLength ()I
+	public abstract fun getVersion ()Lcom/davils/konnect/internetprotocol/IpVersion;
+	public abstract fun getWildcard ()Lcom/davils/konnect/internetprotocol/address/IpAddress;
+	public final fun hashCode ()I
+	public final fun toString ()Ljava/lang/String;
+}
+
+public final class com/davils/konnect/internetprotocol/mask/NetmaskStringsKt {
+	public static final fun toIpv4Netmask (Ljava/lang/String;)Lcom/davils/konnect/internetprotocol/mask/Ipv4Netmask;
+	public static final fun toIpv4NetmaskOrNull (Ljava/lang/String;)Lcom/davils/konnect/internetprotocol/mask/Ipv4Netmask;
+	public static final fun toIpv6Netmask (Ljava/lang/String;)Lcom/davils/konnect/internetprotocol/mask/Ipv6Netmask;
+	public static final fun toIpv6NetmaskOrNull (Ljava/lang/String;)Lcom/davils/konnect/internetprotocol/mask/Ipv6Netmask;
+}
+
+public abstract class com/davils/konnect/internetprotocol/range/IpRange : com/davils/kore/core/validation/Validatable {
+	public static final field Companion Lcom/davils/konnect/internetprotocol/range/IpRange$Companion;
+	public final fun contains (Lcom/davils/konnect/internetprotocol/address/IpAddress;)Z
+	public final fun contains (Lcom/davils/konnect/internetprotocol/range/IpRange;)Z
+	public final fun equals (Ljava/lang/Object;)Z
+	public abstract fun getFirst ()Lcom/davils/konnect/internetprotocol/address/IpAddress;
+	public abstract fun getLast ()Lcom/davils/konnect/internetprotocol/address/IpAddress;
+	public final fun getSize ()Lcom/davils/konnect/internetprotocol/AddressCount;
+	public abstract fun getVersion ()Lcom/davils/konnect/internetprotocol/IpVersion;
+	public final fun hashCode ()I
+	public final fun overlaps (Lcom/davils/konnect/internetprotocol/range/IpRange;)Z
+	public abstract fun toNetworks ()Ljava/util/List;
+	public final fun toString ()Ljava/lang/String;
+	public fun validate (Lcom/davils/kore/core/validation/ValidationScope;)V
+}
+
+public final class com/davils/konnect/internetprotocol/range/IpRange$Companion {
+	public final fun parse (Ljava/lang/String;)Lcom/davils/konnect/internetprotocol/range/IpRange;
+	public final fun parseOrNull (Ljava/lang/String;)Lcom/davils/konnect/internetprotocol/range/IpRange;
+}
+
+public final class com/davils/konnect/internetprotocol/range/IpRangeStringsKt {
+	public static final fun toIpv4Range (Ljava/lang/String;)Lcom/davils/konnect/internetprotocol/range/Ipv4Range;
+	public static final fun toIpv4RangeOrNull (Ljava/lang/String;)Lcom/davils/konnect/internetprotocol/range/Ipv4Range;
+	public static final fun toIpv6Range (Ljava/lang/String;)Lcom/davils/konnect/internetprotocol/range/Ipv6Range;
+	public static final fun toIpv6RangeOrNull (Ljava/lang/String;)Lcom/davils/konnect/internetprotocol/range/Ipv6Range;
+}
+
+public final class com/davils/konnect/internetprotocol/range/IpRangesKt {
+	public static final fun ipv4Range (Lkotlin/jvm/functions/Function1;)Lcom/davils/konnect/internetprotocol/range/Ipv4Range;
+	public static final fun ipv6Range (Lkotlin/jvm/functions/Function1;)Lcom/davils/konnect/internetprotocol/range/Ipv6Range;
+}
+
+public final class com/davils/konnect/internetprotocol/range/Ipv4Range : com/davils/konnect/internetprotocol/range/IpRange {
+	public static final field Companion Lcom/davils/konnect/internetprotocol/range/Ipv4Range$Companion;
+	public synthetic fun getFirst ()Lcom/davils/konnect/internetprotocol/address/IpAddress;
+	public fun getFirst ()Lcom/davils/konnect/internetprotocol/address/Ipv4Address;
+	public synthetic fun getLast ()Lcom/davils/konnect/internetprotocol/address/IpAddress;
+	public fun getLast ()Lcom/davils/konnect/internetprotocol/address/Ipv4Address;
+	public fun getVersion ()Lcom/davils/konnect/internetprotocol/IpVersion;
+	public fun toNetworks ()Ljava/util/List;
+}
+
+public final class com/davils/konnect/internetprotocol/range/Ipv4Range$Companion {
+	public final fun invoke (Lcom/davils/konnect/internetprotocol/address/Ipv4Address;Lcom/davils/konnect/internetprotocol/address/Ipv4Address;)Lcom/davils/konnect/internetprotocol/range/Ipv4Range;
+	public final fun parse (Ljava/lang/String;)Lcom/davils/konnect/internetprotocol/range/Ipv4Range;
+	public final fun parseOrNull (Ljava/lang/String;)Lcom/davils/konnect/internetprotocol/range/Ipv4Range;
+}
+
+public final class com/davils/konnect/internetprotocol/range/Ipv6Range : com/davils/konnect/internetprotocol/range/IpRange {
+	public static final field Companion Lcom/davils/konnect/internetprotocol/range/Ipv6Range$Companion;
+	public synthetic fun getFirst ()Lcom/davils/konnect/internetprotocol/address/IpAddress;
+	public fun getFirst ()Lcom/davils/konnect/internetprotocol/address/Ipv6Address;
+	public synthetic fun getLast ()Lcom/davils/konnect/internetprotocol/address/IpAddress;
+	public fun getLast ()Lcom/davils/konnect/internetprotocol/address/Ipv6Address;
+	public fun getVersion ()Lcom/davils/konnect/internetprotocol/IpVersion;
+	public fun toNetworks ()Ljava/util/List;
+}
+
+public final class com/davils/konnect/internetprotocol/range/Ipv6Range$Companion {
+	public final fun invoke (Lcom/davils/konnect/internetprotocol/address/Ipv6Address;Lcom/davils/konnect/internetprotocol/address/Ipv6Address;)Lcom/davils/konnect/internetprotocol/range/Ipv6Range;
+	public final fun parse (Ljava/lang/String;)Lcom/davils/konnect/internetprotocol/range/Ipv6Range;
+	public final fun parseOrNull (Ljava/lang/String;)Lcom/davils/konnect/internetprotocol/range/Ipv6Range;
+}
+
+public final class com/davils/konnect/internetprotocol/range/builder/Ipv4RangeBuilder : com/davils/kore/core/dsl/ValidatingBuilder {
+	public synthetic fun assemble ()Lcom/davils/kore/core/validation/Validatable;
+	public final fun getFirst ()Lcom/davils/konnect/internetprotocol/address/Ipv4Address;
+	public final fun getLast ()Lcom/davils/konnect/internetprotocol/address/Ipv4Address;
+	public final fun setFirst (Lcom/davils/konnect/internetprotocol/address/Ipv4Address;)V
+	public final fun setLast (Lcom/davils/konnect/internetprotocol/address/Ipv4Address;)V
+}
+
+public final class com/davils/konnect/internetprotocol/range/builder/Ipv6RangeBuilder : com/davils/kore/core/dsl/ValidatingBuilder {
+	public synthetic fun assemble ()Lcom/davils/kore/core/validation/Validatable;
+	public final fun getFirst ()Lcom/davils/konnect/internetprotocol/address/Ipv6Address;
+	public final fun getLast ()Lcom/davils/konnect/internetprotocol/address/Ipv6Address;
+	public final fun setFirst (Lcom/davils/konnect/internetprotocol/address/Ipv6Address;)V
+	public final fun setLast (Lcom/davils/konnect/internetprotocol/address/Ipv6Address;)V
+}
+
+public abstract class com/davils/konnect/internetprotocol/subnet/IpInterface : com/davils/kore/core/validation/Validatable, java/lang/Comparable {
+	public static final field Companion Lcom/davils/konnect/internetprotocol/subnet/IpInterface$Companion;
+	public final fun compareTo (Lcom/davils/konnect/internetprotocol/subnet/IpInterface;)I
+	public synthetic fun compareTo (Ljava/lang/Object;)I
+	public final fun equals (Ljava/lang/Object;)Z
+	public abstract fun getAddress ()Lcom/davils/konnect/internetprotocol/address/IpAddress;
+	public abstract fun getNetmask ()Lcom/davils/konnect/internetprotocol/mask/Netmask;
+	public abstract fun getNetwork ()Lcom/davils/konnect/internetprotocol/subnet/IpNetwork;
+	public abstract fun getPrefixLength ()I
+	public abstract fun getVersion ()Lcom/davils/konnect/internetprotocol/IpVersion;
+	public final fun hashCode ()I
+	public final fun toString ()Ljava/lang/String;
+	public fun validate (Lcom/davils/kore/core/validation/ValidationScope;)V
+}
+
+public final class com/davils/konnect/internetprotocol/subnet/IpInterface$Companion {
+	public final fun parse (Ljava/lang/String;)Lcom/davils/konnect/internetprotocol/subnet/IpInterface;
+	public final fun parseOrNull (Ljava/lang/String;)Lcom/davils/konnect/internetprotocol/subnet/IpInterface;
+}
+
+public abstract class com/davils/konnect/internetprotocol/subnet/IpNetwork : com/davils/kore/core/validation/Validatable, java/lang/Comparable {
+	public static final field Companion Lcom/davils/konnect/internetprotocol/subnet/IpNetwork$Companion;
+	public final fun compareTo (Lcom/davils/konnect/internetprotocol/subnet/IpNetwork;)I
+	public synthetic fun compareTo (Ljava/lang/Object;)I
+	public final fun contains (Lcom/davils/konnect/internetprotocol/address/IpAddress;)Z
+	public final fun contains (Lcom/davils/konnect/internetprotocol/subnet/IpNetwork;)Z
+	public final fun equals (Ljava/lang/Object;)Z
+	public abstract fun getAddress ()Lcom/davils/konnect/internetprotocol/address/IpAddress;
+	public final fun getAddressCount ()Lcom/davils/konnect/internetprotocol/AddressCount;
+	public abstract fun getFirstAddress ()Lcom/davils/konnect/internetprotocol/address/IpAddress;
+	public abstract fun getFirstHost ()Lcom/davils/konnect/internetprotocol/address/IpAddress;
+	public abstract fun getHostCount ()Lcom/davils/konnect/internetprotocol/AddressCount;
+	public abstract fun getLastAddress ()Lcom/davils/konnect/internetprotocol/address/IpAddress;
+	public abstract fun getLastHost ()Lcom/davils/konnect/internetprotocol/address/IpAddress;
+	public abstract fun getNetmask ()Lcom/davils/konnect/internetprotocol/mask/Netmask;
+	public abstract fun getPrefixLength ()I
+	public abstract fun getVersion ()Lcom/davils/konnect/internetprotocol/IpVersion;
+	public abstract fun getWildcard ()Lcom/davils/konnect/internetprotocol/address/IpAddress;
+	public final fun hashCode ()I
+	public final fun overlaps (Lcom/davils/konnect/internetprotocol/subnet/IpNetwork;)Z
+	public final fun toString ()Ljava/lang/String;
+	public fun validate (Lcom/davils/kore/core/validation/ValidationScope;)V
+}
+
+public final class com/davils/konnect/internetprotocol/subnet/IpNetwork$Companion {
+	public final fun parse (Ljava/lang/String;)Lcom/davils/konnect/internetprotocol/subnet/IpNetwork;
+	public final fun parseOrNull (Ljava/lang/String;)Lcom/davils/konnect/internetprotocol/subnet/IpNetwork;
+}
+
+public final class com/davils/konnect/internetprotocol/subnet/IpNetworkAggregationKt {
+	public static final fun aggregateIpv4 (Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun aggregateIpv6 (Ljava/lang/Iterable;)Ljava/util/List;
+}
+
+public final class com/davils/konnect/internetprotocol/subnet/IpNetworkStringsKt {
+	public static final fun toIpv4Interface (Ljava/lang/String;)Lcom/davils/konnect/internetprotocol/subnet/Ipv4Interface;
+	public static final fun toIpv4InterfaceOrNull (Ljava/lang/String;)Lcom/davils/konnect/internetprotocol/subnet/Ipv4Interface;
+	public static final fun toIpv4Network (Ljava/lang/String;)Lcom/davils/konnect/internetprotocol/subnet/Ipv4Network;
+	public static final fun toIpv4NetworkOrNull (Ljava/lang/String;)Lcom/davils/konnect/internetprotocol/subnet/Ipv4Network;
+	public static final fun toIpv6Interface (Ljava/lang/String;)Lcom/davils/konnect/internetprotocol/subnet/Ipv6Interface;
+	public static final fun toIpv6InterfaceOrNull (Ljava/lang/String;)Lcom/davils/konnect/internetprotocol/subnet/Ipv6Interface;
+	public static final fun toIpv6Network (Ljava/lang/String;)Lcom/davils/konnect/internetprotocol/subnet/Ipv6Network;
+	public static final fun toIpv6NetworkOrNull (Ljava/lang/String;)Lcom/davils/konnect/internetprotocol/subnet/Ipv6Network;
+}
+
+public final class com/davils/konnect/internetprotocol/subnet/IpNetworksKt {
+	public static final fun ipv4Interface (Lkotlin/jvm/functions/Function1;)Lcom/davils/konnect/internetprotocol/subnet/Ipv4Interface;
+	public static final fun ipv4Network (Lkotlin/jvm/functions/Function1;)Lcom/davils/konnect/internetprotocol/subnet/Ipv4Network;
+	public static final fun ipv6Interface (Lkotlin/jvm/functions/Function1;)Lcom/davils/konnect/internetprotocol/subnet/Ipv6Interface;
+	public static final fun ipv6Network (Lkotlin/jvm/functions/Function1;)Lcom/davils/konnect/internetprotocol/subnet/Ipv6Network;
+}
+
+public final class com/davils/konnect/internetprotocol/subnet/Ipv4Interface : com/davils/konnect/internetprotocol/subnet/IpInterface {
+	public static final field Companion Lcom/davils/konnect/internetprotocol/subnet/Ipv4Interface$Companion;
+	public synthetic fun getAddress ()Lcom/davils/konnect/internetprotocol/address/IpAddress;
+	public fun getAddress ()Lcom/davils/konnect/internetprotocol/address/Ipv4Address;
+	public fun getNetmask ()Lcom/davils/konnect/internetprotocol/mask/Ipv4Netmask;
+	public synthetic fun getNetmask ()Lcom/davils/konnect/internetprotocol/mask/Netmask;
+	public synthetic fun getNetwork ()Lcom/davils/konnect/internetprotocol/subnet/IpNetwork;
+	public fun getNetwork ()Lcom/davils/konnect/internetprotocol/subnet/Ipv4Network;
+	public fun getPrefixLength ()I
+	public fun getVersion ()Lcom/davils/konnect/internetprotocol/IpVersion;
+}
+
+public final class com/davils/konnect/internetprotocol/subnet/Ipv4Interface$Companion {
+	public final fun invoke (Lcom/davils/konnect/internetprotocol/address/Ipv4Address;I)Lcom/davils/konnect/internetprotocol/subnet/Ipv4Interface;
+	public final fun parse (Ljava/lang/String;)Lcom/davils/konnect/internetprotocol/subnet/Ipv4Interface;
+	public final fun parseOrNull (Ljava/lang/String;)Lcom/davils/konnect/internetprotocol/subnet/Ipv4Interface;
+}
+
+public final class com/davils/konnect/internetprotocol/subnet/Ipv4Network : com/davils/konnect/internetprotocol/subnet/IpNetwork {
+	public static final field Companion Lcom/davils/konnect/internetprotocol/subnet/Ipv4Network$Companion;
+	public synthetic fun getAddress ()Lcom/davils/konnect/internetprotocol/address/IpAddress;
+	public fun getAddress ()Lcom/davils/konnect/internetprotocol/address/Ipv4Address;
+	public final fun getBroadcast ()Lcom/davils/konnect/internetprotocol/address/Ipv4Address;
+	public synthetic fun getFirstAddress ()Lcom/davils/konnect/internetprotocol/address/IpAddress;
+	public fun getFirstAddress ()Lcom/davils/konnect/internetprotocol/address/Ipv4Address;
+	public synthetic fun getFirstHost ()Lcom/davils/konnect/internetprotocol/address/IpAddress;
+	public fun getFirstHost ()Lcom/davils/konnect/internetprotocol/address/Ipv4Address;
+	public fun getHostCount ()Lcom/davils/konnect/internetprotocol/AddressCount;
+	public synthetic fun getLastAddress ()Lcom/davils/konnect/internetprotocol/address/IpAddress;
+	public fun getLastAddress ()Lcom/davils/konnect/internetprotocol/address/Ipv4Address;
+	public synthetic fun getLastHost ()Lcom/davils/konnect/internetprotocol/address/IpAddress;
+	public fun getLastHost ()Lcom/davils/konnect/internetprotocol/address/Ipv4Address;
+	public fun getNetmask ()Lcom/davils/konnect/internetprotocol/mask/Ipv4Netmask;
+	public synthetic fun getNetmask ()Lcom/davils/konnect/internetprotocol/mask/Netmask;
+	public fun getPrefixLength ()I
+	public fun getVersion ()Lcom/davils/konnect/internetprotocol/IpVersion;
+	public synthetic fun getWildcard ()Lcom/davils/konnect/internetprotocol/address/IpAddress;
+	public fun getWildcard ()Lcom/davils/konnect/internetprotocol/address/Ipv4Address;
+	public final fun hosts ()Lkotlin/sequences/Sequence;
+	public final fun nextSibling ()Lcom/davils/konnect/internetprotocol/subnet/Ipv4Network;
+	public final fun previousSibling ()Lcom/davils/konnect/internetprotocol/subnet/Ipv4Network;
+	public final fun split (I)Ljava/util/List;
+	public final fun subnets (I)Lkotlin/sequences/Sequence;
+	public final fun supernet (I)Lcom/davils/konnect/internetprotocol/subnet/Ipv4Network;
+	public final fun toRange ()Lcom/davils/konnect/internetprotocol/range/Ipv4Range;
+}
+
+public final class com/davils/konnect/internetprotocol/subnet/Ipv4Network$Companion {
+	public final fun invoke (Lcom/davils/konnect/internetprotocol/address/Ipv4Address;I)Lcom/davils/konnect/internetprotocol/subnet/Ipv4Network;
+	public final fun parse (Ljava/lang/String;)Lcom/davils/konnect/internetprotocol/subnet/Ipv4Network;
+	public final fun parseOrNull (Ljava/lang/String;)Lcom/davils/konnect/internetprotocol/subnet/Ipv4Network;
+}
+
+public final class com/davils/konnect/internetprotocol/subnet/Ipv6Interface : com/davils/konnect/internetprotocol/subnet/IpInterface {
+	public static final field Companion Lcom/davils/konnect/internetprotocol/subnet/Ipv6Interface$Companion;
+	public synthetic fun getAddress ()Lcom/davils/konnect/internetprotocol/address/IpAddress;
+	public fun getAddress ()Lcom/davils/konnect/internetprotocol/address/Ipv6Address;
+	public fun getNetmask ()Lcom/davils/konnect/internetprotocol/mask/Ipv6Netmask;
+	public synthetic fun getNetmask ()Lcom/davils/konnect/internetprotocol/mask/Netmask;
+	public synthetic fun getNetwork ()Lcom/davils/konnect/internetprotocol/subnet/IpNetwork;
+	public fun getNetwork ()Lcom/davils/konnect/internetprotocol/subnet/Ipv6Network;
+	public fun getPrefixLength ()I
+	public fun getVersion ()Lcom/davils/konnect/internetprotocol/IpVersion;
+}
+
+public final class com/davils/konnect/internetprotocol/subnet/Ipv6Interface$Companion {
+	public final fun invoke (Lcom/davils/konnect/internetprotocol/address/Ipv6Address;I)Lcom/davils/konnect/internetprotocol/subnet/Ipv6Interface;
+	public final fun parse (Ljava/lang/String;)Lcom/davils/konnect/internetprotocol/subnet/Ipv6Interface;
+	public final fun parseOrNull (Ljava/lang/String;)Lcom/davils/konnect/internetprotocol/subnet/Ipv6Interface;
+}
+
+public final class com/davils/konnect/internetprotocol/subnet/Ipv6Network : com/davils/konnect/internetprotocol/subnet/IpNetwork {
+	public static final field Companion Lcom/davils/konnect/internetprotocol/subnet/Ipv6Network$Companion;
+	public synthetic fun getAddress ()Lcom/davils/konnect/internetprotocol/address/IpAddress;
+	public fun getAddress ()Lcom/davils/konnect/internetprotocol/address/Ipv6Address;
+	public synthetic fun getFirstAddress ()Lcom/davils/konnect/internetprotocol/address/IpAddress;
+	public fun getFirstAddress ()Lcom/davils/konnect/internetprotocol/address/Ipv6Address;
+	public synthetic fun getFirstHost ()Lcom/davils/konnect/internetprotocol/address/IpAddress;
+	public fun getFirstHost ()Lcom/davils/konnect/internetprotocol/address/Ipv6Address;
+	public fun getHostCount ()Lcom/davils/konnect/internetprotocol/AddressCount;
+	public synthetic fun getLastAddress ()Lcom/davils/konnect/internetprotocol/address/IpAddress;
+	public fun getLastAddress ()Lcom/davils/konnect/internetprotocol/address/Ipv6Address;
+	public synthetic fun getLastHost ()Lcom/davils/konnect/internetprotocol/address/IpAddress;
+	public fun getLastHost ()Lcom/davils/konnect/internetprotocol/address/Ipv6Address;
+	public fun getNetmask ()Lcom/davils/konnect/internetprotocol/mask/Ipv6Netmask;
+	public synthetic fun getNetmask ()Lcom/davils/konnect/internetprotocol/mask/Netmask;
+	public fun getPrefixLength ()I
+	public fun getVersion ()Lcom/davils/konnect/internetprotocol/IpVersion;
+	public synthetic fun getWildcard ()Lcom/davils/konnect/internetprotocol/address/IpAddress;
+	public fun getWildcard ()Lcom/davils/konnect/internetprotocol/address/Ipv6Address;
+	public final fun hosts ()Lkotlin/sequences/Sequence;
+	public final fun nextSibling ()Lcom/davils/konnect/internetprotocol/subnet/Ipv6Network;
+	public final fun previousSibling ()Lcom/davils/konnect/internetprotocol/subnet/Ipv6Network;
+	public final fun split (I)Ljava/util/List;
+	public final fun subnets (I)Lkotlin/sequences/Sequence;
+	public final fun supernet (I)Lcom/davils/konnect/internetprotocol/subnet/Ipv6Network;
+	public final fun toRange ()Lcom/davils/konnect/internetprotocol/range/Ipv6Range;
+}
+
+public final class com/davils/konnect/internetprotocol/subnet/Ipv6Network$Companion {
+	public final fun invoke (Lcom/davils/konnect/internetprotocol/address/Ipv6Address;I)Lcom/davils/konnect/internetprotocol/subnet/Ipv6Network;
+	public final fun parse (Ljava/lang/String;)Lcom/davils/konnect/internetprotocol/subnet/Ipv6Network;
+	public final fun parseOrNull (Ljava/lang/String;)Lcom/davils/konnect/internetprotocol/subnet/Ipv6Network;
+}
+
+public final class com/davils/konnect/internetprotocol/subnet/builder/Ipv4InterfaceBuilder : com/davils/kore/core/dsl/ValidatingBuilder {
+	public synthetic fun assemble ()Lcom/davils/kore/core/validation/Validatable;
+	public final fun getAddress ()Lcom/davils/konnect/internetprotocol/address/Ipv4Address;
+	public final fun getPrefixLength ()I
+	public final fun setAddress (Lcom/davils/konnect/internetprotocol/address/Ipv4Address;)V
+	public final fun setPrefixLength (I)V
+}
+
+public final class com/davils/konnect/internetprotocol/subnet/builder/Ipv4NetworkBuilder : com/davils/kore/core/dsl/ValidatingBuilder {
+	public synthetic fun assemble ()Lcom/davils/kore/core/validation/Validatable;
+	public final fun getAddress ()Lcom/davils/konnect/internetprotocol/address/Ipv4Address;
+	public final fun getPrefixLength ()I
+	public final fun setAddress (Lcom/davils/konnect/internetprotocol/address/Ipv4Address;)V
+	public final fun setPrefixLength (I)V
+}
+
+public final class com/davils/konnect/internetprotocol/subnet/builder/Ipv6InterfaceBuilder : com/davils/kore/core/dsl/ValidatingBuilder {
+	public synthetic fun assemble ()Lcom/davils/kore/core/validation/Validatable;
+	public final fun getAddress ()Lcom/davils/konnect/internetprotocol/address/Ipv6Address;
+	public final fun getPrefixLength ()I
+	public final fun setAddress (Lcom/davils/konnect/internetprotocol/address/Ipv6Address;)V
+	public final fun setPrefixLength (I)V
+}
+
+public final class com/davils/konnect/internetprotocol/subnet/builder/Ipv6NetworkBuilder : com/davils/kore/core/dsl/ValidatingBuilder {
+	public synthetic fun assemble ()Lcom/davils/kore/core/validation/Validatable;
+	public final fun getAddress ()Lcom/davils/konnect/internetprotocol/address/Ipv6Address;
+	public final fun getPrefixLength ()I
+	public final fun setAddress (Lcom/davils/konnect/internetprotocol/address/Ipv6Address;)V
+	public final fun setPrefixLength (I)V
+}
+
