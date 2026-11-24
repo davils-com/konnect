@@ -8,10 +8,10 @@ public final class com/davils/konnect/testing/TestAddresses {
 
 public final class com/davils/konnect/testing/TestNetworks {
 	public static final field INSTANCE Lcom/davils/konnect/testing/TestNetworks;
-	public final fun ipv4 (I)Lcom/davils/konnect/internetprotocol/subnet/Ipv4Network;
-	public static synthetic fun ipv4$default (Lcom/davils/konnect/testing/TestNetworks;IILjava/lang/Object;)Lcom/davils/konnect/internetprotocol/subnet/Ipv4Network;
-	public final fun ipv6 (I)Lcom/davils/konnect/internetprotocol/subnet/Ipv6Network;
-	public static synthetic fun ipv6$default (Lcom/davils/konnect/testing/TestNetworks;IILjava/lang/Object;)Lcom/davils/konnect/internetprotocol/subnet/Ipv6Network;
+	public final fun ipv4 (I)Lcom/davils/konnect/internetprotocol/network/Ipv4Network;
+	public static synthetic fun ipv4$default (Lcom/davils/konnect/testing/TestNetworks;IILjava/lang/Object;)Lcom/davils/konnect/internetprotocol/network/Ipv4Network;
+	public final fun ipv6 (I)Lcom/davils/konnect/internetprotocol/network/Ipv6Network;
+	public static synthetic fun ipv6$default (Lcom/davils/konnect/testing/TestNetworks;IILjava/lang/Object;)Lcom/davils/konnect/internetprotocol/network/Ipv6Network;
 }
 
 public final class com/davils/konnect/testing/TestPorts {
@@ -20,5 +20,151 @@ public final class com/davils/konnect/testing/TestPorts {
 	public static synthetic fun dynamic-Huor80M$default (Lcom/davils/konnect/testing/TestPorts;IILjava/lang/Object;)I
 	public final fun dynamicRange (I)Lcom/davils/konnect/core/port/PortRange;
 	public static synthetic fun dynamicRange$default (Lcom/davils/konnect/testing/TestPorts;IILjava/lang/Object;)Lcom/davils/konnect/core/port/PortRange;
+}
+
+public final class com/davils/konnect/testing/ipc/FakeCreatedPipe {
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Z)V
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getPath ()Ljava/lang/String;
+	public final fun getSecurityDescriptor ()Ljava/lang/String;
+	public fun hashCode ()I
+	public final fun isFirstInstance ()Z
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/davils/konnect/testing/ipc/FakeIpcEnvironment : com/davils/konnect/ipc/core/transport/environment/IpcEnvironment {
+	public static final field Companion Lcom/davils/konnect/testing/ipc/FakeIpcEnvironment$Companion;
+	public static final field USER Ljava/lang/String;
+	public fun <init> ()V
+	public fun <init> (Ljava/lang/String;Ljava/nio/file/Path;Ljava/util/Map;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/nio/file/Path;Ljava/util/Map;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun getTemporaryDirectory ()Ljava/nio/file/Path;
+	public fun getUserName ()Ljava/lang/String;
+	public fun variable (Ljava/lang/String;)Ljava/lang/String;
+}
+
+public final class com/davils/konnect/testing/ipc/FakeIpcEnvironment$Companion {
+}
+
+public final class com/davils/konnect/testing/ipc/FakeNamedPipeApi : com/davils/konnect/ipc/core/transport/windows/NamedPipeApi {
+	public static final field CURRENT_PROCESS J
+	public static final field CURRENT_SID Ljava/lang/String;
+	public static final field Companion Lcom/davils/konnect/testing/ipc/FakeNamedPipeApi$Companion;
+	public static final field PEER_PROCESS J
+	public static final field PEER_SID Ljava/lang/String;
+	public fun <init> ()V
+	public fun <init> (Ljava/util/Map;Ljava/util/concurrent/CountDownLatch;)V
+	public synthetic fun <init> (Ljava/util/Map;Ljava/util/concurrent/CountDownLatch;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun awaitClient-w_atutw (J)J
+	public fun cancel-w_atutw (J)J
+	public fun clientProcessId-w_atutw (J)J
+	public fun close-w_atutw (J)J
+	public fun createServer-wO_Lt_s (Ljava/lang/String;Ljava/lang/String;IZ)J
+	public final fun getCancelled ()Ljava/util/List;
+	public final fun getClosed ()Ljava/util/List;
+	public final fun getCreated ()Ljava/util/List;
+	public final fun getEmptyWrites ()I
+	public final fun getPeerProcessId ()J
+	public final fun getReadFailure ()J
+	public final fun getWritten ()Ljava/util/List;
+	public fun open-w_atutw (Ljava/lang/String;)J
+	public fun processUserSid-FQ2NHso (JLjava/nio/ByteBuffer;)J
+	public final fun queueAwait (J)V
+	public final fun queueCreate (J)V
+	public final fun queueInbound ([B)V
+	public final fun queueOpen (J)V
+	public final fun queueWait (J)V
+	public final fun queueWrite (J)V
+	public fun read-eVNaBR8 (JLjava/nio/ByteBuffer;I)J
+	public fun serverProcessId-w_atutw (J)J
+	public final fun setPeerProcessId (J)V
+	public final fun setReadFailure (J)V
+	public fun waitAvailable-FQ2NHso (Ljava/lang/String;I)J
+	public fun write-eVNaBR8 (JLjava/nio/ByteBuffer;I)J
+}
+
+public final class com/davils/konnect/testing/ipc/FakeNamedPipeApi$Companion {
+}
+
+public final class com/davils/konnect/testing/ipc/FakeUnixServerSocket : com/davils/konnect/ipc/core/transport/unix/UnixServerSocket {
+	public fun <init> ()V
+	public fun <init> (Ljava/util/List;Ljava/io/IOException;Ljava/io/IOException;)V
+	public synthetic fun <init> (Ljava/util/List;Ljava/io/IOException;Ljava/io/IOException;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun accept ()Lcom/davils/konnect/ipc/core/transport/unix/UnixSocket;
+	public fun close ()V
+	public final fun getCloses ()I
+	public final fun getWakeups ()I
+	public fun wakeup ()V
+}
+
+public final class com/davils/konnect/testing/ipc/FakeUnixSocket : com/davils/konnect/ipc/core/transport/unix/UnixSocket {
+	public fun <init> ()V
+	public fun <init> (Ljava/lang/String;Ljava/util/List;Ljava/io/IOException;ILjava/io/IOException;Ljava/io/IOException;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/util/List;Ljava/io/IOException;ILjava/io/IOException;Ljava/io/IOException;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun close ()V
+	public final fun getCloses ()I
+	public final fun getWritten ()I
+	public final fun isOutputShut ()Z
+	public fun peerUser ()Ljava/lang/String;
+	public fun read (Ljava/nio/ByteBuffer;)I
+	public fun shutdownOutput ()V
+	public fun write (Ljava/nio/ByteBuffer;)I
+}
+
+public final class com/davils/konnect/testing/ipc/FakeUnixSocketApi : com/davils/konnect/ipc/core/transport/unix/UnixSocketApi {
+	public fun <init> ()V
+	public fun <init> (Ljava/util/Set;Ljava/lang/String;ZLjava/io/IOException;Ljava/io/IOException;Ljava/io/IOException;Ljava/io/IOException;Lkotlin/jvm/functions/Function1;Lcom/davils/konnect/testing/ipc/FakeUnixServerSocket;)V
+	public synthetic fun <init> (Ljava/util/Set;Ljava/lang/String;ZLjava/io/IOException;Ljava/io/IOException;Ljava/io/IOException;Ljava/io/IOException;Lkotlin/jvm/functions/Function1;Lcom/davils/konnect/testing/ipc/FakeUnixServerSocket;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun bind (Ljava/nio/file/Path;)Lcom/davils/konnect/ipc/core/transport/unix/UnixServerSocket;
+	public fun connect (Ljava/nio/file/Path;)Lcom/davils/konnect/ipc/core/transport/unix/UnixSocket;
+	public fun createDirectories (Ljava/nio/file/Path;)V
+	public fun delete (Ljava/nio/file/Path;)V
+	public fun exists (Ljava/nio/file/Path;)Z
+	public final fun getDeleted ()Ljava/util/List;
+	public final fun getMoved ()Ljava/util/List;
+	public final fun getPermissions ()Ljava/util/Map;
+	public final fun getServer ()Lcom/davils/konnect/testing/ipc/FakeUnixServerSocket;
+	public fun isWritable (Ljava/nio/file/Path;)Z
+	public fun move (Ljava/nio/file/Path;Ljava/nio/file/Path;)V
+	public fun owner (Ljava/nio/file/Path;)Ljava/lang/String;
+	public fun restrict (Ljava/nio/file/Path;Ljava/util/Set;)V
+}
+
+public final class com/davils/konnect/testing/ipc/ScriptedChannel : com/davils/konnect/ipc/core/transport/IpcChannel {
+	public fun <init> ()V
+	public fun <init> (Lcom/davils/konnect/ipc/core/access/IpcPeer;Ljava/util/List;Lcom/davils/konnect/ipc/core/connection/IpcWriteResult;[B)V
+	public synthetic fun <init> (Lcom/davils/konnect/ipc/core/access/IpcPeer;Ljava/util/List;Lcom/davils/konnect/ipc/core/connection/IpcWriteResult;[BILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun close ()V
+	public fun closeOutput (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun getCloses ()I
+	public final fun getOutputCloses ()I
+	public fun getPeer ()Lcom/davils/konnect/ipc/core/access/IpcPeer;
+	public fun read ([BIILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun write ([BIILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class com/davils/konnect/testing/ipc/ScriptedConnector : com/davils/konnect/ipc/client/IpcConnector {
+	public fun <init> (Ljava/util/List;Lcom/davils/konnect/ipc/client/IpcConnectResult;)V
+	public synthetic fun <init> (Ljava/util/List;Lcom/davils/konnect/ipc/client/IpcConnectResult;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun connect (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun getAttempts ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/davils/konnect/testing/ipc/TestIpc {
+	public static final field INSTANCE Lcom/davils/konnect/testing/ipc/TestIpc;
+	public final fun connections (Lcom/davils/konnect/ipc/core/access/IpcPeer;Lcom/davils/konnect/ipc/core/access/IpcPeer;I)Lcom/davils/konnect/testing/ipc/TestIpcConnections;
+	public static synthetic fun connections$default (Lcom/davils/konnect/testing/ipc/TestIpc;Lcom/davils/konnect/ipc/core/access/IpcPeer;Lcom/davils/konnect/ipc/core/access/IpcPeer;IILjava/lang/Object;)Lcom/davils/konnect/testing/ipc/TestIpcConnections;
+	public final fun getCLIENT ()Lcom/davils/konnect/ipc/core/access/IpcPeer;
+	public final fun getSERVER ()Lcom/davils/konnect/ipc/core/access/IpcPeer;
+}
+
+public final class com/davils/konnect/testing/ipc/TestIpcConnections {
+	public fun <init> (Lcom/davils/konnect/ipc/core/connection/IpcConnection;Lcom/davils/konnect/ipc/core/connection/IpcConnection;)V
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getClient ()Lcom/davils/konnect/ipc/core/connection/IpcConnection;
+	public final fun getServer ()Lcom/davils/konnect/ipc/core/connection/IpcConnection;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
 }
 

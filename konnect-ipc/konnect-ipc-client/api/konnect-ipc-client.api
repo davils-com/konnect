@@ -1,0 +1,190 @@
+public final class com/davils/konnect/ipc/client/IpcClient : com/davils/konnect/ipc/client/IpcConnector {
+	public fun connect (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun getConfiguration ()Lcom/davils/konnect/ipc/client/builder/IpcClientConfiguration;
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract interface com/davils/konnect/ipc/client/IpcClientEvent : com/davils/konfetti/core/Event {
+}
+
+public final class com/davils/konnect/ipc/client/IpcClientEvent$ServerRejected : com/davils/konnect/ipc/client/IpcClientEvent {
+	public fun <init> (Lcom/davils/konnect/ipc/core/address/IpcAddress;Lcom/davils/konnect/ipc/core/access/IpcPeer;)V
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAddress ()Lcom/davils/konnect/ipc/core/address/IpcAddress;
+	public final fun getPeer ()Lcom/davils/konnect/ipc/core/access/IpcPeer;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/davils/konnect/ipc/client/IpcClientTopics {
+	public static final field INSTANCE Lcom/davils/konnect/ipc/client/IpcClientTopics;
+	public final fun getEVENTS ()Lcom/davils/konfetti/core/TopicKey;
+}
+
+public final class com/davils/konnect/ipc/client/IpcClientViolationCodes {
+	public static final field INSTANCE Lcom/davils/konnect/ipc/client/IpcClientViolationCodes;
+	public final fun getINVALID_CONNECT_TIMEOUT-J_S2PC0 ()Ljava/lang/String;
+}
+
+public final class com/davils/konnect/ipc/client/IpcClientsKt {
+	public static final fun ipcClient (Lkotlinx/coroutines/CoroutineDispatcher;Lkotlin/jvm/functions/Function1;)Lcom/davils/konnect/ipc/client/IpcClient;
+}
+
+public abstract interface com/davils/konnect/ipc/client/IpcConnectResult {
+}
+
+public final class com/davils/konnect/ipc/client/IpcConnectResult$AccessDenied : com/davils/konnect/ipc/client/IpcConnectResult {
+	public static final field INSTANCE Lcom/davils/konnect/ipc/client/IpcConnectResult$AccessDenied;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/davils/konnect/ipc/client/IpcConnectResult$Connected : com/davils/konnect/ipc/client/IpcConnectResult {
+	public fun <init> (Lcom/davils/konnect/ipc/core/connection/IpcConnection;)V
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getConnection ()Lcom/davils/konnect/ipc/core/connection/IpcConnection;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/davils/konnect/ipc/client/IpcConnectResult$Failed : com/davils/konnect/ipc/client/IpcConnectResult {
+	public fun <init> (Lcom/davils/konnect/ipc/core/connection/IpcSystemError;)V
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getError ()Lcom/davils/konnect/ipc/core/connection/IpcSystemError;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/davils/konnect/ipc/client/IpcConnectResult$NotFound : com/davils/konnect/ipc/client/IpcConnectResult {
+	public static final field INSTANCE Lcom/davils/konnect/ipc/client/IpcConnectResult$NotFound;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/davils/konnect/ipc/client/IpcConnectResult$ServerRejected : com/davils/konnect/ipc/client/IpcConnectResult {
+	public fun <init> (Lcom/davils/konnect/ipc/core/access/IpcPeer;)V
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getPeer ()Lcom/davils/konnect/ipc/core/access/IpcPeer;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/davils/konnect/ipc/client/IpcConnectResult$TimedOut : com/davils/konnect/ipc/client/IpcConnectResult {
+	public static final field INSTANCE Lcom/davils/konnect/ipc/client/IpcConnectResult$TimedOut;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/davils/konnect/ipc/client/IpcConnectResult$Unavailable : com/davils/konnect/ipc/client/IpcConnectResult {
+	public fun <init> (Ljava/lang/String;)V
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getReason ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract interface com/davils/konnect/ipc/client/IpcConnector {
+	public abstract fun connect (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class com/davils/konnect/ipc/client/Limits {
+	public static final field DEFAULT_IDLE_TIMEOUT_MILLIS J
+	public static final field DEFAULT_MAX_CONNECTIONS I
+	public static final field DEFAULT_MAX_IDLE_CONNECTIONS I
+	public static final field DEFAULT_MAX_RESPONSE_HEAD_SIZE I
+	public static final field INSTANCE Lcom/davils/konnect/ipc/client/Limits;
+	public static final field MAX_CHUNK_LINE_LENGTH I
+	public static final field MAX_CONNECTIONS I
+	public static final field MAX_IDLE_CONNECTIONS I
+	public static final field MAX_INTERIM_RESPONSES I
+	public static final field MAX_RESPONSE_HEAD_SIZE I
+	public static final field MAX_UPGRADE_PROTOCOL_LENGTH I
+	public static final field MIN_RESPONSE_HEAD_SIZE I
+}
+
+public final class com/davils/konnect/ipc/client/builder/IpcClientBuilder : com/davils/kore/core/dsl/ValidatingBuilder {
+	public static final field Companion Lcom/davils/konnect/ipc/client/builder/IpcClientBuilder$Companion;
+	protected fun assemble ()Lcom/davils/konnect/ipc/client/builder/IpcClientConfiguration;
+	public synthetic fun assemble ()Lcom/davils/kore/core/validation/Validatable;
+	public final fun getAddress ()Lcom/davils/konnect/ipc/core/address/IpcAddress;
+	public final fun getBufferSize ()I
+	public final fun getConnectTimeout-UwyO8pc ()J
+	protected fun getSubject ()Ljava/lang/String;
+	public final fun getTelemetry ()Lcom/davils/konnect/ipc/core/telemetry/IpcTelemetry;
+	public final fun getTrust ()Lcom/davils/konnect/ipc/core/access/IpcAccess;
+	public final fun setAddress (Lcom/davils/konnect/ipc/core/address/IpcAddress;)V
+	public final fun setBufferSize (I)V
+	public final fun setConnectTimeout-LRDsOJo (J)V
+	public final fun setTelemetry (Lcom/davils/konnect/ipc/core/telemetry/IpcTelemetry;)V
+	public final fun setTrust (Lcom/davils/konnect/ipc/core/access/IpcAccess;)V
+	public final fun trust (Lkotlin/jvm/functions/Function1;)V
+}
+
+public final class com/davils/konnect/ipc/client/builder/IpcClientBuilder$Companion {
+	public final fun getDEFAULT_CONNECT_TIMEOUT-UwyO8pc ()J
+}
+
+public final class com/davils/konnect/ipc/client/builder/IpcClientConfiguration : com/davils/kore/core/validation/Validatable {
+	public final fun getAddress ()Lcom/davils/konnect/ipc/core/address/IpcAddress;
+	public final fun getBufferSize ()I
+	public final fun getConnectTimeout-UwyO8pc ()J
+	public final fun getTelemetry ()Lcom/davils/konnect/ipc/core/telemetry/IpcTelemetry;
+	public final fun getTrust ()Lcom/davils/konnect/ipc/core/access/IpcAccess;
+	public fun toString ()Ljava/lang/String;
+	public fun validate (Lcom/davils/kore/core/validation/ValidationScope;)V
+}
+
+public final class com/davils/konnect/ipc/client/http/IpcHttp : io/ktor/client/engine/HttpClientEngineFactory {
+	public static final field INSTANCE Lcom/davils/konnect/ipc/client/http/IpcHttp;
+	public fun create (Lkotlin/jvm/functions/Function1;)Lio/ktor/client/engine/HttpClientEngine;
+}
+
+public final class com/davils/konnect/ipc/client/http/IpcHttpConfig : io/ktor/client/engine/HttpClientEngineConfig, com/davils/kore/core/validation/Validatable {
+	public fun <init> ()V
+	public final fun getConnector ()Lcom/davils/konnect/ipc/client/IpcConnector;
+	public final fun getIdleTimeout-UwyO8pc ()J
+	public final fun getMaxConnections ()I
+	public final fun getMaxIdleConnections ()I
+	public final fun getMaxResponseHeadSize ()I
+	public final fun setConnector (Lcom/davils/konnect/ipc/client/IpcConnector;)V
+	public final fun setIdleTimeout-LRDsOJo (J)V
+	public final fun setMaxConnections (I)V
+	public final fun setMaxIdleConnections (I)V
+	public final fun setMaxResponseHeadSize (I)V
+	public fun validate (Lcom/davils/kore/core/validation/ValidationScope;)V
+}
+
+public final class com/davils/konnect/ipc/client/http/IpcHttpConnectException : java/io/IOException {
+	public fun <init> (Lcom/davils/konnect/ipc/client/IpcConnectResult;)V
+	public final fun getResult ()Lcom/davils/konnect/ipc/client/IpcConnectResult;
+}
+
+public final class com/davils/konnect/ipc/client/http/IpcHttpEngine : io/ktor/client/engine/HttpClientEngineBase {
+	public synthetic fun <init> (Lcom/davils/konnect/ipc/client/http/IpcHttpConfig;Lkotlin/time/TimeSource;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun close ()V
+	public fun execute (Lio/ktor/client/request/HttpRequestData;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun getConfig ()Lcom/davils/konnect/ipc/client/http/IpcHttpConfig;
+	public synthetic fun getConfig ()Lio/ktor/client/engine/HttpClientEngineConfig;
+	public fun getSupportedCapabilities ()Ljava/util/Set;
+}
+
+public final class com/davils/konnect/ipc/client/http/IpcHttpUpgrade {
+	public fun <init> (Ljava/lang/String;Lkotlinx/coroutines/flow/Flow;)V
+	public synthetic fun <init> (Ljava/lang/String;Lkotlinx/coroutines/flow/Flow;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getInput ()Lkotlinx/coroutines/flow/Flow;
+	public final fun getProtocol ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/davils/konnect/ipc/client/http/IpcHttpUpgradeCapability : io/ktor/client/engine/HttpClientEngineCapability {
+	public static final field INSTANCE Lcom/davils/konnect/ipc/client/http/IpcHttpUpgradeCapability;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+

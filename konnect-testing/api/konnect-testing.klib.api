@@ -12,8 +12,8 @@ final object com.davils.konnect.testing/TestAddresses { // com.davils.konnect.te
 }
 
 final object com.davils.konnect.testing/TestNetworks { // com.davils.konnect.testing/TestNetworks|null[0]
-    final fun ipv4(kotlin/Int = ...): com.davils.konnect.internetprotocol.subnet/Ipv4Network // com.davils.konnect.testing/TestNetworks.ipv4|ipv4(kotlin.Int){}[0]
-    final fun ipv6(kotlin/Int = ...): com.davils.konnect.internetprotocol.subnet/Ipv6Network // com.davils.konnect.testing/TestNetworks.ipv6|ipv6(kotlin.Int){}[0]
+    final fun ipv4(kotlin/Int = ...): com.davils.konnect.internetprotocol.network/Ipv4Network // com.davils.konnect.testing/TestNetworks.ipv4|ipv4(kotlin.Int){}[0]
+    final fun ipv6(kotlin/Int = ...): com.davils.konnect.internetprotocol.network/Ipv6Network // com.davils.konnect.testing/TestNetworks.ipv6|ipv6(kotlin.Int){}[0]
 }
 
 final object com.davils.konnect.testing/TestPorts { // com.davils.konnect.testing/TestPorts|null[0]

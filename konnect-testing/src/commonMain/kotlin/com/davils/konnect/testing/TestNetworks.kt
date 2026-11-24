@@ -17,8 +17,8 @@
 package com.davils.konnect.testing
 
 import com.davils.konnect.internetprotocol.address.Ipv6Address
-import com.davils.konnect.internetprotocol.subnet.Ipv4Network
-import com.davils.konnect.internetprotocol.subnet.Ipv6Network
+import com.davils.konnect.internetprotocol.network.Ipv4Network
+import com.davils.konnect.internetprotocol.network.Ipv6Network
 
 private const val SITE_PREFIX_LENGTH: Int = 48
 private const val SITE_TRAILING_GROUPS: Int = 5
