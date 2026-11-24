@@ -20,6 +20,21 @@ version: 1
 gradle:
   args: ["--stacktrace"]
 
+# The C++ of konnect-ipc-core is configured with CMake and Ninja on every runner and compiled with MSVC and
+# clang-tidy on Windows, in the check as well as on the native runners.
+tools:
+  cmake: true
+  ninja: true
+  clang-tidy: true
+  msvc: true
+
+# The named pipes of Windows need a native library, built where it is native and published per platform.
+native:
+  stage-task: kreateJniStage
+  runners:
+    - { platform: windows-x86_64, runs-on: windows-latest }
+    - { platform: windows-aarch64, runs-on: windows-11-arm }
+
 check:
   tasks: [check]
   reproducible:
