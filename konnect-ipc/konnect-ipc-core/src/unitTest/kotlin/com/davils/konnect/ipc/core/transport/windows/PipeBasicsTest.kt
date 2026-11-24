@@ -26,6 +26,7 @@ import com.davils.konnect.ipc.core.address.IpcName
 import com.davils.konnect.ipc.core.address.IpcScope
 import com.davils.konnect.ipc.core.fixture.HELPER
 import com.davils.konnect.ipc.core.fixture.HELPER_NAME
+import com.davils.konnect.ipc.core.fixture.SOCKET_PATH
 import com.davils.konnect.testing.ipc.FakeNamedPipeApi
 import com.davils.kore.core.annotation.DavilsInternal
 import com.davils.kore.core.platform.NativeResult
@@ -33,7 +34,6 @@ import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.nulls.shouldBeNull
 import io.kotest.matchers.shouldBe
 import java.nio.ByteBuffer
-import java.nio.file.Path
 
 private const val HANDLE: Long = 7L
 private const val UNKNOWN_PROCESS: Long = 300L
@@ -71,7 +71,7 @@ class PipeBasicsTest : FunSpec({
 
         test("of other programs are taken as they are") {
             PipeNames.of(IpcAddress.WindowsPipe("discord-ipc-0"), current) shouldBe """\\.\pipe\discord-ipc-0"""
-            PipeNames.of(IpcAddress.UnixSocket(Path.of("/run/konnect.sock")), current).shouldBeNull()
+            PipeNames.of(IpcAddress.UnixSocket(SOCKET_PATH), current).shouldBeNull()
         }
     }
 

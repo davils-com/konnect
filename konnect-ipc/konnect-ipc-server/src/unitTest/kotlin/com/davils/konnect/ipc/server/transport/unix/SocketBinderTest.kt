@@ -18,12 +18,17 @@
 
 package com.davils.konnect.ipc.server.transport.unix
 
+import com.davils.konnect.ipc.core.Limits
 import com.davils.konnect.ipc.core.access.IpcAccess
 import com.davils.konnect.ipc.core.access.IpcUser
 import com.davils.konnect.ipc.core.access.ipcAccess
+import com.davils.konnect.ipc.core.address.IpcAddress
 import com.davils.konnect.ipc.core.connection.IpcSystemError
 import com.davils.konnect.ipc.core.transport.unix.SocketLocation
 import com.davils.konnect.ipc.core.transport.unix.UnixSocketApi
+import com.davils.konnect.ipc.server.fixture.HELPER_DIRECTORY
+import com.davils.konnect.ipc.server.fixture.HELPER_SOCKET
+import com.davils.konnect.ipc.server.fixture.ROOT
 import com.davils.konnect.ipc.server.fixture.immediate
 import com.davils.konnect.ipc.server.fixture.refusal
 import com.davils.konnect.ipc.server.outcome.IpcBindResult
@@ -45,9 +50,9 @@ import java.nio.file.attribute.PosixFilePermissions
 
 private const val TOKEN: String = "0badc0de"
 private const val MALLORY: String = "mallory"
-private const val LONG_DIRECTORY: Int = 90
-private val directory: Path = Path.of("/tmp/konnect-alice")
-private val socketPath: Path = directory.resolve("helper.sock")
+private const val SHORT_SOCKET: String = "h.sock"
+private val directory: Path = HELPER_DIRECTORY
+private val socketPath: Path = HELPER_SOCKET
 private val stagingDirectory: Path = directory.resolve(".konnect-$TOKEN")
 private val stagingSocket: Path = stagingDirectory.resolve("s")
 private val managed = SocketLocation(socketPath, managedDirectory = directory)
@@ -143,12 +148,12 @@ class SocketBinderTest : FunSpec({
         }
 
         test("that would not fit the address of a socket is refused") {
-            val parent = Path.of("/" + "d".repeat(LONG_DIRECTORY))
+            val longest = Limits.MAX_SOCKET_PATH_BYTES - ROOT.toString().length - SHORT_SOCKET.length - 1
+            val fitting = ROOT.resolve("d".repeat(longest)).resolve(SHORT_SOCKET)
 
-            val outcome = bind(
-                FakeUnixSocketApi(),
-                location = SocketLocation(path = parent.resolve("h.sock"), managedDirectory = null),
-            )
+            val outcome = bind(FakeUnixSocketApi(), location = SocketLocation(path = fitting, managedDirectory = null))
+
+            IpcAddress.UnixSocket.isValid(fitting) shouldBe true
 
             outcome.refusal().shouldBeInstanceOf<IpcBindResult.Unavailable>()
         }

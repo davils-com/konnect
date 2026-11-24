@@ -20,6 +20,8 @@ package com.davils.konnect.ipc.server.transport.unix
 
 import com.davils.konnect.ipc.core.connection.IpcSystemError
 import com.davils.konnect.ipc.core.transport.unix.UnixServerSocket
+import com.davils.konnect.ipc.server.fixture.HELPER_DIRECTORY
+import com.davils.konnect.ipc.server.fixture.HELPER_SOCKET
 import com.davils.konnect.ipc.server.fixture.immediate
 import com.davils.konnect.ipc.server.fixture.withThreads
 import com.davils.konnect.ipc.server.outcome.IpcAcceptResult
@@ -39,11 +41,10 @@ import java.nio.file.Path
 import kotlin.time.Duration.Companion.milliseconds
 
 private const val WAIT: Int = 50
-private val socketPath: Path = Path.of("/tmp/konnect-alice/helper.sock")
-private val staging: Path = Path.of("/tmp/konnect-alice/.konnect-0badc0de")
+private val staging: Path = HELPER_DIRECTORY.resolve(".konnect-0badc0de")
 
 private fun listenerOf(server: UnixServerSocket, api: FakeUnixSocketApi = FakeUnixSocketApi()): UnixListener =
-    UnixListener(server = server, path = socketPath, staging = staging, api = api, dispatcher = immediate())
+    UnixListener(server = server, path = HELPER_SOCKET, staging = staging, api = api, dispatcher = immediate())
 
 class UnixListenerTest : FunSpec({
     context("accepting") {
@@ -78,7 +79,7 @@ class UnixListenerTest : FunSpec({
             withThreads { dispatcher ->
                 val listener = UnixListener(
                     server = server,
-                    path = socketPath,
+                    path = HELPER_SOCKET,
                     staging = staging,
                     api = FakeUnixSocketApi(),
                     dispatcher = dispatcher,
@@ -93,14 +94,14 @@ class UnixListenerTest : FunSpec({
     context("closing") {
         test("closes the server once, removes the socket and its staging directory and refuses to accept") {
             val server = FakeUnixServerSocket(listOf(FakeUnixSocket()))
-            val api = FakeUnixSocketApi(existing = setOf(socketPath))
+            val api = FakeUnixSocketApi(existing = setOf(HELPER_SOCKET))
             val listener = listenerOf(server, api)
 
             listener.close()
             listener.close()
 
             server.closes shouldBe 1
-            api.deleted shouldBe listOf(socketPath, staging)
+            api.deleted shouldBe listOf(HELPER_SOCKET, staging)
             listener.accept() shouldBe AcceptOutcome.Refused(IpcAcceptResult.NotListening)
         }
     }

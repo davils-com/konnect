@@ -18,6 +18,9 @@ package com.davils.konnect.ipc.core.address
 
 import com.davils.konnect.ipc.core.Limits
 import com.davils.konnect.ipc.core.fixture.HELPER_NAME
+import com.davils.konnect.ipc.core.fixture.ROOT
+import com.davils.konnect.ipc.core.fixture.SOCKET_PATH
+import com.davils.konnect.ipc.core.fixture.isUnix
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.nulls.shouldBeNull
@@ -28,7 +31,6 @@ import java.nio.file.Path
 private const val TOO_LONG_NAME: Int = Limits.MAX_NAME_LENGTH + 1
 private const val TOO_LONG_PIPE: Int = Limits.MAX_PIPE_NAME_LENGTH + 1
 private const val DISCORD: String = "discord-ipc-0"
-private const val SOCKET: String = "/run/konnect.sock"
 
 class IpcAddressTest : FunSpec({
     context("names") {
@@ -87,21 +89,29 @@ class IpcAddressTest : FunSpec({
 
     context("unix sockets") {
         test("take an absolute path") {
-            val socket = IpcAddress.UnixSocket(Path.of(SOCKET))
+            val socket = IpcAddress.UnixSocket(SOCKET_PATH)
 
-            socket.toString() shouldBe "unix:/run/konnect.sock"
-            socket shouldBe IpcAddress.UnixSocket(Path.of(SOCKET))
-            socket.hashCode() shouldBe Path.of(SOCKET).hashCode()
-            socket.equals(SOCKET) shouldBe false
+            socket.toString() shouldBe "unix:$SOCKET_PATH"
+            socket shouldBe IpcAddress.UnixSocket(ROOT.resolve("run").resolve("konnect.sock"))
+            socket.hashCode() shouldBe SOCKET_PATH.hashCode()
+            socket.equals(SOCKET_PATH.toString()) shouldBe false
         }
 
         test("refuse relative paths, control characters and paths longer than a socket address holds") {
-            val tooLong = Path.of("/" + "a".repeat(Limits.MAX_SOCKET_PATH_BYTES))
-            val tooManyBytes = Path.of("/" + "ä".repeat(Limits.MAX_SOCKET_PATH_BYTES / 2 + 1))
-            listOf(Path.of("konnect.sock"), Path.of("/run/a\nb.sock"), tooLong, tooManyBytes).forEach { path ->
+            val tooLong = ROOT.resolve("a".repeat(Limits.MAX_SOCKET_PATH_BYTES))
+            val tooManyBytes = ROOT.resolve("ä".repeat(Limits.MAX_SOCKET_PATH_BYTES / 2 + 1))
+            val control = SOCKET_PATH.resolveSibling("a\u007Fb.sock")
+            listOf(Path.of("konnect.sock"), control, tooLong, tooManyBytes).forEach { path ->
                 IpcAddress.UnixSocket.isValid(path) shouldBe false
                 shouldThrow<IllegalArgumentException> { IpcAddress.UnixSocket(path) }
             }
+        }
+
+        test("refuse a line break, which only the paths of unix can hold").config(enabledIf = { isUnix }) {
+            val lineBreak = SOCKET_PATH.resolveSibling("a\nb.sock")
+
+            IpcAddress.UnixSocket.isValid(lineBreak) shouldBe false
+            shouldThrow<IllegalArgumentException> { IpcAddress.UnixSocket(lineBreak) }
         }
     }
 })

@@ -21,6 +21,7 @@ package com.davils.konnect.ipc.core.transport.windows
 import com.davils.konnect.ipc.core.access.IpcUser
 import com.davils.konnect.ipc.core.address.IpcAddress
 import com.davils.konnect.ipc.core.fixture.HELPER
+import com.davils.konnect.ipc.core.fixture.SOCKET_PATH
 import com.davils.konnect.testing.ipc.FakeNamedPipeApi
 import com.davils.kore.core.annotation.DavilsInternal
 import com.davils.kore.core.platform.NativeLibrary
@@ -30,7 +31,6 @@ import io.kotest.matchers.nulls.shouldNotBeNull
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
 import io.kotest.matchers.string.shouldEndWith
-import java.nio.file.Path
 
 private const val STRANGER: Long = 999L
 
@@ -63,7 +63,7 @@ class PipeSessionTest : FunSpec({
 
             target.path shouldEndWith "helper"
             target.session shouldBe session
-            session.targetOf(IpcAddress.UnixSocket(Path.of("/run/konnect.sock"))).shouldBeNull()
+            session.targetOf(IpcAddress.UnixSocket(SOCKET_PATH)).shouldBeNull()
         }
 
         test("is equal to a target of the same session and path") {

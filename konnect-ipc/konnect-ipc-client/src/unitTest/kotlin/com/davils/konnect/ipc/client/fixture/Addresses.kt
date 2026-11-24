@@ -14,12 +14,22 @@
  * limitations under the License.
  */
 
+@file:OptIn(DavilsInternal::class)
+
 package com.davils.konnect.ipc.client.fixture
 
 import com.davils.konnect.ipc.core.address.IpcAddress
 import com.davils.konnect.ipc.core.address.IpcName
+import com.davils.konnect.testing.ipc.FakeIpcEnvironment
+import com.davils.kore.core.annotation.DavilsInternal
 import java.nio.file.Path
+
+private val root: Path = Path.of("").toAbsolutePath().root
+
+private val helperDirectory: Path = FakeIpcEnvironment().temporaryDirectory.resolve("konnect-alice")
 
 internal val HELPER: IpcAddress = IpcAddress.Named(IpcName("helper"))
 
-internal val HELPER_SOCKET: Path = Path.of("/tmp/konnect-alice/helper.sock")
+internal val HELPER_SOCKET: Path = helperDirectory.resolve("helper.sock")
+
+internal val SOCKET: IpcAddress = IpcAddress.UnixSocket(root.resolve("run").resolve("konnect.sock"))

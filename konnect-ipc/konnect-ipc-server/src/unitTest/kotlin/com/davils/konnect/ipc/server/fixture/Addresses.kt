@@ -18,7 +18,16 @@ package com.davils.konnect.ipc.server.fixture
 
 import com.davils.konnect.ipc.core.address.IpcAddress
 import com.davils.konnect.ipc.core.address.IpcName
+import java.nio.file.Path
 
 internal val HELPER: IpcAddress = IpcAddress.Named(IpcName("helper"))
 
 internal val SERVICE: IpcAddress = IpcAddress.Named(IpcName("konnect-service"))
+
+internal val ROOT: Path = Path.of("").toAbsolutePath().root
+
+internal val HELPER_DIRECTORY: Path = ROOT.resolve("tmp").resolve("konnect-alice")
+
+internal val HELPER_SOCKET: Path = HELPER_DIRECTORY.resolve("helper.sock")
+
+internal val SOCKET: IpcAddress = IpcAddress.UnixSocket(ROOT.resolve("run").resolve("konnect.sock"))

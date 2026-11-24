@@ -20,9 +20,9 @@ package com.davils.konnect.ipc.server.transport.windows
 
 import com.davils.konnect.ipc.core.access.IpcAccess
 import com.davils.konnect.ipc.core.access.IpcUser
-import com.davils.konnect.ipc.core.address.IpcAddress
 import com.davils.konnect.ipc.core.transport.windows.NamedPipeApi
 import com.davils.konnect.ipc.server.fixture.HELPER
+import com.davils.konnect.ipc.server.fixture.SOCKET
 import com.davils.konnect.ipc.server.fixture.immediate
 import com.davils.konnect.ipc.server.fixture.refusal
 import com.davils.konnect.ipc.server.outcome.IpcBindResult
@@ -36,10 +36,8 @@ import io.kotest.matchers.nulls.shouldBeNull
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.string.shouldContain
 import io.kotest.matchers.types.shouldBeInstanceOf
-import java.nio.file.Path
 
 private const val BUFFER: Int = 1024
-private val socket = IpcAddress.UnixSocket(Path.of("/run/konnect.sock"))
 
 private fun transportOf(loader: NativeLoader<NamedPipeApi>): NamedPipeListenTransport = NamedPipeListenTransport(
     library = NativeLibrary(loader),
@@ -65,7 +63,7 @@ class NamedPipeListenTransportTest : FunSpec({
         }
 
         test("cannot reach a unix socket") {
-            val listened = transportOf { FakeNamedPipeApi() }.listen(socket, IpcAccess.CURRENT_USER, BUFFER)
+            val listened = transportOf { FakeNamedPipeApi() }.listen(SOCKET, IpcAccess.CURRENT_USER, BUFFER)
 
             listened.refusal() shouldBe
                 IpcBindResult.Unavailable("the address cannot be reached through a Windows named pipe")

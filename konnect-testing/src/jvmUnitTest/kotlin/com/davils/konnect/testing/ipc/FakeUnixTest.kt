@@ -32,7 +32,8 @@ import java.nio.file.attribute.PosixFilePermissions
 private const val SIZE: Int = 8
 private const val CHUNK: Int = 3
 private const val BROKEN: String = "broken"
-private val directory: Path = Path.of("/tmp/konnect-alice")
+private val root: Path = Path.of("").toAbsolutePath().root
+private val directory: Path = root.resolve("tmp").resolve("konnect-alice")
 private val socket: Path = directory.resolve("s.sock")
 private val failure = IOException(BROKEN)
 
@@ -42,7 +43,8 @@ class FakeUnixTest : FunSpec({
             val environment = FakeIpcEnvironment(variables = mapOf("HOME" to "/home/alice"))
 
             environment.userName shouldBe FakeIpcEnvironment.USER
-            environment.temporaryDirectory shouldBe Path.of("/tmp")
+            environment.temporaryDirectory shouldBe root.resolve("tmp")
+            environment.temporaryDirectory.isAbsolute shouldBe true
             environment.variable("HOME") shouldBe "/home/alice"
             environment.variable("PATH").shouldBeNull()
         }

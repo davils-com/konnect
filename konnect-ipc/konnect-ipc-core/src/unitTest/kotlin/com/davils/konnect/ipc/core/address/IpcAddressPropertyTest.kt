@@ -17,6 +17,7 @@
 package com.davils.konnect.ipc.core.address
 
 import com.davils.konnect.ipc.core.Limits
+import com.davils.konnect.ipc.core.fixture.ROOT
 import com.davils.konnect.ipc.core.fixture.hostileText
 import com.davils.konnect.ipc.core.fixture.shouldNotEcho
 import io.kotest.core.spec.style.FunSpec
@@ -73,7 +74,7 @@ class IpcAddressPropertyTest : FunSpec({
     context("socket paths read from hostile text") {
         test("are either refused or absolute, free of control characters and within the limit") {
             checkAll(CASES, hostileText) { text ->
-                val path = pathOrNull("/$text")
+                val path = pathOrNull(text)
                 val shown = path?.toString().orEmpty()
                 val isValid = path != null && IpcAddress.UnixSocket.isValid(path)
                 val isFitting = shown.encodeToByteArray().size <= Limits.MAX_SOCKET_PATH_BYTES
@@ -86,7 +87,7 @@ class IpcAddressPropertyTest : FunSpec({
 
         test("are refused with a message that never quotes the path") {
             checkAll(CASES, hostileText) { text ->
-                val path = pathOrNull("/$text") ?: Path.of("/")
+                val path = pathOrNull(text) ?: ROOT
                 val failure = runCatching { IpcAddress.UnixSocket(path) }.exceptionOrNull()
 
                 failure?.message.shouldNotEcho(path.toString())
@@ -96,7 +97,7 @@ class IpcAddressPropertyTest : FunSpec({
 })
 
 private fun pathOrNull(text: String): Path? = try {
-    Path.of(text)
+    ROOT.resolve(text)
 } catch (expected: InvalidPathException) {
     null
 }

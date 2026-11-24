@@ -20,11 +20,11 @@ package com.davils.konnect.ipc.client.transport.windows
 
 import com.davils.konnect.ipc.client.IpcConnectResult
 import com.davils.konnect.ipc.client.fixture.HELPER
+import com.davils.konnect.ipc.client.fixture.SOCKET
 import com.davils.konnect.ipc.client.fixture.immediate
 import com.davils.konnect.ipc.client.fixture.refusal
 import com.davils.konnect.ipc.client.transport.ConnectOutcome
 import com.davils.konnect.ipc.core.access.IpcUser
-import com.davils.konnect.ipc.core.address.IpcAddress
 import com.davils.konnect.ipc.core.transport.windows.NamedPipeApi
 import com.davils.konnect.testing.ipc.FakeNamedPipeApi
 import com.davils.kore.core.annotation.DavilsInternal
@@ -33,13 +33,11 @@ import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.nulls.shouldBeNull
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.types.shouldBeInstanceOf
-import java.nio.file.Path
 import kotlin.time.Duration.Companion.seconds
 
 private const val BUFFER: Int = 1024
-private const val UNREACHABLE: String = "unix:/run/konnect.sock cannot be reached through a Windows named pipe"
+private val unreachable: String = "$SOCKET cannot be reached through a Windows named pipe"
 private const val MISSING: String = "the native named pipe library or the identity of the current user is missing"
-private val socket = IpcAddress.UnixSocket(Path.of("/run/konnect.sock"))
 
 private fun transportOf(library: NativeLibrary<NamedPipeApi>): NamedPipeConnectTransport = NamedPipeConnectTransport(
     library = library,
@@ -60,9 +58,9 @@ class NamedPipeConnectTransportTest : FunSpec({
         }
 
         test("cannot reach a unix socket") {
-            val connected = transportOf(NativeLibrary { FakeNamedPipeApi() }).connect(socket, 1.seconds, BUFFER)
+            val connected = transportOf(NativeLibrary { FakeNamedPipeApi() }).connect(SOCKET, 1.seconds, BUFFER)
 
-            connected.refusal() shouldBe IpcConnectResult.Unavailable(UNREACHABLE)
+            connected.refusal() shouldBe IpcConnectResult.Unavailable(unreachable)
         }
     }
 

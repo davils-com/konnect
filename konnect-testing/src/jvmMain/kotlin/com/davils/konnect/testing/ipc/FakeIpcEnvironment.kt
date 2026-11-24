@@ -23,18 +23,23 @@ import com.davils.kore.core.annotation.DavilsInternal
 import com.davils.kore.core.collection.immutableMap
 import java.nio.file.Path
 
+private val root: Path = Path.of("").toAbsolutePath().root
+
+private val defaultTemporaryDirectory: Path = root.resolve("tmp")
+
 /**
  * An environment with a fixed user, temporary directory and environment variables.
  *
  * @property userName the user the process runs as; [USER] by default.
- * @property temporaryDirectory the temporary directory; `/tmp` by default.
+ * @property temporaryDirectory the temporary directory; by default `tmp` under the root of the working directory,
+ *   absolute on every operating system, such as `/tmp` or `C:\tmp`.
  * @param variables the environment variables.
  * @since 1.0.0
  */
 @DavilsInternal
 public class FakeIpcEnvironment(
     override val userName: String = USER,
-    override val temporaryDirectory: Path = Path.of("/tmp"),
+    override val temporaryDirectory: Path = defaultTemporaryDirectory,
     variables: Map<String, String> = emptyMap(),
 ) : IpcEnvironment {
     private val variables: Map<String, String> = variables.immutableMap()

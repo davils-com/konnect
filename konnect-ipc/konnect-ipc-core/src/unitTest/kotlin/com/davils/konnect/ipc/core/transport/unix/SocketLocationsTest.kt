@@ -24,6 +24,8 @@ import com.davils.konnect.ipc.core.address.IpcName
 import com.davils.konnect.ipc.core.address.IpcScope
 import com.davils.konnect.ipc.core.fixture.HELPER
 import com.davils.konnect.ipc.core.fixture.HELPER_NAME
+import com.davils.konnect.ipc.core.fixture.ROOT
+import com.davils.konnect.ipc.core.fixture.isUnix
 import com.davils.konnect.testing.ipc.FakeIpcEnvironment
 import com.davils.kore.core.annotation.DavilsInternal
 import io.kotest.core.spec.style.FunSpec
@@ -32,17 +34,20 @@ import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
 import java.nio.file.Path
 
-private const val RUNTIME: String = "/run/user/1000"
 private const val RUNTIME_VARIABLE: String = "XDG_RUNTIME_DIR"
-private const val DISCORD: String = "/run/user/1000/discord-ipc-0"
+private const val DIRECTORY: String = "konnect"
+private const val SOCKET: String = "helper.sock"
+private val runtime: Path = ROOT.resolve("run/user/1000")
+private val discord: Path = runtime.resolve("discord-ipc-0")
+private val macOsTemporary: Path = ROOT.resolve("var/folders/x")
 private val linuxWithRuntime = SocketLocations(
-    FakeIpcEnvironment(variables = mapOf(RUNTIME_VARIABLE to RUNTIME)),
+    FakeIpcEnvironment(variables = mapOf(RUNTIME_VARIABLE to runtime.toString())),
     isMacOs = false,
 )
 private val macOs = SocketLocations(
     FakeIpcEnvironment(
-        temporaryDirectory = Path.of("/var/folders/x"),
-        variables = mapOf(RUNTIME_VARIABLE to RUNTIME),
+        temporaryDirectory = macOsTemporary,
+        variables = mapOf(RUNTIME_VARIABLE to runtime.toString()),
     ),
     isMacOs = true,
 )
@@ -52,23 +57,25 @@ class SocketLocationsTest : FunSpec({
     context("a named address of the user") {
         test("lives in the runtime directory on linux") {
             linuxWithRuntime.of(HELPER) shouldBe SocketLocation(
-                path = Path.of("$RUNTIME/konnect/helper.sock"),
-                managedDirectory = Path.of("$RUNTIME/konnect"),
+                path = runtime.resolve(DIRECTORY).resolve(SOCKET),
+                managedDirectory = runtime.resolve(DIRECTORY),
             )
         }
 
         test("lives in a private temporary directory on linux without a runtime directory") {
-            SocketLocations(FakeIpcEnvironment(), isMacOs = false).of(HELPER)?.path shouldBe
-                Path.of("/tmp/konnect-alice/helper.sock")
+            val environment = FakeIpcEnvironment()
+            val directory = environment.temporaryDirectory.resolve("konnect-alice")
+
+            SocketLocations(environment, isMacOs = false).of(HELPER)?.path shouldBe directory.resolve(SOCKET)
         }
 
         test("lives in the temporary directory of the user on macos") {
-            macOs.of(HELPER)?.path shouldBe Path.of("/var/folders/x/konnect/helper.sock")
+            macOs.of(HELPER)?.path shouldBe macOsTemporary.resolve(DIRECTORY).resolve(SOCKET)
         }
 
         test("is unreachable when its path does not fit a socket address") {
             val deep = FakeIpcEnvironment(
-                temporaryDirectory = Path.of("/" + "d".repeat(Limits.MAX_SOCKET_PATH_BYTES)),
+                temporaryDirectory = ROOT.resolve("d".repeat(Limits.MAX_SOCKET_PATH_BYTES)),
             )
 
             val locations = SocketLocations(deep, isMacOs = false)
@@ -86,7 +93,7 @@ class SocketLocationsTest : FunSpec({
     }
 
     context("a named address of the system") {
-        test("lives in the runtime directory of the system") {
+        test("lives in the runtime directory of the system").config(enabledIf = { isUnix }) {
             linuxWithRuntime.of(system)?.path shouldBe Path.of("/run/konnect/helper.sock")
             macOs.of(system)?.path shouldBe Path.of("/var/run/konnect/helper.sock")
         }
@@ -94,7 +101,7 @@ class SocketLocationsTest : FunSpec({
 
     context("other addresses") {
         test("keep an explicit socket path and leave its directory alone") {
-            val explicit = IpcAddress.UnixSocket(Path.of(DISCORD))
+            val explicit = IpcAddress.UnixSocket(discord)
 
             linuxWithRuntime.of(explicit) shouldBe SocketLocation(explicit.path, managedDirectory = null)
         }
@@ -106,16 +113,16 @@ class SocketLocationsTest : FunSpec({
 
     context("locations") {
         test("are equal when their path and directory are") {
-            val location = SocketLocation(Path.of(DISCORD), managedDirectory = null)
+            val location = SocketLocation(discord, managedDirectory = null)
 
-            location shouldBe SocketLocation(Path.of(DISCORD), managedDirectory = null)
-            location.hashCode() shouldBe SocketLocation(Path.of(DISCORD), managedDirectory = null).hashCode()
-            location shouldNotBe SocketLocation(Path.of(DISCORD), managedDirectory = Path.of(RUNTIME))
-            location shouldNotBe SocketLocation(Path.of(RUNTIME), managedDirectory = null)
-            location.equals(DISCORD) shouldBe false
-            location.toString() shouldBe "SocketLocation(path=$DISCORD, managedDirectory=none)"
-            val managed = SocketLocation(Path.of(DISCORD), managedDirectory = Path.of(RUNTIME))
-            managed.hashCode() shouldBe SocketLocation(Path.of(DISCORD), managedDirectory = Path.of(RUNTIME)).hashCode()
+            location shouldBe SocketLocation(discord, managedDirectory = null)
+            location.hashCode() shouldBe SocketLocation(discord, managedDirectory = null).hashCode()
+            location shouldNotBe SocketLocation(discord, managedDirectory = runtime)
+            location shouldNotBe SocketLocation(runtime, managedDirectory = null)
+            location.equals(discord) shouldBe false
+            location.toString() shouldBe "SocketLocation(path=$discord, managedDirectory=none)"
+            val managed = SocketLocation(discord, managedDirectory = runtime)
+            managed.hashCode() shouldBe SocketLocation(discord, managedDirectory = runtime).hashCode()
         }
     }
 })
