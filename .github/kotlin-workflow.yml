@@ -23,9 +23,27 @@ gradle:
 check:
   tasks: [check]
   reproducible:
-    clean-tasks: [":konnect-core:clean", ":konnect-internet-protocol:clean", ":konnect-testing:clean"]
-    tasks: [":konnect-core:jvmJar", ":konnect-internet-protocol:jvmJar", ":konnect-testing:jvmJar"]
-    artifacts: ["konnect-core/build/libs/*.jar", "konnect-internet-protocol/build/libs/*.jar", "konnect-testing/build/libs/*.jar"]
+    clean-tasks:
+      - ":konnect-core:clean"
+      - ":konnect-internet-protocol:clean"
+      - ":konnect-ipc:konnect-ipc-core:clean"
+      - ":konnect-ipc:konnect-ipc-client:clean"
+      - ":konnect-ipc:konnect-ipc-server:clean"
+      - ":konnect-testing:clean"
+    tasks:
+      - ":konnect-core:jvmJar"
+      - ":konnect-internet-protocol:jvmJar"
+      - ":konnect-ipc:konnect-ipc-core:jar"
+      - ":konnect-ipc:konnect-ipc-client:jar"
+      - ":konnect-ipc:konnect-ipc-server:jar"
+      - ":konnect-testing:jvmJar"
+    artifacts:
+      - "konnect-core/build/libs/*.jar"
+      - "konnect-internet-protocol/build/libs/*.jar"
+      - "konnect-ipc/konnect-ipc-core/build/libs/*.jar"
+      - "konnect-ipc/konnect-ipc-client/build/libs/*.jar"
+      - "konnect-ipc/konnect-ipc-server/build/libs/*.jar"
+      - "konnect-testing/build/libs/*.jar"
 
 policy:
   # Konnect runs on Windows as well, so develop, main and a tag are checked there too.
@@ -54,7 +72,11 @@ publish:
   tasks:
     - ":konnect-core:publishAllPublicationsToDavilsRepository"
     - ":konnect-internet-protocol:publishAllPublicationsToDavilsRepository"
+    - ":konnect-ipc:konnect-ipc-core:publishAllPublicationsToDavilsRepository"
+    - ":konnect-ipc:konnect-ipc-client:publishAllPublicationsToDavilsRepository"
+    - ":konnect-ipc:konnect-ipc-server:publishAllPublicationsToDavilsRepository"
     - ":konnect-testing:publishAllPublicationsToDavilsRepository"
+    - ":konnect-bom:publishAllPublicationsToDavilsRepository"
 
 snapshot:
   # Konnect's own build makes every build without a release tag a snapshot.
@@ -63,7 +85,8 @@ snapshot:
 release:
   publications:
     discovery: explicit
-    # In upload order: the publication of every target before the multiplatform publication that names them.
+    # In upload order: the publication of every target before the multiplatform publication that names them, and
+    # the native jar of every platform before the JVM library it belongs to.
     list:
       - path: com/davils/konnect-core-jvm
         artifact: konnect-core-jvm
@@ -83,6 +106,21 @@ release:
       - path: com/davils/konnect-internet-protocol
         artifact: konnect-internet-protocol
         task: ":konnect-internet-protocol:publishKotlinMultiplatformPublicationToDavilsRepository"
+      - path: com/davils/konnect-ipc-core-windows-x86_64
+        artifact: konnect-ipc-core-windows-x86_64
+        task: ":konnect-ipc:konnect-ipc-core:publishKreateNativeWindowsX86_64PublicationToDavilsRepository"
+      - path: com/davils/konnect-ipc-core-windows-aarch64
+        artifact: konnect-ipc-core-windows-aarch64
+        task: ":konnect-ipc:konnect-ipc-core:publishKreateNativeWindowsAarch64PublicationToDavilsRepository"
+      - path: com/davils/konnect-ipc-core
+        artifact: konnect-ipc-core
+        task: ":konnect-ipc:konnect-ipc-core:publishMavenPublicationToDavilsRepository"
+      - path: com/davils/konnect-ipc-client
+        artifact: konnect-ipc-client
+        task: ":konnect-ipc:konnect-ipc-client:publishMavenPublicationToDavilsRepository"
+      - path: com/davils/konnect-ipc-server
+        artifact: konnect-ipc-server
+        task: ":konnect-ipc:konnect-ipc-server:publishMavenPublicationToDavilsRepository"
       - path: com/davils/konnect-testing-jvm
         artifact: konnect-testing-jvm
         task: ":konnect-testing:publishJvmPublicationToDavilsRepository"
@@ -92,12 +130,18 @@ release:
       - path: com/davils/konnect-testing
         artifact: konnect-testing
         task: ":konnect-testing:publishKotlinMultiplatformPublicationToDavilsRepository"
+      - path: com/davils/konnect-bom
+        artifact: konnect-bom
+        task: ":konnect-bom:publishMavenPublicationToDavilsRepository"
   attest:
     subjects:
       - "konnect-core/build/libs/*.jar"
       - "konnect-core/build/libs/*.klib"
       - "konnect-internet-protocol/build/libs/*.jar"
       - "konnect-internet-protocol/build/libs/*.klib"
+      - "konnect-ipc/konnect-ipc-core/build/libs/*.jar"
+      - "konnect-ipc/konnect-ipc-client/build/libs/*.jar"
+      - "konnect-ipc/konnect-ipc-server/build/libs/*.jar"
       - "konnect-testing/build/libs/*.jar"
       - "konnect-testing/build/libs/*.klib"
   github-release:
