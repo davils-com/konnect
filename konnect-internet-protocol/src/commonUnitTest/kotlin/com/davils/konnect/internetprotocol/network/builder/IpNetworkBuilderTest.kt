@@ -14,21 +14,21 @@
  * limitations under the License.
  */
 
-package com.davils.konnect.internetprotocol.subnet.builder
+package com.davils.konnect.internetprotocol.network.builder
 
 import com.davils.konnect.internetprotocol.IpViolationCodes
 import com.davils.konnect.internetprotocol.address.Ipv4Address
 import com.davils.konnect.internetprotocol.address.Ipv6Address
 import com.davils.konnect.internetprotocol.address.toIpv4Address
 import com.davils.konnect.internetprotocol.address.toIpv6Address
-import com.davils.konnect.internetprotocol.subnet.ipv4Interface
-import com.davils.konnect.internetprotocol.subnet.ipv4Network
-import com.davils.konnect.internetprotocol.subnet.ipv6Interface
-import com.davils.konnect.internetprotocol.subnet.ipv6Network
-import com.davils.konnect.internetprotocol.subnet.toIpv4Interface
-import com.davils.konnect.internetprotocol.subnet.toIpv4Network
-import com.davils.konnect.internetprotocol.subnet.toIpv6Interface
-import com.davils.konnect.internetprotocol.subnet.toIpv6Network
+import com.davils.konnect.internetprotocol.network.ipv4Interface
+import com.davils.konnect.internetprotocol.network.ipv4Network
+import com.davils.konnect.internetprotocol.network.ipv6Interface
+import com.davils.konnect.internetprotocol.network.ipv6Network
+import com.davils.konnect.internetprotocol.network.toIpv4Interface
+import com.davils.konnect.internetprotocol.network.toIpv4Network
+import com.davils.konnect.internetprotocol.network.toIpv6Interface
+import com.davils.konnect.internetprotocol.network.toIpv6Network
 import com.davils.kore.core.validation.report.ValidationException
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.FunSpec

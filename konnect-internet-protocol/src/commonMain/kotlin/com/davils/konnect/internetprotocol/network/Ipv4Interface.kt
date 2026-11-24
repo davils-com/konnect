@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package com.davils.konnect.internetprotocol.subnet
+package com.davils.konnect.internetprotocol.network
 
 import com.davils.konnect.internetprotocol.IpVersion
 import com.davils.konnect.internetprotocol.address.Ipv4Address
 import com.davils.konnect.internetprotocol.address.bits.prefixMask
 import com.davils.konnect.internetprotocol.mask.Ipv4Netmask
-import com.davils.konnect.internetprotocol.subnet.grammar.CidrReading
-import com.davils.konnect.internetprotocol.subnet.grammar.readCidr
+import com.davils.konnect.internetprotocol.network.grammar.CidrReading
+import com.davils.konnect.internetprotocol.network.grammar.readCidr
 import com.davils.kore.core.validation.validateOrThrow
 
 private const val SUBJECT: String = "interface"
@@ -31,7 +31,7 @@ private val VERSION: IpVersion = IpVersion.V4
  * An IPv4 address of a host together with the prefix length of the network it is attached to, such as `192.0.2.10/24`.
  *
  * The address may have host bits set; [network] is the network it lies in. An interface is created with [invoke], read
- * with [parse] or built with [ipv4Interface][com.davils.konnect.internetprotocol.subnet.ipv4Interface]. Instances are
+ * with [parse] or built with [ipv4Interface][com.davils.konnect.internetprotocol.network.ipv4Interface]. Instances are
  * immutable.
  *
  * @property address the address of the host, which may have host bits set.

@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-package com.davils.konnect.internetprotocol.subnet.builder
+package com.davils.konnect.internetprotocol.network.builder
 
 import com.davils.konnect.internetprotocol.IpVersion
 import com.davils.konnect.internetprotocol.address.Ipv4Address
-import com.davils.konnect.internetprotocol.subnet.Ipv4Network
+import com.davils.konnect.internetprotocol.network.Ipv4Network
 import com.davils.kore.core.annotation.DavilsDsl
 import com.davils.kore.core.dsl.ValidatingBuilder
 
 /**
- * The builder behind [ipv4Network][com.davils.konnect.internetprotocol.subnet.ipv4Network], which collects the address
+ * The builder behind [ipv4Network][com.davils.konnect.internetprotocol.network.ipv4Network], which collects the address
  * and the prefix length of an [Ipv4Network].
  *
  * A builder is not thread-safe; it is meant to be configured and evaluated by one thread, for one network.

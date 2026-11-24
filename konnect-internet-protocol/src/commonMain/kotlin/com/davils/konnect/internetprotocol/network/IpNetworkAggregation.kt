@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package com.davils.konnect.internetprotocol.subnet
+package com.davils.konnect.internetprotocol.network
 
 import com.davils.konnect.internetprotocol.IpVersion
-import com.davils.konnect.internetprotocol.subnet.arithmetic.CidrBlock
-import com.davils.konnect.internetprotocol.subnet.arithmetic.Interval
-import com.davils.konnect.internetprotocol.subnet.arithmetic.cidrBlocks
-import com.davils.konnect.internetprotocol.subnet.arithmetic.merged
+import com.davils.konnect.internetprotocol.network.arithmetic.CidrBlock
+import com.davils.konnect.internetprotocol.network.arithmetic.Interval
+import com.davils.konnect.internetprotocol.network.arithmetic.cidrBlocks
+import com.davils.konnect.internetprotocol.network.arithmetic.merged
 import kotlin.jvm.JvmName
 
 /**

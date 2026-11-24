@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package com.davils.konnect.internetprotocol.subnet
+package com.davils.konnect.internetprotocol.network
 
 import com.davils.konnect.core.Limits
 import com.davils.konnect.internetprotocol.address.Ipv4Address
-import com.davils.konnect.internetprotocol.subnet.builder.Ipv4InterfaceBuilder
-import com.davils.konnect.internetprotocol.subnet.builder.Ipv4NetworkBuilder
-import com.davils.konnect.internetprotocol.subnet.builder.Ipv6InterfaceBuilder
-import com.davils.konnect.internetprotocol.subnet.builder.Ipv6NetworkBuilder
+import com.davils.konnect.internetprotocol.network.builder.Ipv4InterfaceBuilder
+import com.davils.konnect.internetprotocol.network.builder.Ipv4NetworkBuilder
+import com.davils.konnect.internetprotocol.network.builder.Ipv6InterfaceBuilder
+import com.davils.konnect.internetprotocol.network.builder.Ipv6NetworkBuilder
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.collections.shouldHaveSize

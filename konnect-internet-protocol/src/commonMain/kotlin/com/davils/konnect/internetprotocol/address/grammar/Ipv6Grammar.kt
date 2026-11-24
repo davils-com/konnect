@@ -16,8 +16,9 @@
 
 package com.davils.konnect.internetprotocol.address.grammar
 
-import com.davils.konnect.core.Limits
+import com.davils.konnect.internetprotocol.Limits
 import com.davils.konnect.internetprotocol.address.bits.Bits128
+import com.davils.konnect.core.Limits as CoreLimits
 
 internal const val GROUP_SEPARATOR: Char = ':'
 internal const val COMPRESSION: String = "::"
@@ -29,7 +30,7 @@ private const val TOO_LONG_REASON: String = "is longer than ${Limits.MAX_IPV6_AD
 private const val ZONE_REASON: String = "has a zone index, which is not supported"
 private const val DOUBLE_COMPRESSION_REASON: String = "uses '::' more than once"
 
-internal fun isIpv6Text(text: String): Boolean = text.length <= Limits.MAX_TEXT_LENGTH && GROUP_SEPARATOR in text
+internal fun isIpv6Text(text: String): Boolean = text.length <= CoreLimits.MAX_TEXT_LENGTH && GROUP_SEPARATOR in text
 
 internal fun readIpv6(text: String): AddressReading {
     val problem = textProblem(text) ?: Ipv6Layout.fromText(text).problem()

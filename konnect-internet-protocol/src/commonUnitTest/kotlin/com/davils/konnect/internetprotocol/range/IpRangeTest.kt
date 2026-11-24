@@ -22,9 +22,9 @@ import com.davils.konnect.internetprotocol.IpViolationCodes
 import com.davils.konnect.internetprotocol.address.toIpAddress
 import com.davils.konnect.internetprotocol.address.toIpv4Address
 import com.davils.konnect.internetprotocol.address.toIpv6Address
-import com.davils.konnect.internetprotocol.subnet.IpNetwork
-import com.davils.konnect.internetprotocol.subnet.toIpv4Network
-import com.davils.konnect.internetprotocol.subnet.toIpv6Network
+import com.davils.konnect.internetprotocol.network.IpNetwork
+import com.davils.konnect.internetprotocol.network.toIpv4Network
+import com.davils.konnect.internetprotocol.network.toIpv6Network
 import com.davils.kore.core.validation.report.ValidationException
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.assertions.withClue

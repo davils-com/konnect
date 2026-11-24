@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.davils.konnect.internetprotocol.subnet
+package com.davils.konnect.internetprotocol.network
 
 /**
  * Reads this text as an IPv4 network, as [Ipv4Network.parse] does.

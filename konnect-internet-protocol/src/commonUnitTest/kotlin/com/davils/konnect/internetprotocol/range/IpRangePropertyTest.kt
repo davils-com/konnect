@@ -18,7 +18,7 @@ package com.davils.konnect.internetprotocol.range
 
 import com.davils.konnect.internetprotocol.AddressCount
 import com.davils.konnect.internetprotocol.address.Ipv4Address
-import com.davils.konnect.internetprotocol.subnet.aggregate
+import com.davils.konnect.internetprotocol.network.aggregate
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.property.Arb

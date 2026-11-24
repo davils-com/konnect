@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.davils.konnect.internetprotocol.subnet
+package com.davils.konnect.internetprotocol.network
 
 import com.davils.konnect.core.Limits
 import com.davils.konnect.internetprotocol.AddressCount
@@ -23,13 +23,13 @@ import com.davils.konnect.internetprotocol.address.Ipv6Address
 import com.davils.konnect.internetprotocol.address.bits.Bits128
 import com.davils.konnect.internetprotocol.address.bits.prefixMask
 import com.davils.konnect.internetprotocol.mask.Ipv6Netmask
+import com.davils.konnect.internetprotocol.network.arithmetic.nextBlock
+import com.davils.konnect.internetprotocol.network.arithmetic.previousBlock
+import com.davils.konnect.internetprotocol.network.arithmetic.splitPrefixLength
+import com.davils.konnect.internetprotocol.network.arithmetic.subnetBlocks
+import com.davils.konnect.internetprotocol.network.grammar.CidrReading
+import com.davils.konnect.internetprotocol.network.grammar.readNetwork
 import com.davils.konnect.internetprotocol.range.Ipv6Range
-import com.davils.konnect.internetprotocol.subnet.arithmetic.nextBlock
-import com.davils.konnect.internetprotocol.subnet.arithmetic.previousBlock
-import com.davils.konnect.internetprotocol.subnet.arithmetic.splitPrefixLength
-import com.davils.konnect.internetprotocol.subnet.arithmetic.subnetBlocks
-import com.davils.konnect.internetprotocol.subnet.grammar.CidrReading
-import com.davils.konnect.internetprotocol.subnet.grammar.readNetwork
 import com.davils.kore.core.validation.validateOrThrow
 
 private const val SUBJECT: String = "network"
@@ -40,7 +40,7 @@ private val VERSION: IpVersion = IpVersion.V6
  * [prefixLength] bits.
  *
  * Its [address] has no host bits set; an address with host bits set is refused, never masked. A network is created with
- * [invoke], read with [parse] or built with [ipv6Network][com.davils.konnect.internetprotocol.subnet.ipv6Network].
+ * [invoke], read with [parse] or built with [ipv6Network][com.davils.konnect.internetprotocol.network.ipv6Network].
  *
  * IPv6 has no broadcast address, so every address of a network counts as a host: [firstHost] is [firstAddress],
  * [lastHost] is [lastAddress] and [hostCount] is [addressCount]. This includes the Subnet-Router anycast address of RFC

@@ -23,17 +23,17 @@ import com.davils.konnect.internetprotocol.address.grammar.AddressReading
 import com.davils.konnect.internetprotocol.address.grammar.isIpv6Text
 import com.davils.konnect.internetprotocol.address.grammar.readIpv4
 import com.davils.konnect.internetprotocol.address.grammar.readIpv6
+import com.davils.konnect.internetprotocol.network.Ipv4Interface
+import com.davils.konnect.internetprotocol.network.Ipv4Network
+import com.davils.konnect.internetprotocol.network.Ipv6Interface
+import com.davils.konnect.internetprotocol.network.Ipv6Network
+import com.davils.konnect.internetprotocol.network.grammar.CidrReading
+import com.davils.konnect.internetprotocol.network.grammar.readCidr
+import com.davils.konnect.internetprotocol.network.grammar.readNetwork
 import com.davils.konnect.internetprotocol.range.Ipv4Range
 import com.davils.konnect.internetprotocol.range.Ipv6Range
 import com.davils.konnect.internetprotocol.range.grammar.RangeReading
 import com.davils.konnect.internetprotocol.range.grammar.readRange
-import com.davils.konnect.internetprotocol.subnet.Ipv4Interface
-import com.davils.konnect.internetprotocol.subnet.Ipv4Network
-import com.davils.konnect.internetprotocol.subnet.Ipv6Interface
-import com.davils.konnect.internetprotocol.subnet.Ipv6Network
-import com.davils.konnect.internetprotocol.subnet.grammar.CidrReading
-import com.davils.konnect.internetprotocol.subnet.grammar.readCidr
-import com.davils.konnect.internetprotocol.subnet.grammar.readNetwork
 import com.davils.kore.core.validation.ValidationScope
 import kotlin.reflect.KProperty
 

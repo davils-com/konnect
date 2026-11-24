@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package com.davils.konnect.internetprotocol.subnet
+package com.davils.konnect.internetprotocol.network
 
 import com.davils.konnect.internetprotocol.IpVersion
 import com.davils.konnect.internetprotocol.address.Ipv6Address
 import com.davils.konnect.internetprotocol.address.bits.prefixMask
 import com.davils.konnect.internetprotocol.mask.Ipv6Netmask
-import com.davils.konnect.internetprotocol.subnet.grammar.CidrReading
-import com.davils.konnect.internetprotocol.subnet.grammar.readCidr
+import com.davils.konnect.internetprotocol.network.grammar.CidrReading
+import com.davils.konnect.internetprotocol.network.grammar.readCidr
 import com.davils.kore.core.validation.validateOrThrow
 
 private const val SUBJECT: String = "interface"
@@ -32,7 +32,7 @@ private val VERSION: IpVersion = IpVersion.V6
  * `2001:db8::10/64`.
  *
  * The address may have host bits set; [network] is the network it lies in. An interface is created with [invoke], read
- * with [parse] or built with [ipv6Interface][com.davils.konnect.internetprotocol.subnet.ipv6Interface]. Instances are
+ * with [parse] or built with [ipv6Interface][com.davils.konnect.internetprotocol.network.ipv6Interface]. Instances are
  * immutable.
  *
  * @property address the address of the host, which may have host bits set.

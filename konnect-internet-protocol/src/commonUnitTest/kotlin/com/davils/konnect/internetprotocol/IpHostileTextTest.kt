@@ -16,24 +16,24 @@
 
 package com.davils.konnect.internetprotocol
 
-import com.davils.konnect.core.Limits
 import com.davils.konnect.internetprotocol.address.toIpAddress
 import com.davils.konnect.internetprotocol.address.toIpv4Address
 import com.davils.konnect.internetprotocol.address.toIpv6Address
 import com.davils.konnect.internetprotocol.mask.toIpv4Netmask
 import com.davils.konnect.internetprotocol.mask.toIpv6Netmask
+import com.davils.konnect.internetprotocol.network.toIpv4Interface
+import com.davils.konnect.internetprotocol.network.toIpv4Network
+import com.davils.konnect.internetprotocol.network.toIpv6Interface
+import com.davils.konnect.internetprotocol.network.toIpv6Network
 import com.davils.konnect.internetprotocol.range.toIpv4Range
 import com.davils.konnect.internetprotocol.range.toIpv6Range
-import com.davils.konnect.internetprotocol.subnet.toIpv4Interface
-import com.davils.konnect.internetprotocol.subnet.toIpv4Network
-import com.davils.konnect.internetprotocol.subnet.toIpv6Interface
-import com.davils.konnect.internetprotocol.subnet.toIpv6Network
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.assertions.withClue
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.string.shouldContain
 import io.kotest.matchers.string.shouldEndWith
 import io.kotest.property.checkAll
+import com.davils.konnect.core.Limits as CoreLimits
 
 private const val CASES: Int = 300
 private const val TOO_LONG: String = "is longer than 128 characters"
@@ -67,8 +67,8 @@ class IpHostileTextTest : FunSpec({
         }
 
         test("refuses a text above the limit before it reads it") {
-            val longIpv4 = "1." + "1".repeat(Limits.MAX_TEXT_LENGTH)
-            val longRange = "192.0.2.1" + " ".repeat(Limits.MAX_TEXT_LENGTH) + "-192.0.2.9"
+            val longIpv4 = "1." + "1".repeat(CoreLimits.MAX_TEXT_LENGTH)
+            val longRange = "192.0.2.1" + " ".repeat(CoreLimits.MAX_TEXT_LENGTH) + "-192.0.2.9"
 
             parsers.forEach { (name, parse) ->
                 withClue(name) {

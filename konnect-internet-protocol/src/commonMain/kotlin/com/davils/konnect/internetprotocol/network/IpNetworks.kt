@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package com.davils.konnect.internetprotocol.subnet
+package com.davils.konnect.internetprotocol.network
 
-import com.davils.konnect.internetprotocol.subnet.builder.Ipv4InterfaceBuilder
-import com.davils.konnect.internetprotocol.subnet.builder.Ipv4NetworkBuilder
-import com.davils.konnect.internetprotocol.subnet.builder.Ipv6InterfaceBuilder
-import com.davils.konnect.internetprotocol.subnet.builder.Ipv6NetworkBuilder
+import com.davils.konnect.internetprotocol.network.builder.Ipv4InterfaceBuilder
+import com.davils.konnect.internetprotocol.network.builder.Ipv4NetworkBuilder
+import com.davils.konnect.internetprotocol.network.builder.Ipv6InterfaceBuilder
+import com.davils.konnect.internetprotocol.network.builder.Ipv6NetworkBuilder
 
 /**
  * Builds an [Ipv4Network] in a DSL, such as

@@ -18,10 +18,10 @@ package com.davils.konnect.internetprotocol.range
 
 import com.davils.konnect.internetprotocol.IpVersion
 import com.davils.konnect.internetprotocol.address.Ipv6Address
+import com.davils.konnect.internetprotocol.network.Ipv6Network
+import com.davils.konnect.internetprotocol.network.arithmetic.cidrBlocks
 import com.davils.konnect.internetprotocol.range.grammar.RangeReading
 import com.davils.konnect.internetprotocol.range.grammar.readRange
-import com.davils.konnect.internetprotocol.subnet.Ipv6Network
-import com.davils.konnect.internetprotocol.subnet.arithmetic.cidrBlocks
 import com.davils.kore.core.validation.validateOrThrow
 
 private const val SUBJECT: String = "range"

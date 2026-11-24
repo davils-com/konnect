@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.davils.konnect.internetprotocol.subnet.arithmetic
+package com.davils.konnect.internetprotocol.network.arithmetic
 
 import com.davils.konnect.internetprotocol.IpVersion
 import com.davils.konnect.internetprotocol.address.bits.Bits128

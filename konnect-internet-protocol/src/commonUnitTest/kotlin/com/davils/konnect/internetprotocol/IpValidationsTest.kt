@@ -19,12 +19,12 @@ package com.davils.konnect.internetprotocol
 import com.davils.konnect.internetprotocol.address.toIpAddress
 import com.davils.konnect.internetprotocol.address.toIpv4Address
 import com.davils.konnect.internetprotocol.address.toIpv6Address
+import com.davils.konnect.internetprotocol.network.toIpv4Interface
+import com.davils.konnect.internetprotocol.network.toIpv4Network
+import com.davils.konnect.internetprotocol.network.toIpv6Interface
+import com.davils.konnect.internetprotocol.network.toIpv6Network
 import com.davils.konnect.internetprotocol.range.toIpv4Range
 import com.davils.konnect.internetprotocol.range.toIpv6Range
-import com.davils.konnect.internetprotocol.subnet.toIpv4Interface
-import com.davils.konnect.internetprotocol.subnet.toIpv4Network
-import com.davils.konnect.internetprotocol.subnet.toIpv6Interface
-import com.davils.konnect.internetprotocol.subnet.toIpv6Network
 import com.davils.kore.core.validation.validate
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.collections.shouldContainExactly

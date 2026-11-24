@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-package com.davils.konnect.internetprotocol.subnet.builder
+package com.davils.konnect.internetprotocol.network.builder
 
 import com.davils.konnect.internetprotocol.IpVersion
 import com.davils.konnect.internetprotocol.address.Ipv6Address
-import com.davils.konnect.internetprotocol.subnet.Ipv6Interface
+import com.davils.konnect.internetprotocol.network.Ipv6Interface
 import com.davils.kore.core.annotation.DavilsDsl
 import com.davils.kore.core.dsl.ValidatingBuilder
 
 /**
- * The builder behind [ipv6Interface][com.davils.konnect.internetprotocol.subnet.ipv6Interface], which collects the
+ * The builder behind [ipv6Interface][com.davils.konnect.internetprotocol.network.ipv6Interface], which collects the
  * address and the prefix length of an [Ipv6Interface].
  *
  * A builder is not thread-safe; it is meant to be configured and evaluated by one thread, for one interface.

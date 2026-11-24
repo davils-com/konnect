@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.davils.konnect.internetprotocol.subnet
+package com.davils.konnect.internetprotocol.network
 
 import com.davils.konnect.internetprotocol.AddressCount
 import com.davils.konnect.internetprotocol.IpVersion
@@ -27,7 +27,7 @@ import com.davils.konnect.internetprotocol.address.bits.prefixMask
 import com.davils.konnect.internetprotocol.address.grammar.isIpv6Text
 import com.davils.konnect.internetprotocol.address.text.addressText
 import com.davils.konnect.internetprotocol.mask.Netmask
-import com.davils.konnect.internetprotocol.subnet.arithmetic.CidrBlock
+import com.davils.konnect.internetprotocol.network.arithmetic.CidrBlock
 import com.davils.kore.core.validation.Validatable
 import com.davils.kore.core.validation.ValidationScope
 

@@ -21,8 +21,8 @@ import com.davils.konnect.internetprotocol.IpVersion
 import com.davils.konnect.internetprotocol.IpViolationCodes
 import com.davils.konnect.internetprotocol.address.IpAddress
 import com.davils.konnect.internetprotocol.address.grammar.isIpv6Text
-import com.davils.konnect.internetprotocol.subnet.IpNetwork
-import com.davils.konnect.internetprotocol.subnet.arithmetic.Interval
+import com.davils.konnect.internetprotocol.network.IpNetwork
+import com.davils.konnect.internetprotocol.network.arithmetic.Interval
 import com.davils.kore.core.validation.Validatable
 import com.davils.kore.core.validation.ValidationScope
 

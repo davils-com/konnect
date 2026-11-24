@@ -52,8 +52,8 @@ public object IpViolationCodes {
 
     /**
      * The code of a prefix length outside `0..32` for IPv4 or `0..128` for IPv6, reported at the prefix length by
-     * the validation of a [network][com.davils.konnect.internetprotocol.subnet.IpNetwork] and of an
-     * [interface][com.davils.konnect.internetprotocol.subnet.IpInterface]; its value is `konnect.ip.invalid-prefix`.
+     * the validation of a [network][com.davils.konnect.internetprotocol.network.IpNetwork] and of an
+     * [interface][com.davils.konnect.internetprotocol.network.IpInterface]; its value is `konnect.ip.invalid-prefix`.
      *
      * @since 1.0.0
      */
@@ -61,7 +61,7 @@ public object IpViolationCodes {
 
     /**
      * The code of a network whose address has bits set beyond its prefix length, reported at the address by the
-     * validation of a [network][com.davils.konnect.internetprotocol.subnet.IpNetwork]; its value is
+     * validation of a [network][com.davils.konnect.internetprotocol.network.IpNetwork]; its value is
      * `konnect.ip.host-bits-set`.
      *
      * @since 1.0.0

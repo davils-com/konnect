@@ -16,6 +16,7 @@
 
 package com.davils.konnect.internetprotocol
 
+import com.davils.kore.testing.HostileFragments
 import io.kotest.assertions.withClue
 import io.kotest.matchers.shouldBe
 import io.kotest.property.Arb
@@ -24,17 +25,13 @@ import io.kotest.property.arbitrary.list
 import io.kotest.property.arbitrary.map
 
 private const val LONGEST_HOSTILE_TEXT: Int = 64
-private const val ESCAPE: String = "\u001B"
 private const val PRINTABLE_FIRST: Char = ' '
 private const val PRINTABLE_LAST: Char = '~'
 
-private val fragments: List<String> = listOf(
-    "0", "1", "8", "9", "-", " ", ".", ":", "/", "a", "ä", "日", "😀", "٠", "１",
-    "$ESCAPE[2J", "‮", " ", "­", "\uD800", "\uDC00", "﻿", "\r", "\n", "\t", "\u0000",
-    "\u007F", "​", "\n2026-11-19 INFO auth ok user=admin",
-)
+private val networkFragments: List<String> = listOf("0", "1", "8", "9", "-", ".", ":", "/", "\u0660", "\uFF11")
 
-private val hostilePieces: Arb<List<String>> = Arb.list(Arb.element(fragments), 0..LONGEST_HOSTILE_TEXT)
+private val hostilePieces: Arb<List<String>> =
+    Arb.list(Arb.element(HostileFragments.all + networkFragments), 0..LONGEST_HOSTILE_TEXT)
 
 internal val hostileText: Arb<String> = hostilePieces.map { pieces -> pieces.joinToString(separator = "") }
 
