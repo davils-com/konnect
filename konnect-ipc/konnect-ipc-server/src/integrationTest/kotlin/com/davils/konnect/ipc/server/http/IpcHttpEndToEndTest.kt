@@ -20,6 +20,7 @@ import com.davils.konnect.ipc.client.http.IpcHttpUpgrade
 import com.davils.konnect.ipc.client.http.IpcHttpUpgradeCapability
 import com.davils.konnect.ipc.core.IpcPlatform
 import com.davils.konnect.ipc.core.address.IpcAddress
+import com.davils.konnect.ipc.core.transport.windows.PipeSession
 import com.davils.konnect.ipc.server.fixture.isUnix
 import com.davils.konnect.ipc.server.fixture.isWindows
 import com.davils.konnect.ipc.server.fixture.socketAddress
@@ -30,6 +31,7 @@ import com.davils.konnect.ipc.server.http.fixture.served
 import com.davils.konnect.ipc.server.http.fixture.talking
 import com.davils.kore.core.annotation.DavilsInternal
 import io.kotest.core.spec.style.FunSpec
+import io.kotest.matchers.nulls.shouldNotBeNull
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.string.shouldContain
 import io.ktor.client.HttpClient
@@ -87,12 +89,21 @@ private suspend fun switched(client: HttpClient, heard: CompletableDeferred<Stri
 }
 
 @OptIn(DavilsInternal::class)
+private fun currentUser(): String {
+    if (isWindows) {
+        val session = PipeSession.open(IpcPlatform.namedPipes, IpcPlatform.currentProcessId).shouldNotBeNull()
+        return session.user.toString()
+    }
+    return IpcPlatform.environment.userName
+}
+
+@OptIn(DavilsInternal::class)
 private suspend fun spoken(address: IpcAddress) {
     val heard = CompletableDeferred<String?>()
     served(address, routes = { sample(heard) }) { threads ->
         talking(address, threads) { client ->
             conversation(client)
-            client.get("http://konnect/peer").bodyAsText() shouldContain IpcPlatform.environment.userName
+            client.get("http://konnect/peer").bodyAsText() shouldContain currentUser()
             switched(client, heard)
         }
     }
