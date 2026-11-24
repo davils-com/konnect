@@ -22,7 +22,9 @@ plugins {
     id("konnect.base")
 }
 
-val konnectModuleName: String = "com.davils.konnect.${name.removePrefix("konnect-").replace("-", "")}"
+val konnectGroup: String? = parent?.takeIf { it != rootProject }?.name?.removePrefix("konnect-")
+val konnectLeaf: String = name.removePrefix("konnect-").removePrefix("$konnectGroup-").replace("-", "")
+val konnectModuleName: String = listOfNotNull("com.davils.konnect", konnectGroup, konnectLeaf).joinToString(".")
 
 kreate {
     platform {
@@ -38,16 +40,22 @@ kreate {
             jvmDefault = JvmDefaultMode.NO_COMPATIBILITY
         }
 
-        multiplatform {
-            targets {
-                jvm = true
-                wasmJs = setOf(WebEnvironment.NODE)
-            }
-        }
-
         jvm {
             moduleName = konnectModuleName
             javaWarningsAsErrors = true
+        }
+    }
+}
+
+pluginManager.withPlugin("org.jetbrains.kotlin.multiplatform") {
+    kreate {
+        platform {
+            multiplatform {
+                targets {
+                    jvm = true
+                    wasmJs = setOf(WebEnvironment.NODE)
+                }
+            }
         }
     }
 }

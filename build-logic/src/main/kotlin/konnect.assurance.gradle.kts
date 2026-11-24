@@ -86,7 +86,15 @@ kreate {
 
         aggregate {
             enabled = isRoot
-            members = setOf(":", ":konnect-core", ":konnect-internet-protocol", ":konnect-testing")
+            members = setOf(
+                ":",
+                ":konnect-core",
+                ":konnect-internet-protocol",
+                ":konnect-ipc:konnect-ipc-core",
+                ":konnect-ipc:konnect-ipc-client",
+                ":konnect-ipc:konnect-ipc-server",
+                ":konnect-testing",
+            )
         }
 
         reports {

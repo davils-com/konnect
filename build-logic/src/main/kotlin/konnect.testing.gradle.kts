@@ -24,6 +24,13 @@ plugins {
 }
 
 val parallelForks: Int = maxOf(1, Runtime.getRuntime().availableProcessors() / 2)
+val catalog: VersionCatalog = the<VersionCatalogsExtension>().named("libs")
+val koreTesting: String = notationOf("kore-testing")
+
+fun notationOf(alias: String): String {
+    val library = catalog.findLibrary(alias).get().get()
+    return "${library.module}:${library.versionConstraint.requiredVersion}"
+}
 
 kreate {
     project {
@@ -49,6 +56,9 @@ kreate {
             suites {
                 named("unitTest") {
                     nonJvmTargets = true
+                    dependencies {
+                        implementation(koreTesting)
+                    }
                 }
                 named("integrationTest") {
                     enabled = false
