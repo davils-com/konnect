@@ -54,7 +54,7 @@ jobs:
     name: Pipeline
     if: github.repository == 'davils-com/konnect'
     # The commit of davils-com/kotlin-workflow's main branch. Dependabot moves it forward.
-    uses: davils-com/kotlin-workflow/.github/workflows/pipeline.yml@8affed6f514623c8f3e7ed95a1237b7e843200f1 # v1.1.1
+    uses: davils-com/kotlin-workflow/.github/workflows/pipeline.yml@c84a7294b1a66040c0491faa732f771e4e9c71d9 # v1.1.2
     permissions:
       contents: write
       actions: write
