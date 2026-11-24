@@ -43,17 +43,6 @@ public object Limits {
     public const val MAX_TEXT_LENGTH: Int = 128
 
     /**
-     * The longest text, in UTF-16 code units, that is read as an IPv6 address.
-     *
-     * It is the length of the longest canonical form, eight groups of which the last two are written as an embedded
-     * IPv4 address, such as `ffff:ffff:ffff:ffff:ffff:ffff:255.255.255.255`. A longer address text is refused before
-     * its groups are read.
-     *
-     * @since 1.0.0
-     */
-    public const val MAX_IPV6_ADDRESS_LENGTH: Int = 45
-
-    /**
      * The most subnets that one call splits a network into at once.
      *
      * A split builds its whole list before it returns, so a larger count is refused before any subnet is created. A
