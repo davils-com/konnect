@@ -33,7 +33,7 @@ native:
   stage-task: kreateJniStage
   runners:
     - { platform: windows-x86_64, runs-on: windows-latest }
-    - { platform: windows-aarch64, runs-on: windows-11-arm }
+    - { platform: windows-aarch64, runs-on: windows-11-arm, jdk: { distribution: microsoft } }
 
 check:
   tasks: [check]
