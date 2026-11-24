@@ -17,6 +17,7 @@
 include_guard(GLOBAL)
 
 function(konnect_harden target)
+    konnect_require_msvc()
     set_target_properties(${target} PROPERTIES
         CXX_STANDARD 20
         CXX_STANDARD_REQUIRED ON
@@ -24,31 +25,27 @@ function(konnect_harden target)
         MSVC_RUNTIME_LIBRARY "MultiThreaded"
         POSITION_INDEPENDENT_CODE ON
     )
-    konnect_harden_compile_options(${target})
+    target_compile_options(${target} PRIVATE /W4 /WX /permissive- /sdl /guard:cf /Qspectre /utf-8 /EHsc)
+    target_compile_definitions(${target} PRIVATE UNICODE _UNICODE WIN32_LEAN_AND_MEAN NOMINMAX)
     konnect_harden_link_options(${target})
-    konnect_harden_windows(${target})
+    konnect_clang_tidy(${target})
 endfunction()
 
-function(konnect_harden_compile_options target)
-    if(MSVC)
-        target_compile_options(${target} PRIVATE /W4 /WX /permissive- /sdl /guard:cf /Qspectre /utf-8 /EHsc)
-        return()
+function(konnect_require_msvc)
+    if(NOT CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
+        message(FATAL_ERROR "The native library of konnect is built with MSVC only, so that control flow guard and Spectre mitigation apply.")
     endif()
-    target_compile_options(${target} PRIVATE -Wall -Wextra -Werror)
 endfunction()
 
 function(konnect_harden_link_options target)
     get_target_property(type ${target} TYPE)
-    if(NOT MSVC OR NOT type STREQUAL "SHARED_LIBRARY")
+    if(NOT type STREQUAL "SHARED_LIBRARY")
         return()
     endif()
     target_link_options(${target} PRIVATE /DYNAMICBASE /HIGHENTROPYVA /NXCOMPAT /CETCOMPAT /GUARD:CF)
 endfunction()
 
-function(konnect_harden_windows target)
-    if(NOT WIN32)
-        return()
-    endif()
+function(konnect_clang_tidy target)
     set(konnect_llvm_architecture x64)
     if(CMAKE_HOST_SYSTEM_PROCESSOR MATCHES "^(ARM64|arm64|aarch64)$")
         set(konnect_llvm_architecture ARM64)
@@ -57,10 +54,5 @@ function(konnect_harden_windows target)
         HINTS "$ENV{VCINSTALLDIR}Tools/Llvm/${konnect_llvm_architecture}/bin"
         REQUIRED
     )
-    target_compile_definitions(${target} PRIVATE UNICODE _UNICODE WIN32_LEAN_AND_MEAN NOMINMAX)
-    set(konnect_clang_tidy "${KONNECT_CLANG_TIDY}")
-    if(MSVC)
-        list(APPEND konnect_clang_tidy "--extra-arg-before=--driver-mode=cl")
-    endif()
-    set_target_properties(${target} PROPERTIES CXX_CLANG_TIDY "${konnect_clang_tidy}")
+    set_target_properties(${target} PROPERTIES CXX_CLANG_TIDY "${KONNECT_CLANG_TIDY};--extra-arg-before=--driver-mode=cl")
 endfunction()

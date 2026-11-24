@@ -24,8 +24,8 @@
 #include <algorithm>
 #include <cstdint>
 #include <cwchar>
-#include <limits>
 #include <sddl.h>
+#include <utility>
 #include <vector>
 
 namespace konnect::ipc::core::transport::windows {
@@ -39,7 +39,7 @@ using native::windows::Win32Result;
 ProcessIdentity::ProcessIdentity(jlong processId) noexcept : processId(processId) {}
 
 jlong ProcessIdentity::writeUserSid(const DirectBuffer& target) const {
-    if (processId < 0 || processId > static_cast<jlong>(std::numeric_limits<DWORD>::max())) {
+    if (!std::in_range<DWORD>(processId)) {
         return NativeResult::error(ERROR_INVALID_PARAMETER);
     }
     Handle const process(OpenProcess(PROCESS_QUERY_LIMITED_INFORMATION, FALSE, static_cast<DWORD>(processId)));

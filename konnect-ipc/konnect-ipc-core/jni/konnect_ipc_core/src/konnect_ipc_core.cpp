@@ -34,7 +34,8 @@ using konnect::native::windows::guarded;
 using konnect::native::windows::WideString;
 
 JNIEXPORT jlong JNICALL Java_com_davils_konnect_ipc_core_transport_windows_NamedPipeNative_createServer(
-    JNIEnv* env, jclass, jstring path, jstring securityDescriptor, jint bufferSize, jboolean isFirstInstance) {
+    JNIEnv* env, [[maybe_unused]] jclass type, jstring path, jstring securityDescriptor, jint bufferSize,
+    jboolean isFirstInstance) {
     return guarded([&]() -> jlong {
         WideString const pipe(JavaString(env, path));
         WideString const sddl(JavaString(env, securityDescriptor));
@@ -45,13 +46,13 @@ JNIEXPORT jlong JNICALL Java_com_davils_konnect_ipc_core_transport_windows_Named
     });
 }
 
-JNIEXPORT jlong JNICALL Java_com_davils_konnect_ipc_core_transport_windows_NamedPipeNative_awaitClient(JNIEnv*, jclass,
-                                                                                                       jlong handle) {
+JNIEXPORT jlong JNICALL Java_com_davils_konnect_ipc_core_transport_windows_NamedPipeNative_awaitClient(
+    [[maybe_unused]] JNIEnv* env, [[maybe_unused]] jclass type, jlong handle) {
     return NamedPipe(handle).awaitClient();
 }
 
-JNIEXPORT jlong JNICALL Java_com_davils_konnect_ipc_core_transport_windows_NamedPipeNative_open(JNIEnv* env, jclass,
-                                                                                                jstring path) {
+JNIEXPORT jlong JNICALL Java_com_davils_konnect_ipc_core_transport_windows_NamedPipeNative_open(
+    JNIEnv* env, [[maybe_unused]] jclass type, jstring path) {
     return guarded([&]() -> jlong {
         WideString const pipe(JavaString(env, path));
         if (!pipe.isValid()) {
@@ -62,7 +63,7 @@ JNIEXPORT jlong JNICALL Java_com_davils_konnect_ipc_core_transport_windows_Named
 }
 
 JNIEXPORT jlong JNICALL Java_com_davils_konnect_ipc_core_transport_windows_NamedPipeNative_waitAvailable(
-    JNIEnv* env, jclass, jstring path, jint timeoutMillis) {
+    JNIEnv* env, [[maybe_unused]] jclass type, jstring path, jint timeoutMillis) {
     return guarded([&]() -> jlong {
         WideString const pipe(JavaString(env, path));
         if (!pipe.isValid()) {
@@ -72,41 +73,37 @@ JNIEXPORT jlong JNICALL Java_com_davils_konnect_ipc_core_transport_windows_Named
     });
 }
 
-JNIEXPORT jlong JNICALL Java_com_davils_konnect_ipc_core_transport_windows_NamedPipeNative_read(JNIEnv* env, jclass,
-                                                                                                jlong handle,
-                                                                                                jobject buffer,
-                                                                                                jint length) {
+JNIEXPORT jlong JNICALL Java_com_davils_konnect_ipc_core_transport_windows_NamedPipeNative_read(
+    JNIEnv* env, [[maybe_unused]] jclass type, jlong handle, jobject buffer, jint length) {
     return NamedPipe(handle).read(DirectBuffer(env, buffer), length);
 }
 
-JNIEXPORT jlong JNICALL Java_com_davils_konnect_ipc_core_transport_windows_NamedPipeNative_write(JNIEnv* env, jclass,
-                                                                                                 jlong handle,
-                                                                                                 jobject buffer,
-                                                                                                 jint length) {
+JNIEXPORT jlong JNICALL Java_com_davils_konnect_ipc_core_transport_windows_NamedPipeNative_write(
+    JNIEnv* env, [[maybe_unused]] jclass type, jlong handle, jobject buffer, jint length) {
     return NamedPipe(handle).write(DirectBuffer(env, buffer), length);
 }
 
-JNIEXPORT jlong JNICALL Java_com_davils_konnect_ipc_core_transport_windows_NamedPipeNative_cancel(JNIEnv*, jclass,
-                                                                                                  jlong handle) {
+JNIEXPORT jlong JNICALL Java_com_davils_konnect_ipc_core_transport_windows_NamedPipeNative_cancel(
+    [[maybe_unused]] JNIEnv* env, [[maybe_unused]] jclass type, jlong handle) {
     return NamedPipe(handle).cancel();
 }
 
-JNIEXPORT jlong JNICALL Java_com_davils_konnect_ipc_core_transport_windows_NamedPipeNative_close(JNIEnv*, jclass,
-                                                                                                 jlong handle) {
+JNIEXPORT jlong JNICALL Java_com_davils_konnect_ipc_core_transport_windows_NamedPipeNative_close(
+    [[maybe_unused]] JNIEnv* env, [[maybe_unused]] jclass type, jlong handle) {
     return NamedPipe(handle).close();
 }
 
-JNIEXPORT jlong JNICALL
-Java_com_davils_konnect_ipc_core_transport_windows_NamedPipeNative_clientProcessId(JNIEnv*, jclass, jlong handle) {
+JNIEXPORT jlong JNICALL Java_com_davils_konnect_ipc_core_transport_windows_NamedPipeNative_clientProcessId(
+    [[maybe_unused]] JNIEnv* env, [[maybe_unused]] jclass type, jlong handle) {
     return NamedPipe(handle).clientProcessId();
 }
 
-JNIEXPORT jlong JNICALL
-Java_com_davils_konnect_ipc_core_transport_windows_NamedPipeNative_serverProcessId(JNIEnv*, jclass, jlong handle) {
+JNIEXPORT jlong JNICALL Java_com_davils_konnect_ipc_core_transport_windows_NamedPipeNative_serverProcessId(
+    [[maybe_unused]] JNIEnv* env, [[maybe_unused]] jclass type, jlong handle) {
     return NamedPipe(handle).serverProcessId();
 }
 
 JNIEXPORT jlong JNICALL Java_com_davils_konnect_ipc_core_transport_windows_NamedPipeNative_processUserSid(
-    JNIEnv* env, jclass, jlong processId, jobject buffer) {
+    JNIEnv* env, [[maybe_unused]] jclass type, jlong processId, jobject buffer) {
     return guarded([&]() -> jlong { return ProcessIdentity(processId).writeUserSid(DirectBuffer(env, buffer)); });
 }
