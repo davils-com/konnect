@@ -45,6 +45,18 @@ dependencies {
 }
 ```
 
+On Windows, `konnect-ipc-core` needs the native library of its platform on the runtime class path; its POM names
+none, so no build receives a binary it cannot use:
+
+```kotlin
+dependencies {
+    implementation("com.davils:konnect-ipc-client:1.0.0")
+    runtimeOnly("com.davils:konnect-ipc-core-windows-x86_64:1.0.0")
+}
+```
+
+Linux and macOS need nothing more; there the JDK reaches Unix domain sockets on its own.
+
 Snapshots of the `develop` branch are in `https://repo.davils.com/snapshots`. They are neither signed nor attested
 and not meant for production.
 
