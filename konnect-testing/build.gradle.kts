@@ -26,4 +26,6 @@ kreate {
 
 dependencies {
     commonMainApi(project(":konnect-internet-protocol"))
+    jvmMainApi(project(":konnect-ipc:konnect-ipc-core"))
+    jvmMainApi(project(":konnect-ipc:konnect-ipc-client"))
 }

@@ -128,6 +128,30 @@ style:
   # Explicit API mode requires the modifier, which this rule would report as redundant.
   RedundantVisibilityModifier:
     active: false
+  # A public class may not be a data class (ForbiddenPublicDataClass), so the public values of Konnect write equals,
+  # hashCode and toString by hand, which this rule takes for classes without functionality.
+  UseDataClass:
+    active: true
+    excludes:
+      - '**/access/IpcPeer.kt'
+      - '**/access/IpcUser.kt'
+      - '**/address/IpcAddress.kt'
+      - '**/connection/IpcReadResult.kt'
+      - '**/connection/IpcSystemError.kt'
+      - '**/connection/IpcWriteResult.kt'
+      - '**/framing/IpcFrameResult.kt'
+      - '**/ipc/FakeCreatedPipe.kt'
+      - '**/ipc/FakeUnixServerSocket.kt'
+      - '**/ipc/TestIpcConnections.kt'
+      - '**/transport/IpcChannelRead.kt'
+      - '**/unix/SocketLocation.kt'
+      - '**/windows/PipeTarget.kt'
+      - '**/server/IpcServerEvent.kt'
+      - '**/server/outcome/IpcAcceptResult.kt'
+      - '**/server/outcome/IpcBindResult.kt'
+      - '**/client/IpcClientEvent.kt'
+      - '**/client/IpcConnectResult.kt'
+      - '**/http/IpcHttpUpgrade.kt'
   # Parameters and ParameterDeclarations are abstract so that a schema can only be declared by subclassing.
   AbstractClassCanBeConcreteClass:
     active: true

@@ -127,4 +127,8 @@ rootProject.name = "konnect"
 
 include(":konnect-core")
 include(":konnect-internet-protocol")
+include(":konnect-ipc:konnect-ipc-core")
+include(":konnect-ipc:konnect-ipc-client")
+include(":konnect-ipc:konnect-ipc-server")
 include(":konnect-testing")
+include(":konnect-bom")

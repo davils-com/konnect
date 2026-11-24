@@ -1,0 +1,524 @@
+public final class com/davils/konnect/ipc/core/ConfigurationRulesKt {
+	public static final fun checkIpcAddress (Lcom/davils/kore/core/validation/ValidationScope;Lkotlin/reflect/KProperty;Lcom/davils/konnect/ipc/core/address/IpcAddress;)V
+	public static final fun checkIpcBufferSize (Lcom/davils/kore/core/validation/ValidationScope;Lkotlin/reflect/KProperty;I)V
+}
+
+public final class com/davils/konnect/ipc/core/IpcPlatform {
+	public static final field INSTANCE Lcom/davils/konnect/ipc/core/IpcPlatform;
+	public final fun getCurrentProcessId ()J
+	public final fun getEnvironment ()Lcom/davils/konnect/ipc/core/transport/environment/IpcEnvironment;
+	public final fun getNamedPipes ()Lcom/davils/kore/core/platform/NativeLibrary;
+	public final fun getUnixSockets ()Lcom/davils/konnect/ipc/core/transport/unix/UnixSocketApi;
+}
+
+public final class com/davils/konnect/ipc/core/IpcViolationCodes {
+	public static final field INSTANCE Lcom/davils/konnect/ipc/core/IpcViolationCodes;
+	public final fun getINVALID_BUFFER_SIZE-J_S2PC0 ()Ljava/lang/String;
+	public final fun getNOBODY_ALLOWED-J_S2PC0 ()Ljava/lang/String;
+}
+
+public final class com/davils/konnect/ipc/core/Limits {
+	public static final field DEFAULT_BUFFER_SIZE I
+	public static final field DEFAULT_MAX_FRAME_SIZE I
+	public static final field INSTANCE Lcom/davils/konnect/ipc/core/Limits;
+	public static final field MAX_BUFFER_SIZE I
+	public static final field MAX_NAME_LENGTH I
+	public static final field MAX_PIPE_NAME_LENGTH I
+	public static final field MAX_SID_LENGTH I
+	public static final field MAX_SOCKET_PATH_BYTES I
+	public static final field MAX_USER_NAME_LENGTH I
+	public static final field MIN_BUFFER_SIZE I
+}
+
+public final class com/davils/konnect/ipc/core/access/IpcAccess : com/davils/kore/core/validation/Validatable {
+	public static final field Companion Lcom/davils/konnect/ipc/core/access/IpcAccess$Companion;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getUsers ()Ljava/util/List;
+	public fun hashCode ()I
+	public final fun isCurrentUserAllowed ()Z
+	public final fun isCurrentUserOnly ()Z
+	public final fun permits (Lcom/davils/konnect/ipc/core/access/IpcUser;Lcom/davils/konnect/ipc/core/access/IpcUser;)Z
+	public fun toString ()Ljava/lang/String;
+	public fun validate (Lcom/davils/kore/core/validation/ValidationScope;)V
+}
+
+public final class com/davils/konnect/ipc/core/access/IpcAccess$Companion {
+	public final fun getCURRENT_USER ()Lcom/davils/konnect/ipc/core/access/IpcAccess;
+}
+
+public final class com/davils/konnect/ipc/core/access/IpcAccessBuilder : com/davils/kore/core/dsl/ValidatingBuilder {
+	public fun <init> ()V
+	public final fun allow (Lcom/davils/konnect/ipc/core/access/IpcUser;)V
+	protected fun assemble ()Lcom/davils/konnect/ipc/core/access/IpcAccess;
+	public synthetic fun assemble ()Lcom/davils/kore/core/validation/Validatable;
+	protected fun getSubject ()Ljava/lang/String;
+	public final fun isCurrentUserAllowed ()Z
+	public final fun setCurrentUserAllowed (Z)V
+}
+
+public final class com/davils/konnect/ipc/core/access/IpcAccessesKt {
+	public static final fun ipcAccess (Lkotlin/jvm/functions/Function1;)Lcom/davils/konnect/ipc/core/access/IpcAccess;
+}
+
+public final class com/davils/konnect/ipc/core/access/IpcPeer {
+	public static final field Companion Lcom/davils/konnect/ipc/core/access/IpcPeer$Companion;
+	public fun <init> (Lcom/davils/konnect/ipc/core/access/IpcUser;Ljava/lang/Long;)V
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getProcessId ()Ljava/lang/Long;
+	public final fun getUser ()Lcom/davils/konnect/ipc/core/access/IpcUser;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/davils/konnect/ipc/core/access/IpcPeer$Companion {
+	public final fun getUNKNOWN ()Lcom/davils/konnect/ipc/core/access/IpcPeer;
+}
+
+public abstract interface com/davils/konnect/ipc/core/access/IpcUser {
+}
+
+public final class com/davils/konnect/ipc/core/access/IpcUser$UnixUser : com/davils/konnect/ipc/core/access/IpcUser {
+	public static final field Companion Lcom/davils/konnect/ipc/core/access/IpcUser$UnixUser$Companion;
+	public fun <init> (Ljava/lang/String;)V
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getName ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/davils/konnect/ipc/core/access/IpcUser$UnixUser$Companion {
+	public final fun getROOT ()Lcom/davils/konnect/ipc/core/access/IpcUser$UnixUser;
+	public final fun isValid (Ljava/lang/String;)Z
+}
+
+public final class com/davils/konnect/ipc/core/access/IpcUser$WindowsSid : com/davils/konnect/ipc/core/access/IpcUser {
+	public static final field Companion Lcom/davils/konnect/ipc/core/access/IpcUser$WindowsSid$Companion;
+	public fun <init> (Ljava/lang/String;)V
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getValue ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/davils/konnect/ipc/core/access/IpcUser$WindowsSid$Companion {
+	public final fun getLOCAL_SYSTEM ()Lcom/davils/konnect/ipc/core/access/IpcUser$WindowsSid;
+	public final fun isValid (Ljava/lang/String;)Z
+}
+
+public abstract interface com/davils/konnect/ipc/core/address/IpcAddress {
+}
+
+public final class com/davils/konnect/ipc/core/address/IpcAddress$Named : com/davils/konnect/ipc/core/address/IpcAddress {
+	public synthetic fun <init> (Ljava/lang/String;Lcom/davils/konnect/ipc/core/address/IpcScope;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Ljava/lang/String;Lcom/davils/konnect/ipc/core/address/IpcScope;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getName-5SDeTmQ ()Ljava/lang/String;
+	public final fun getScope ()Lcom/davils/konnect/ipc/core/address/IpcScope;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/davils/konnect/ipc/core/address/IpcAddress$UnixSocket : com/davils/konnect/ipc/core/address/IpcAddress {
+	public static final field Companion Lcom/davils/konnect/ipc/core/address/IpcAddress$UnixSocket$Companion;
+	public fun <init> (Ljava/nio/file/Path;)V
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getPath ()Ljava/nio/file/Path;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/davils/konnect/ipc/core/address/IpcAddress$UnixSocket$Companion {
+	public final fun isValid (Ljava/nio/file/Path;)Z
+}
+
+public final class com/davils/konnect/ipc/core/address/IpcAddress$WindowsPipe : com/davils/konnect/ipc/core/address/IpcAddress {
+	public static final field Companion Lcom/davils/konnect/ipc/core/address/IpcAddress$WindowsPipe$Companion;
+	public fun <init> (Ljava/lang/String;)V
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getName ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/davils/konnect/ipc/core/address/IpcAddress$WindowsPipe$Companion {
+	public final fun isValid (Ljava/lang/String;)Z
+}
+
+public final class com/davils/konnect/ipc/core/address/IpcName {
+	public static final field Companion Lcom/davils/konnect/ipc/core/address/IpcName$Companion;
+	public static final synthetic fun box-impl (Ljava/lang/String;)Lcom/davils/konnect/ipc/core/address/IpcName;
+	public static fun constructor-impl (Ljava/lang/String;)Ljava/lang/String;
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (Ljava/lang/String;Ljava/lang/Object;)Z
+	public static final fun equals-impl0 (Ljava/lang/String;Ljava/lang/String;)Z
+	public final fun getValue ()Ljava/lang/String;
+	public fun hashCode ()I
+	public static fun hashCode-impl (Ljava/lang/String;)I
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (Ljava/lang/String;)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()Ljava/lang/String;
+}
+
+public final class com/davils/konnect/ipc/core/address/IpcName$Companion {
+	public final fun isValid (Ljava/lang/String;)Z
+	public final fun parseOrNull-M673Qzs (Ljava/lang/String;)Ljava/lang/String;
+}
+
+public final class com/davils/konnect/ipc/core/address/IpcScope : java/lang/Enum {
+	public static final field System Lcom/davils/konnect/ipc/core/address/IpcScope;
+	public static final field User Lcom/davils/konnect/ipc/core/address/IpcScope;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/davils/konnect/ipc/core/address/IpcScope;
+	public static fun values ()[Lcom/davils/konnect/ipc/core/address/IpcScope;
+}
+
+public final class com/davils/konnect/ipc/core/connection/IpcConnection {
+	public fun <init> (Lcom/davils/konnect/ipc/core/transport/IpcChannel;ILkotlin/jvm/functions/Function0;)V
+	public synthetic fun <init> (Lcom/davils/konnect/ipc/core/transport/IpcChannel;ILkotlin/jvm/functions/Function0;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun close ()V
+	public final fun closeOutput (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun framed (Lcom/davils/konnect/ipc/core/framing/IpcFraming;)Lcom/davils/konnect/ipc/core/framing/IpcFramedConnection;
+	public final fun getBufferSize ()I
+	public final fun getPeer ()Lcom/davils/konnect/ipc/core/access/IpcPeer;
+	public final fun isOpen ()Z
+	public final fun isOutputOpen ()Z
+	public final fun read (ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun read$default (Lcom/davils/konnect/ipc/core/connection/IpcConnection;ILkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public final fun readExactly (ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun toString ()Ljava/lang/String;
+	public final fun write (Lkotlinx/io/bytestring/ByteString;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public abstract interface com/davils/konnect/ipc/core/connection/IpcReadResult {
+}
+
+public final class com/davils/konnect/ipc/core/connection/IpcReadResult$Closed : com/davils/konnect/ipc/core/connection/IpcReadResult {
+	public static final field INSTANCE Lcom/davils/konnect/ipc/core/connection/IpcReadResult$Closed;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/davils/konnect/ipc/core/connection/IpcReadResult$Failed : com/davils/konnect/ipc/core/connection/IpcReadResult {
+	public fun <init> (Lcom/davils/konnect/ipc/core/connection/IpcSystemError;)V
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getError ()Lcom/davils/konnect/ipc/core/connection/IpcSystemError;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/davils/konnect/ipc/core/connection/IpcReadResult$Received : com/davils/konnect/ipc/core/connection/IpcReadResult {
+	public fun <init> (Lkotlinx/io/bytestring/ByteString;)V
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getBytes ()Lkotlinx/io/bytestring/ByteString;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/davils/konnect/ipc/core/connection/IpcSystemError {
+	public fun <init> (Ljava/lang/Long;Ljava/lang/String;)V
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getCode ()Ljava/lang/Long;
+	public final fun getDescription ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract interface com/davils/konnect/ipc/core/connection/IpcWriteResult {
+}
+
+public final class com/davils/konnect/ipc/core/connection/IpcWriteResult$Closed : com/davils/konnect/ipc/core/connection/IpcWriteResult {
+	public static final field INSTANCE Lcom/davils/konnect/ipc/core/connection/IpcWriteResult$Closed;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/davils/konnect/ipc/core/connection/IpcWriteResult$Failed : com/davils/konnect/ipc/core/connection/IpcWriteResult {
+	public fun <init> (Lcom/davils/konnect/ipc/core/connection/IpcSystemError;)V
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getError ()Lcom/davils/konnect/ipc/core/connection/IpcSystemError;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/davils/konnect/ipc/core/connection/IpcWriteResult$Written : com/davils/konnect/ipc/core/connection/IpcWriteResult {
+	public static final field INSTANCE Lcom/davils/konnect/ipc/core/connection/IpcWriteResult$Written;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract interface com/davils/konnect/ipc/core/framing/IpcFrameResult {
+}
+
+public final class com/davils/konnect/ipc/core/framing/IpcFrameResult$Closed : com/davils/konnect/ipc/core/framing/IpcFrameResult {
+	public static final field INSTANCE Lcom/davils/konnect/ipc/core/framing/IpcFrameResult$Closed;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/davils/konnect/ipc/core/framing/IpcFrameResult$Failed : com/davils/konnect/ipc/core/framing/IpcFrameResult {
+	public fun <init> (Lcom/davils/konnect/ipc/core/connection/IpcSystemError;)V
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getError ()Lcom/davils/konnect/ipc/core/connection/IpcSystemError;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/davils/konnect/ipc/core/framing/IpcFrameResult$Received : com/davils/konnect/ipc/core/framing/IpcFrameResult {
+	public fun <init> (Ljava/lang/Object;)V
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getFrame ()Ljava/lang/Object;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/davils/konnect/ipc/core/framing/IpcFrameResult$TooLarge : com/davils/konnect/ipc/core/framing/IpcFrameResult {
+	public fun <init> (JI)V
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getMaxFrameSize ()I
+	public final fun getSize ()J
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/davils/konnect/ipc/core/framing/IpcFramedConnection {
+	public final fun close ()V
+	public final fun getConnection ()Lcom/davils/konnect/ipc/core/connection/IpcConnection;
+	public final fun getFraming ()Lcom/davils/konnect/ipc/core/framing/IpcFraming;
+	public final fun getPeer ()Lcom/davils/konnect/ipc/core/access/IpcPeer;
+	public final fun isOpen ()Z
+	public final fun receive (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun send (Ljava/lang/Object;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract interface com/davils/konnect/ipc/core/framing/IpcFraming {
+	public static final field Companion Lcom/davils/konnect/ipc/core/framing/IpcFraming$Companion;
+	public abstract fun encode (Ljava/lang/Object;)Lkotlinx/io/bytestring/ByteString;
+	public abstract fun receive (Lcom/davils/konnect/ipc/core/connection/IpcConnection;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class com/davils/konnect/ipc/core/framing/IpcFraming$Companion {
+	public final fun lengthPrefixed (I)Lcom/davils/konnect/ipc/core/framing/IpcFraming;
+	public static synthetic fun lengthPrefixed$default (Lcom/davils/konnect/ipc/core/framing/IpcFraming$Companion;IILjava/lang/Object;)Lcom/davils/konnect/ipc/core/framing/IpcFraming;
+}
+
+public final class com/davils/konnect/ipc/core/telemetry/IpcTelemetriesKt {
+	public static final fun ipcTelemetry (Lcom/davils/konnect/ipc/core/telemetry/IpcTelemetry;Lkotlin/jvm/functions/Function1;)Lcom/davils/konnect/ipc/core/telemetry/IpcTelemetry;
+	public static synthetic fun ipcTelemetry$default (Lcom/davils/konnect/ipc/core/telemetry/IpcTelemetry;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lcom/davils/konnect/ipc/core/telemetry/IpcTelemetry;
+}
+
+public final class com/davils/konnect/ipc/core/telemetry/IpcTelemetry {
+	public static final field Companion Lcom/davils/konnect/ipc/core/telemetry/IpcTelemetry$Companion;
+	public final fun getEvents ()Lcom/davils/konfetti/core/EventBus;
+	public final fun getMeters ()Lcom/davils/kollect/core/MeterRegistry;
+	public final fun getTracer ()Lcom/davils/kollect/core/trace/Tracer;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/davils/konnect/ipc/core/telemetry/IpcTelemetry$Companion {
+	public final fun getNone ()Lcom/davils/konnect/ipc/core/telemetry/IpcTelemetry;
+}
+
+public final class com/davils/konnect/ipc/core/telemetry/IpcTelemetryBuilder : com/davils/kore/core/dsl/Builder {
+	public fun build ()Lcom/davils/konnect/ipc/core/telemetry/IpcTelemetry;
+	public synthetic fun build ()Ljava/lang/Object;
+	public final fun events (Lcom/davils/konfetti/core/EventBus;)V
+	public final fun getTracer ()Lcom/davils/kollect/core/trace/Tracer;
+	public final fun meters (Lcom/davils/kollect/core/MeterRegistry;)V
+	public final fun setTracer (Lcom/davils/kollect/core/trace/Tracer;)V
+}
+
+public final class com/davils/konnect/ipc/core/telemetry/SpansKt {
+	public static final field CANCELLED_ERROR_TYPE Ljava/lang/String;
+	public static final field FAILED_ERROR_TYPE Ljava/lang/String;
+	public static final fun endTraced (Lcom/davils/kollect/core/trace/Span;Ljava/lang/String;)V
+	public static final fun traced (Lcom/davils/kollect/core/trace/Span;Lkotlin/jvm/functions/Function0;)Ljava/lang/Object;
+}
+
+public abstract interface com/davils/konnect/ipc/core/transport/IpcChannel {
+	public abstract fun close ()V
+	public abstract fun closeOutput (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun getPeer ()Lcom/davils/konnect/ipc/core/access/IpcPeer;
+	public abstract fun read ([BIILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun write ([BIILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public abstract interface com/davils/konnect/ipc/core/transport/IpcChannelRead {
+}
+
+public final class com/davils/konnect/ipc/core/transport/IpcChannelRead$Ended : com/davils/konnect/ipc/core/transport/IpcChannelRead {
+	public static final field INSTANCE Lcom/davils/konnect/ipc/core/transport/IpcChannelRead$Ended;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/davils/konnect/ipc/core/transport/IpcChannelRead$Failed : com/davils/konnect/ipc/core/transport/IpcChannelRead {
+	public fun <init> (Lcom/davils/konnect/ipc/core/connection/IpcSystemError;)V
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getError ()Lcom/davils/konnect/ipc/core/connection/IpcSystemError;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/davils/konnect/ipc/core/transport/IpcChannelRead$Read : com/davils/konnect/ipc/core/transport/IpcChannelRead {
+	public fun <init> (I)V
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getCount ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/davils/konnect/ipc/core/transport/MemoryChannelsKt {
+	public static final fun memoryChannels (Lcom/davils/konnect/ipc/core/access/IpcPeer;Lcom/davils/konnect/ipc/core/access/IpcPeer;)Lkotlin/Pair;
+}
+
+public final class com/davils/konnect/ipc/core/transport/SystemErrorsKt {
+	public static final fun toSystemError (Ljava/io/IOException;)Lcom/davils/konnect/ipc/core/connection/IpcSystemError;
+}
+
+public abstract interface com/davils/konnect/ipc/core/transport/environment/IpcEnvironment {
+	public abstract fun getTemporaryDirectory ()Ljava/nio/file/Path;
+	public abstract fun getUserName ()Ljava/lang/String;
+	public abstract fun variable (Ljava/lang/String;)Ljava/lang/String;
+}
+
+public final class com/davils/konnect/ipc/core/transport/unix/SocketLocation {
+	public fun <init> (Ljava/nio/file/Path;Ljava/nio/file/Path;)V
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getManagedDirectory ()Ljava/nio/file/Path;
+	public final fun getPath ()Ljava/nio/file/Path;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/davils/konnect/ipc/core/transport/unix/SocketLocations {
+	public fun <init> (Lcom/davils/konnect/ipc/core/transport/environment/IpcEnvironment;Z)V
+	public final fun of (Lcom/davils/konnect/ipc/core/address/IpcAddress;)Lcom/davils/konnect/ipc/core/transport/unix/SocketLocation;
+}
+
+public final class com/davils/konnect/ipc/core/transport/unix/UnixChannel : com/davils/konnect/ipc/core/transport/IpcChannel {
+	public fun <init> (Lcom/davils/konnect/ipc/core/transport/unix/UnixSocket;Lkotlinx/coroutines/CoroutineDispatcher;)V
+	public fun close ()V
+	public fun closeOutput (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun getPeer ()Lcom/davils/konnect/ipc/core/access/IpcPeer;
+	public fun read ([BIILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun write ([BIILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public abstract interface com/davils/konnect/ipc/core/transport/unix/UnixServerSocket {
+	public abstract fun accept ()Lcom/davils/konnect/ipc/core/transport/unix/UnixSocket;
+	public abstract fun close ()V
+	public abstract fun wakeup ()V
+}
+
+public abstract interface com/davils/konnect/ipc/core/transport/unix/UnixSocket {
+	public abstract fun close ()V
+	public abstract fun peerUser ()Ljava/lang/String;
+	public abstract fun read (Ljava/nio/ByteBuffer;)I
+	public abstract fun shutdownOutput ()V
+	public abstract fun write (Ljava/nio/ByteBuffer;)I
+}
+
+public abstract interface com/davils/konnect/ipc/core/transport/unix/UnixSocketApi {
+	public abstract fun bind (Ljava/nio/file/Path;)Lcom/davils/konnect/ipc/core/transport/unix/UnixServerSocket;
+	public abstract fun connect (Ljava/nio/file/Path;)Lcom/davils/konnect/ipc/core/transport/unix/UnixSocket;
+	public abstract fun createDirectories (Ljava/nio/file/Path;)V
+	public abstract fun delete (Ljava/nio/file/Path;)V
+	public abstract fun exists (Ljava/nio/file/Path;)Z
+	public abstract fun isWritable (Ljava/nio/file/Path;)Z
+	public abstract fun move (Ljava/nio/file/Path;Ljava/nio/file/Path;)V
+	public abstract fun owner (Ljava/nio/file/Path;)Ljava/lang/String;
+	public abstract fun restrict (Ljava/nio/file/Path;Ljava/util/Set;)V
+}
+
+public abstract interface com/davils/konnect/ipc/core/transport/windows/NamedPipeApi : com/davils/konnect/ipc/core/transport/windows/PipeIoApi, com/davils/konnect/ipc/core/transport/windows/PipeIdentityApi {
+	public abstract fun awaitClient-w_atutw (J)J
+	public abstract fun createServer-wO_Lt_s (Ljava/lang/String;Ljava/lang/String;IZ)J
+	public abstract fun open-w_atutw (Ljava/lang/String;)J
+	public abstract fun waitAvailable-FQ2NHso (Ljava/lang/String;I)J
+}
+
+public final class com/davils/konnect/ipc/core/transport/windows/NamedPipeChannel : com/davils/konnect/ipc/core/transport/IpcChannel {
+	public fun <init> (Lcom/davils/konnect/ipc/core/transport/windows/NamedPipeApi;Lcom/davils/konnect/ipc/core/transport/windows/PipeHandle;Lcom/davils/konnect/ipc/core/access/IpcPeer;ILkotlinx/coroutines/CoroutineDispatcher;)V
+	public fun close ()V
+	public fun closeOutput (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun getPeer ()Lcom/davils/konnect/ipc/core/access/IpcPeer;
+	public fun read ([BIILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun write ([BIILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class com/davils/konnect/ipc/core/transport/windows/PipeHandle {
+	public fun <init> (Lcom/davils/konnect/ipc/core/transport/windows/PipeIoApi;J)V
+	public final fun close ()V
+	public final fun getValue ()J
+	public final fun isOpen ()Z
+	public final fun use (Ljava/lang/Object;Lkotlin/jvm/functions/Function2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class com/davils/konnect/ipc/core/transport/windows/PipeIdentity {
+	public fun <init> (Lcom/davils/konnect/ipc/core/transport/windows/PipeIdentityApi;J)V
+	public final fun client (J)Lcom/davils/konnect/ipc/core/access/IpcPeer;
+	public final fun currentUser ()Lcom/davils/konnect/ipc/core/access/IpcUser$WindowsSid;
+	public final fun server (J)Lcom/davils/konnect/ipc/core/access/IpcPeer;
+}
+
+public abstract interface com/davils/konnect/ipc/core/transport/windows/PipeIdentityApi {
+	public abstract fun clientProcessId-w_atutw (J)J
+	public abstract fun processUserSid-FQ2NHso (JLjava/nio/ByteBuffer;)J
+	public abstract fun serverProcessId-w_atutw (J)J
+}
+
+public abstract interface com/davils/konnect/ipc/core/transport/windows/PipeIoApi {
+	public abstract fun cancel-w_atutw (J)J
+	public abstract fun close-w_atutw (J)J
+	public abstract fun read-eVNaBR8 (JLjava/nio/ByteBuffer;I)J
+	public abstract fun write-eVNaBR8 (JLjava/nio/ByteBuffer;I)J
+}
+
+public final class com/davils/konnect/ipc/core/transport/windows/PipeNames {
+	public static final field INSTANCE Lcom/davils/konnect/ipc/core/transport/windows/PipeNames;
+	public final fun of (Lcom/davils/konnect/ipc/core/address/IpcAddress;Lcom/davils/konnect/ipc/core/access/IpcUser$WindowsSid;)Ljava/lang/String;
+}
+
+public final class com/davils/konnect/ipc/core/transport/windows/PipeSession {
+	public static final field Companion Lcom/davils/konnect/ipc/core/transport/windows/PipeSession$Companion;
+	public fun <init> (Lcom/davils/konnect/ipc/core/transport/windows/NamedPipeApi;Lcom/davils/konnect/ipc/core/transport/windows/PipeIdentity;Lcom/davils/konnect/ipc/core/access/IpcUser$WindowsSid;)V
+	public final fun getApi ()Lcom/davils/konnect/ipc/core/transport/windows/NamedPipeApi;
+	public final fun getIdentity ()Lcom/davils/konnect/ipc/core/transport/windows/PipeIdentity;
+	public final fun getUser ()Lcom/davils/konnect/ipc/core/access/IpcUser$WindowsSid;
+	public final fun targetOf (Lcom/davils/konnect/ipc/core/address/IpcAddress;)Lcom/davils/konnect/ipc/core/transport/windows/PipeTarget;
+}
+
+public final class com/davils/konnect/ipc/core/transport/windows/PipeSession$Companion {
+	public final fun open (Lcom/davils/kore/core/platform/NativeLibrary;J)Lcom/davils/konnect/ipc/core/transport/windows/PipeSession;
+}
+
+public final class com/davils/konnect/ipc/core/transport/windows/PipeTarget {
+	public fun <init> (Lcom/davils/konnect/ipc/core/transport/windows/PipeSession;Ljava/lang/String;)V
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getPath ()Ljava/lang/String;
+	public final fun getSession ()Lcom/davils/konnect/ipc/core/transport/windows/PipeSession;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/davils/konnect/ipc/core/transport/windows/Win32Error {
+	public static final field ACCESS_DENIED J
+	public static final field BROKEN_PIPE J
+	public static final field FILE_NOT_FOUND J
+	public static final field INSTANCE Lcom/davils/konnect/ipc/core/transport/windows/Win32Error;
+	public static final field NO_DATA J
+	public static final field OPERATION_ABORTED J
+	public static final field PIPE_BUSY J
+	public static final field PIPE_CONNECTED J
+	public static final field PIPE_NOT_CONNECTED J
+	public static final field SEM_TIMEOUT J
+	public final fun errorOf (J)Lcom/davils/konnect/ipc/core/connection/IpcSystemError;
+	public final fun getEndOfStream ()Ljava/util/Set;
+}
+
