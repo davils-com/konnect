@@ -2,8 +2,9 @@
 
 Binding rules for every agent and every person working in this repository. Konnect is the network library of
 Davils: strict, attacker-proof building blocks for ports, IPv4 and IPv6 addresses, netmasks, networks, interfaces
-and ranges in Kotlin on the JVM and on WebAssembly (`wasmJs`). It is built on Kore, the foundation library of Davils,
-and follows its rules.
+and ranges in Kotlin on the JVM and on WebAssembly (`wasmJs`), and local connections between processes over Unix
+domain sockets and Windows named pipes on the JVM. It is built on Kore, the foundation library of Davils, and follows
+its rules; the IPC modules report through Kollect and Konfetti and never log.
 It is published under the Apache License 2.0 and is built to the standard it is used for, with security first.
 
 ## Repository
@@ -12,12 +13,17 @@ It is published under the Apache License 2.0 and is built to the standard it is 
 |---|---|---|
 | `konnect-core` | `com.davils:konnect-core` | What every network module shares: ports, port ranges and their categories, the limits of Konnect |
 | `konnect-internet-protocol` | `com.davils:konnect-internet-protocol` | IPv4 and IPv6 addresses, netmasks, networks, interfaces, ranges, address counts and the aggregation of networks |
-| `konnect-testing` | `com.davils:konnect-testing` | Test support for code built on Konnect: documentation addresses, networks and ports; never on a production class path |
-| `build-logic` | - | One convention plugin per Kreate concern, composed by `konnect.kotlin-library` for the modules and `konnect.root` for the root project; they hold nothing but `plugins { }` and `kreate { }` |
+| `konnect-ipc/konnect-ipc-core` | `com.davils:konnect-ipc-core` | What every local connection is made of: addresses, access, peers, connections, framing, telemetry and the platform primitives of Unix domain sockets and Windows named pipes, with the C++ library for named pipes in `jni/` |
+| `konnect-ipc/konnect-ipc-client` | `com.davils:konnect-ipc-client` | Connecting to a local server and checking it, and the Ktor client engine that speaks HTTP/1.1 over the connection |
+| `konnect-ipc/konnect-ipc-server` | `com.davils:konnect-ipc-server` | Binding, accepting and checking peers, and the Ktor server engine that serves HTTP/1.1 over the connection |
+| `konnect-testing` | `com.davils:konnect-testing` | Test support for code built on Konnect: documentation addresses, networks and ports, and on the JVM in-memory IPC connections and the fakes of the IPC transports; never on a production class path |
+| `konnect-bom` | `com.davils:konnect-bom` | The bill of materials: one version for every Konnect module |
+| `build-logic` | - | One convention plugin per Kreate concern, composed by `konnect.kotlin-library` and `konnect.jvm-library` for the modules, `konnect.bom` for the BOM and `konnect.root` for the root project; they hold nothing but `plugins { }` and `kreate { }` |
 
 The root package of a module is `com.davils.konnect.<module without konnect- and without hyphens>`, such as
-`com.davils.konnect.core` or `com.davils.konnect.internetprotocol`, and its Java module, named as
-`Automatic-Module-Name`, has the same name.
+`com.davils.konnect.core` or `com.davils.konnect.internetprotocol`. A module inside a group, such as
+`konnect-ipc/konnect-ipc-core`, adds the group as a segment and drops it from its own name:
+`com.davils.konnect.ipc.core`. Its Java module, named as `Automatic-Module-Name`, has the same name.
 
 Validation, violations, builders and the `Davils*` annotations come from Kore (`com.davils.kore.core`); Konnect never
 builds a second validation layer.
@@ -25,7 +31,10 @@ builds a second validation layer.
 ## Targets
 
 Every module is a Kotlin Multiplatform library with two targets: `jvm` and `wasmJs`. The Wasm tests run under Node.js;
-the published klib runs in the browser as well.
+the published klib runs in the browser as well. The only exception are the IPC modules under `konnect-ipc/`: they
+are plain JVM libraries, built with `konnect.jvm-library`, because sockets, named pipes, peer credentials and native
+code exist only there. Their code lives in `src/main/kotlin`, their tests in `src/unitTest/kotlin` and, where they need
+a real socket or pipe, in `src/integrationTest/kotlin`, gated on the operating system it needs.
 
 - Code lives in `src/commonMain/kotlin` unless it needs the JVM. What only the JVM can offer, such as files, paths,
   URIs, threads, native libraries and the types of the JDK, lives in `src/jvmMain/kotlin`; a member of a common class
@@ -47,7 +56,8 @@ extra warnings, javac with `-Xlint:all -Werror`), runs Detekt with type resoluti
 check, the license header check, the changelog check, every Trivy scan and the Kreate assurance gate, which blocks
 on every finding. The gate reads OSV.dev and deps.dev and Trivy downloads its database, so `check` needs the
 network. The build runs on JDK 25; `gradle/gradle-daemon-jvm.properties` pins the daemon to it and toolchains are
-never downloaded.
+never downloaded. A module with C++ also needs CMake and Ninja on the path; the C++ of `konnect-ipc-core` is compiled
+only on Windows, with MSVC and clang-tidy, and is a no-op elsewhere.
 
 ## Code rules
 
@@ -57,7 +67,7 @@ a baseline. Build scripts and `build-logic` follow the same rules, although Dete
 - **License header first.** Every `.kt`, `.kts`, `.java`, `.properties` and YAML file starts with the Apache 2.0
   header, byte for byte as in the existing files; only the files Gradle generates in `gradle/` are exempt.
   `kreateLicenseHeaderCheck` and Detekt enforce it.
-- **No comments.** No `//`, no `/* */` other than the license header. Names, types and tests carry the intent.
+- **No comments.** No `//`, no `/* */` other than the license header, in Kotlin, C++ and CMake alike. Names, types and tests carry the intent.
 - **KDoc on public API only**, with `@param`, `@return`, `@throws` and `@since`, and never on internal or private
   declarations; protected members of public open or abstract classes are API and get KDoc. A new declaration gets
   the version it first ships in; existing `@since` values never change. KDoc states what a caller must know:
@@ -94,11 +104,12 @@ a baseline. Build scripts and `build-logic` follow the same rules, although Dete
 ## Security rules
 
 Every input of Konnect may come from an attacker: address, network, range and port texts, prefix lengths and
-the octets and groups handed to a factory. Konnect is built so that a mistake of a caller fails closed.
+the octets and groups handed to a factory, and in IPC every byte a peer sends and every process that connects.
+Konnect is built so that a mistake of a caller fails closed.
 
 - **Limits before work.** Every entry point checks its input against `Limits` before it does work that grows
   with the input, and refuses what is too large with a violation or an exception. Nothing is truncated silently.
-  A new limit goes into `Limits`, never into a private constant.
+  A new limit goes into the `Limits` object of its module, never into a private constant.
 - **Never echo input.** A message, a reason or a report says what is wrong in constant text and never quotes the
   text it refused. Canonical values with a restricted alphabet, such as addresses, networks and ports, are shown as
   they are.
@@ -108,6 +119,17 @@ the octets and groups handed to a factory. Konnect is built so that a mistake of
 - **Secure randomness only.** No `java.util.Random`, `kotlin.random.Random` or `ThreadLocalRandom`.
 - **Every sink has an injection test.** Every parser is tested with hostile text, and a property test shows that
   no message it produces contains the input.
+- **Every peer is checked.** A server checks the user of every peer against its `IpcAccess` before it hands the
+  connection out, and a client checks the user of the server against its trust before it sends a byte. A peer whose
+  user cannot be read is refused. A refusal is counted and published as an event, never logged.
+- **No moment of default rights.** A Unix socket is bound in a private directory, restricted and only then moved to
+  its path; the directories Konnect manages belong to the current user and are checked before use. A named pipe gets
+  a protected DACL for the allowed users only, rejects remote clients, and its first instance is created as the first
+  instance, so no other process can take its name; a client opens it for identification only.
+- **Native code is minimal and hardened.** C++ exists only where the JDK cannot reach the operating system, today the
+  named pipes of Windows. It is C++20, compiled with every warning as an error, control flow guard, Spectre
+  mitigation and clang-tidy on Windows, and returns a result code for every call; it never throws across JNI, never
+  keeps a reference to a Java object and checks the length of every buffer it is handed.
 
 ## Tests
 
@@ -123,8 +145,9 @@ the octets and groups handed to a factory. Konnect is built so that a mistake of
 
 ## Build
 
-- Every module applies exactly one plugin, `id("konnect.kotlin-library")`, and declares nothing but its description
-  and its dependencies, through the configurations of the source sets such as `commonMainApi`. Detekt, Kover, Kotest, Trivy, the compiler and publishing are configured only in
+- Every module applies exactly one plugin, `id("konnect.kotlin-library")`, `id("konnect.jvm-library")`,
+  `id("konnect.jvm-native-library")` or `id("konnect.bom")`, and declares nothing but its description and its
+  dependencies, through the configurations of the source sets such as `commonMainApi`. Detekt, Kover, Kotest, Trivy, the compiler and publishing are configured only in
   `build-logic`, through Kreate.
 - `build-logic` holds no Kotlin classes, no tasks of its own and no Gradle API calls beyond reading the version
   catalog. What Kreate cannot express yet is added to Kreate, never programmed here.
@@ -140,6 +163,8 @@ the octets and groups handed to a factory. Konnect is built so that a mistake of
   | `konnect.platform` | The JDK, the Kotlin compiler, the targets and the Java module name |
   | `konnect.web-tools` | Node.js and Yarn for the Wasm target, from the repositories of the settings |
   | `konnect.testing` | Kotest and the test suites |
+  | `konnect.integration-testing` | The integration test suite of the JVM modules |
+  | `konnect.jni` | The C++ library of a JVM module: CMake, the generated loader, the native jars and their platforms |
   | `konnect.detekt` | Detekt and its reports |
   | `konnect.coverage` | Kover and its verification |
   | `konnect.api-validation` | The API dump and the semver check |
@@ -150,8 +175,9 @@ the octets and groups handed to a factory. Konnect is built so that a mistake of
   | `konnect.changelog` | The changelog check |
   | `konnect.license-header` | The license header check |
 
-  `konnect.kotlin-library` composes them for a module and adds only the class paths the assurance gate reads;
-  `konnect.root` composes them for the root project. A new concern gets a plugin of its own, never a block in a
+  `konnect.kotlin-library` composes them for a multiplatform module and `konnect.jvm-library` for a JVM module, each
+  adding only the class paths the assurance gate reads; `konnect.jvm-native-library` adds `konnect.jni` to a JVM
+  module, `konnect.bom` composes the BOM and `konnect.root` composes them for the root project. A new concern gets a plugin of its own, never a block in a
   composing plugin.
 - Dependencies are declared in `gradle/libs.versions.toml`. Libraries of JetBrains may be added when they are
   needed; every other dependency needs the approval of a maintainer.
