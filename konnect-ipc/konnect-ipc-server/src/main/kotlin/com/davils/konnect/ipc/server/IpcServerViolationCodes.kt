@@ -1,0 +1,36 @@
+/*
+ * Copyright 2026 Davils
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package com.davils.konnect.ipc.server
+
+import com.davils.kore.core.validation.violation.ViolationCode
+
+/**
+ * The codes of the violations that the configuration of a server reports.
+ *
+ * The values of the codes are stable and may be stored, compared and matched by consumers.
+ *
+ * @since 1.0.0
+ */
+public object IpcServerViolationCodes {
+    /**
+     * The code of a number of connections outside of 1 and [Limits.MAX_CONNECTIONS]; its value is
+     * `konnect.ipc.server.invalid-max-connections`.
+     *
+     * @since 1.0.0
+     */
+    public val INVALID_MAX_CONNECTIONS: ViolationCode = ViolationCode("konnect.ipc.server.invalid-max-connections")
+}
