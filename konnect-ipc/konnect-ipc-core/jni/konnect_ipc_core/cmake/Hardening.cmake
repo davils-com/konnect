@@ -54,5 +54,5 @@ function(konnect_clang_tidy target)
         HINTS "$ENV{VCINSTALLDIR}Tools/Llvm/${konnect_llvm_architecture}/bin"
         REQUIRED
     )
-    set_target_properties(${target} PROPERTIES CXX_CLANG_TIDY "${KONNECT_CLANG_TIDY};--extra-arg-before=--driver-mode=cl")
+    set_target_properties(${target} PROPERTIES CXX_CLANG_TIDY "${KONNECT_CLANG_TIDY};--extra-arg=/EHsc")
 endfunction()
