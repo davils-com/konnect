@@ -42,7 +42,9 @@ internal class IpcApplicationResponse(call: IpcApplicationCall, private val wire
 
     private var isKeptAlive: Boolean = false
 
-    val isReusable: Boolean get() = isKeptAlive && !body.isCancelled
+    private var isComplete: Boolean = true
+
+    val isReusable: Boolean get() = isKeptAlive && isComplete && !body.isCancelled
 
     override val headers: ResponseHeaders = IpcResponseHeaders(values)
 
@@ -82,8 +84,10 @@ internal class IpcApplicationResponse(call: IpcApplicationCall, private val wire
     }
 
     override suspend fun respondOutgoingContent(content: OutgoingContent) {
+        isComplete = false
         super.respondOutgoingContent(content)
         body.join()
+        isComplete = true
     }
 
     private suspend fun sentHead(): ResponseFraming {
