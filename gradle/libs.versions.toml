@@ -1,6 +1,6 @@
 [versions]
 kotlin = "2.4.21"
-kreate = "5.5.1"
+kreate = "5.5.2"
 coroutines = "1.11.0"
 kore = "2.3.2"
 konfetti = "1.0.0"
