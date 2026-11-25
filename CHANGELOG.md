@@ -5,7 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## Unreleased
+## 1.0.0 - 2026-11-25
+
+The first version of Konnect: the network library of Davils as an open source library under the Apache License 2.0. It
+reads and computes ports, IPv4 and IPv6 addresses, netmasks, networks, interfaces and ranges strictly, for Kotlin on the
+JVM and on `wasmJs`, and connects processes on one machine over Unix domain sockets and Windows named pipes on the JVM,
+with a Ktor client engine and a Ktor server engine that speak HTTP/1.1 over these connections. It is built with Kreate
+5.5.2 on Kore 2.3.2, Kollect 1.0.0 and Konfetti 1.0.0 and published to `https://repo.davils.com`, the native library of
+the named pipes per platform for Windows on x64 and ARM64. The code comes from the network and IPC libraries of an
+internal Davils project and is hardened for critical infrastructure on the way.
 
 ### Added
 
@@ -43,7 +51,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   module; the native library checks every buffer and argument and never throws across JNI, and includes the header
   Kreate generates, which Kide named wrongly; a failed traced block ends its span as an error, not as cancelled.
 - **Native named pipes.** The C++ library of `konnect-ipc-core` is built with Kreate's JNI support and published per
-  platform as `konnect-ipc-core-windows-x86_64` and `konnect-ipc-core-windows-aarch64`.
+  platform as `konnect-ipc-core-windows-x86_64` and `konnect-ipc-core-windows-aarch64`. It is built with MSVC only,
+  which the build enforces, with every warning as an error, clang-tidy, control flow guard and Spectre mitigation, CET
+  shadow stacks on x64 and signed return addresses on ARM64.
 - **Test values.** `konnect-testing` holds `TestAddresses` and `TestNetworks` from the documentation ranges of RFC
   5737 and RFC 3849 and `TestPorts` from the dynamic range of RFC 6335. On the JVM it adds `TestIpc` with in-memory IPC connections,
   `ScriptedConnector` and the fakes of the IPC transports.
