@@ -16,6 +16,7 @@ It is published under the Apache License 2.0 and is built to the standard it is 
 | `konnect-ipc/konnect-ipc-core` | `com.davils:konnect-ipc-core` | What every local connection is made of: addresses, access, peers, connections, framing, telemetry and the platform primitives of Unix domain sockets and Windows named pipes, with the C++ library for named pipes in `jni/` |
 | `konnect-ipc/konnect-ipc-client` | `com.davils:konnect-ipc-client` | Connecting to a local server and checking it, and the Ktor client engine that speaks HTTP/1.1 over the connection |
 | `konnect-ipc/konnect-ipc-server` | `com.davils:konnect-ipc-server` | Binding, accepting and checking peers, and the Ktor server engine that serves HTTP/1.1 over the connection |
+| `konnect-ipc/konnect-ipc-shutdown` | `com.davils:konnect-ipc-shutdown` | Optional binding of the IPC server and the HTTP engine to the coordinated shutdown of Knot |
 | `konnect-testing` | `com.davils:konnect-testing` | Test support for code built on Konnect: documentation addresses, networks and ports, and on the JVM in-memory IPC connections and the fakes of the IPC transports; never on a production class path |
 | `konnect-bom` | `com.davils:konnect-bom` | The bill of materials: one version for every Konnect module |
 | `build-logic` | - | One convention plugin per Kreate concern, composed by `konnect.kotlin-library` and `konnect.jvm-library` for the modules, `konnect.bom` for the BOM and `konnect.root` for the root project; they hold nothing but `plugins { }` and `kreate { }` |
@@ -179,8 +180,11 @@ Konnect is built so that a mistake of a caller fails closed.
   adding only the class paths the assurance gate reads; `konnect.jvm-native-library` adds `konnect.jni` to a JVM
   module, `konnect.bom` composes the BOM and `konnect.root` composes them for the root project. A new concern gets a plugin of its own, never a block in a
   composing plugin.
-- Dependencies are declared in `gradle/libs.versions.toml`. Libraries of JetBrains may be added when they are
-  needed; every other dependency needs the approval of a maintainer.
+- Dependencies are declared in `gradle/libs.versions.toml`. Libraries of JetBrains and of Davils (Kore, konfetti,
+  kollect, kontinuity, Knot) may be added when they are needed; every other dependency needs the approval of a
+  maintainer. Resilience comes from kontinuity as a direct dependency of the module that needs it, such as the connect
+  retry of `konnect-ipc-client`, never from an optional module of its own; Knot is reached only through the optional
+  `konnect-ipc-shutdown`.
 - Only `repo.davils.com` serves `com.davils` and its subgroups, through `exclusiveContent`. Everything else comes
   from Maven Central, except the Gradle plugins `kotlin-dsl`, `kotlinx-benchmark-plugin` and
   `kotest-framework-plugin-gradle`, which only the Gradle Plugin Portal has, and Node.js and Yarn, which come from
