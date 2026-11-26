@@ -1,3 +1,9 @@
+public final class com/davils/konnect/internetprotocol/AddressConverters {
+	public static final field INSTANCE Lcom/davils/konnect/internetprotocol/AddressConverters;
+	public final fun getIpAddress ()Lcom/davils/kore/core/arguments/conversion/Converter;
+	public final fun getIpNetwork ()Lcom/davils/kore/core/arguments/conversion/Converter;
+}
+
 public final class com/davils/konnect/internetprotocol/AddressCount : java/lang/Comparable {
 	public static final field Companion Lcom/davils/konnect/internetprotocol/AddressCount$Companion;
 	public fun compareTo (Lcom/davils/konnect/internetprotocol/AddressCount;)I

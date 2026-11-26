@@ -511,6 +511,13 @@ sealed class com.davils.konnect.internetprotocol.range/IpRange : com.davils.kore
     }
 }
 
+final object com.davils.konnect.internetprotocol/AddressConverters { // com.davils.konnect.internetprotocol/AddressConverters|null[0]
+    final val ipAddress // com.davils.konnect.internetprotocol/AddressConverters.ipAddress|{}ipAddress[0]
+        final fun <get-ipAddress>(): com.davils.kore.core.arguments.conversion/Converter<com.davils.konnect.internetprotocol.address/IpAddress> // com.davils.konnect.internetprotocol/AddressConverters.ipAddress.<get-ipAddress>|<get-ipAddress>(){}[0]
+    final val ipNetwork // com.davils.konnect.internetprotocol/AddressConverters.ipNetwork|{}ipNetwork[0]
+        final fun <get-ipNetwork>(): com.davils.kore.core.arguments.conversion/Converter<com.davils.konnect.internetprotocol.network/IpNetwork> // com.davils.konnect.internetprotocol/AddressConverters.ipNetwork.<get-ipNetwork>|<get-ipNetwork>(){}[0]
+}
+
 final object com.davils.konnect.internetprotocol/IpViolationCodes { // com.davils.konnect.internetprotocol/IpViolationCodes|null[0]
     final val HOST_BITS_SET // com.davils.konnect.internetprotocol/IpViolationCodes.HOST_BITS_SET|{}HOST_BITS_SET[0]
         final fun <get-HOST_BITS_SET>(): com.davils.kore.core.validation.violation/ViolationCode // com.davils.konnect.internetprotocol/IpViolationCodes.HOST_BITS_SET.<get-HOST_BITS_SET>|<get-HOST_BITS_SET>(){}[0]
