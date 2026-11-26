@@ -20,6 +20,7 @@ package com.davils.konnect.ipc.core.transport.environment
 
 import com.davils.kore.core.annotation.DavilsInternal
 import com.davils.kore.core.annotation.DavilsPlatformBinding
+import com.davils.kore.core.processVariable
 import java.nio.file.Path
 
 @DavilsPlatformBinding
@@ -28,5 +29,5 @@ internal object SystemIpcEnvironment : IpcEnvironment {
 
     override val temporaryDirectory: Path get() = Path.of(System.getProperty("java.io.tmpdir"))
 
-    override fun variable(name: String): String? = System.getenv(name)
+    override fun variable(name: String): String? = processVariable(name)
 }

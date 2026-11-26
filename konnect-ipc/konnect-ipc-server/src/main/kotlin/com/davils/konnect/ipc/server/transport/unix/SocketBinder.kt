@@ -26,12 +26,12 @@ import com.davils.konnect.ipc.core.transport.unix.UnixSocketApi
 import com.davils.konnect.ipc.server.outcome.IpcBindResult
 import com.davils.konnect.ipc.server.transport.ListenOutcome
 import com.davils.kore.core.annotation.DavilsInternal
+import com.davils.kore.core.random.SecureEntropy
 import kotlinx.coroutines.CoroutineDispatcher
 import java.io.IOException
 import java.net.BindException
 import java.net.ConnectException
 import java.nio.file.Path
-import java.security.SecureRandom
 
 private const val HEX_RADIX: Int = 16
 private const val TOKEN_LENGTH: Int = 8
@@ -131,7 +131,7 @@ internal class SocketBinder(
 }
 
 private fun randomToken(): String {
-    val value = SecureRandom().nextInt()
+    val value = SecureEntropy.nextLong().toInt()
     val text = value.toUInt().toString(radix = HEX_RADIX)
     return text.padStart(length = TOKEN_LENGTH, padChar = '0')
 }
