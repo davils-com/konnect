@@ -22,6 +22,9 @@ import com.davils.konnect.ipc.core.access.IpcAccess
 import com.davils.konnect.ipc.core.access.IpcAccessBuilder
 import com.davils.konnect.ipc.core.address.IpcAddress
 import com.davils.konnect.ipc.core.telemetry.IpcTelemetry
+import com.davils.kontinuity.retry.RetryConfig
+import com.davils.kontinuity.retry.RetryConfigBuilder
+import com.davils.kontinuity.retry.retryConfig
 import com.davils.kore.core.annotation.DavilsDsl
 import com.davils.kore.core.annotation.DavilsInternal
 import com.davils.kore.core.dsl.ValidatingBuilder
@@ -100,6 +103,36 @@ public class IpcClientBuilder internal constructor() : ValidatingBuilder<IpcClie
             checkOpen()
             field = value
         }
+
+    /**
+     * See [IpcClientConfiguration.connectRetry]; none unless it is set, so a client tries once.
+     *
+     * @throws IllegalStateException if this builder was evaluated already.
+     * @since 1.1.0
+     */
+    public var connectRetry: RetryConfig? = null
+        set(value) {
+            checkOpen()
+            field = value
+        }
+
+    /**
+     * Retries a connect while the server is not there yet, such as `connectRetry { maxAttempts = 5 }`, with the retry
+     * of kontinuity.
+     *
+     * The block configures the attempts, the backoff and its jitter, a retry budget and how failures of the transport
+     * count. Which results are worth another attempt is decided by the client and replaces the results of the block: a
+     * server that is not found, does not accept in time or is unavailable is tried again, a server that is not trusted,
+     * that refuses access or a failure of the system never is.
+     *
+     * @param block configures the retry, starting from the defaults of kontinuity.
+     * @throws IllegalStateException if this builder was evaluated already.
+     * @throws com.davils.kore.core.validation.report.ValidationException if the block configures an invalid retry.
+     * @since 1.1.0
+     */
+    public fun connectRetry(block: RetryConfigBuilder.() -> Unit) {
+        connectRetry = retryConfig(configure = block)
+    }
 
     /**
      * Declares the users the server may run as in a nested block, such as `trust { allow(IpcUser.UnixUser.ROOT) }`.

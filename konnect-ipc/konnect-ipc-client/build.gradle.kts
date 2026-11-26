@@ -29,6 +29,7 @@ dependencies {
     api(project(":konnect-ipc:konnect-ipc-core"))
     api(libs.ktor.client.core)
     api(libs.kotlinx.io.core)
+    api(libs.kontinuity.retry)
     implementation(libs.ktor.http.cio)
 }
 

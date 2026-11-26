@@ -24,13 +24,22 @@ import com.davils.konnect.ipc.client.builder.IpcClientConfiguration
 import com.davils.konnect.ipc.client.transport.ConnectOutcome
 import com.davils.konnect.ipc.client.transport.ConnectTransport
 import com.davils.konnect.ipc.core.connection.IpcConnection
+import com.davils.konnect.ipc.core.telemetry.IpcTelemetry
 import com.davils.konnect.ipc.core.telemetry.traced
 import com.davils.konnect.ipc.core.transport.IpcChannel
+import com.davils.kontinuity.core.Environment
+import com.davils.kontinuity.core.environment
+import com.davils.kontinuity.retry.Retry
+import com.davils.kontinuity.retry.RetryConfig
+import com.davils.kontinuity.retry.retry
+import com.davils.kontinuity.retry.retryConfig
 import com.davils.kore.core.annotation.DavilsInternal
+import com.davils.kontinuity.core.filter.results as resultFilter
 
 private const val CONNECT_OPERATION: String = "ipc.connect"
 private const val ADDRESS_ATTRIBUTE: String = "ipc.address"
 private const val OUTCOME_ATTRIBUTE: String = "ipc.outcome"
+private const val RETRY_NAME: String = "konnect.ipc.connect"
 
 /**
  * A client that connects to the local server at the address of its [configuration] and checks the user of the server
@@ -43,6 +52,10 @@ private const val OUTCOME_ATTRIBUTE: String = "ipc.outcome"
  * publishes an [IpcClientEvent.ServerRejected] when it leaves a server it does not trust and its telemetry names an
  * event bus. Telemetry never makes an attempt wait or fail, and nothing is logged. A client holds no connection
  * itself and is safe to use from several coroutines.
+ *
+ * With a [IpcClientConfiguration.connectRetry], a connect that finds no server, is not accepted in time or finds the
+ * server unavailable is tried again by a retry of kontinuity named `konnect.ipc.connect`, which waits by its backoff
+ * between the attempts and reports its events and meters through the telemetry of the configuration.
  *
  * @property configuration the validated configuration of the client.
  * @since 1.0.0
@@ -57,16 +70,33 @@ public class IpcClient internal constructor(
 
     private val telemetry: ClientTelemetry = ClientTelemetry(configuration.telemetry, configuration.address)
 
+    private val retry: Retry? = configuration.connectRetry?.let { base -> retryOf(base, configuration.telemetry) }
+
     /**
      * Connects to the server, waiting at most the connect timeout of the configuration.
      *
      * The user of the server is read from the operating system and checked against the trust of the configuration
-     * before the connection is handed out; a server whose user is not trusted or cannot be read is left at once.
+     * before the connection is handed out; a server whose user is not trusted or cannot be read is left at once. With
+     * a [IpcClientConfiguration.connectRetry], a transient result is tried again; the result of the last attempt is
+     * returned.
      *
      * @return [IpcConnectResult.Connected] with a connection the caller owns, or why none was made.
      * @since 1.0.0
      */
     override suspend fun connect(): IpcConnectResult {
+        val active = retry ?: return connectOnce()
+        return active.execute { connectOnce() }
+    }
+
+    /**
+     * Shows the address of the client.
+     *
+     * @return the client as text.
+     * @since 1.0.0
+     */
+    override fun toString(): String = "IpcClient($address)"
+
+    private suspend fun connectOnce(): IpcConnectResult {
         val span = tracer.start(CONNECT_OPERATION, SpanKind.Client)
         span.attribute(key = ADDRESS_ATTRIBUTE, value = address)
         val result = span.traced {
@@ -77,14 +107,6 @@ public class IpcClient internal constructor(
         telemetry.connected(result)
         return result
     }
-
-    /**
-     * Shows the address of the client.
-     *
-     * @return the client as text.
-     * @since 1.0.0
-     */
-    override fun toString(): String = "IpcClient($address)"
 
     private suspend fun attempted(): IpcConnectResult {
         val outcome = transport.connect(
@@ -105,5 +127,20 @@ public class IpcClient internal constructor(
         }
         channel.close()
         return IpcConnectResult.ServerRejected(peer)
+    }
+
+    private companion object {
+        fun retryOf(base: RetryConfig, telemetry: IpcTelemetry): Retry {
+            val config = retryConfig(base) {
+                results = resultFilter { failIf<IpcConnectResult> { result -> result.isTransient } }
+            }
+            return retry(name = RETRY_NAME, config = config, environment = resilienceOf(telemetry))
+        }
+
+        fun resilienceOf(telemetry: IpcTelemetry): Environment = environment {
+            tracer = telemetry.tracer
+            telemetry.events?.let { bus -> events(bus) }
+            telemetry.meters?.let { registry -> meters(registry) }
+        }
     }
 }

@@ -24,6 +24,7 @@ import com.davils.konnect.ipc.core.address.IpcAddress
 import com.davils.konnect.ipc.core.checkIpcAddress
 import com.davils.konnect.ipc.core.checkIpcBufferSize
 import com.davils.konnect.ipc.core.telemetry.IpcTelemetry
+import com.davils.kontinuity.retry.RetryConfig
 import com.davils.kore.core.annotation.DavilsInternal
 import com.davils.kore.core.validation.Validatable
 import com.davils.kore.core.validation.ValidationScope
@@ -31,6 +32,8 @@ import kotlin.time.Duration
 import com.davils.konnect.ipc.core.Limits as CoreLimits
 
 private const val NO_ADDRESS: String = "none"
+
+private const val NO_RETRY: String = "none"
 
 /**
  * The configuration of an [com.davils.konnect.ipc.client.IpcClient], built by
@@ -83,6 +86,19 @@ public class IpcClientConfiguration internal constructor(builder: IpcClientBuild
     public val telemetry: IpcTelemetry = builder.telemetry
 
     /**
+     * How a connect is retried while the server is not there yet, or `null` to try once.
+     *
+     * Only a result that may pass is retried: [com.davils.konnect.ipc.client.IpcConnectResult.NotFound],
+     * [com.davils.konnect.ipc.client.IpcConnectResult.TimedOut] and
+     * [com.davils.konnect.ipc.client.IpcConnectResult.Unavailable]. Every attempt waits at most [connectTimeout], is
+     * traced and counted like a single connect, and the retry reports its events and meters through [telemetry]. The
+     * result of the last attempt is returned when the attempts are used up.
+     *
+     * @since 1.1.0
+     */
+    public val connectRetry: RetryConfig? = builder.connectRetry
+
+    /**
      * Reports a missing address with the code [com.davils.kore.core.validation.violation.ViolationCode.REQUIRED], a
      * buffer size outside of its limits with the code
      * [com.davils.konnect.ipc.core.IpcViolationCodes.INVALID_BUFFER_SIZE] and a connect timeout that is not positive
@@ -110,5 +126,5 @@ public class IpcClientConfiguration internal constructor(builder: IpcClientBuild
      * @since 1.0.0
      */
     override fun toString(): String = "IpcClientConfiguration(address=${declaredAddress ?: NO_ADDRESS}, " +
-        "trust=$trust, connectTimeout=$connectTimeout, bufferSize=$bufferSize, telemetry=$telemetry)"
+        "trust=$trust, connectTimeout=$connectTimeout, bufferSize=$bufferSize, telemetry=$telemetry, connectRetry=${connectRetry ?: NO_RETRY})"
 }

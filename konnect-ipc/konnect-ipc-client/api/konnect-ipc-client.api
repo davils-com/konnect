@@ -109,14 +109,17 @@ public final class com/davils/konnect/ipc/client/builder/IpcClientBuilder : com/
 	public static final field Companion Lcom/davils/konnect/ipc/client/builder/IpcClientBuilder$Companion;
 	protected fun assemble ()Lcom/davils/konnect/ipc/client/builder/IpcClientConfiguration;
 	public synthetic fun assemble ()Lcom/davils/kore/core/validation/Validatable;
+	public final fun connectRetry (Lkotlin/jvm/functions/Function1;)V
 	public final fun getAddress ()Lcom/davils/konnect/ipc/core/address/IpcAddress;
 	public final fun getBufferSize ()I
+	public final fun getConnectRetry ()Lcom/davils/kontinuity/retry/RetryConfig;
 	public final fun getConnectTimeout-UwyO8pc ()J
 	protected fun getSubject ()Ljava/lang/String;
 	public final fun getTelemetry ()Lcom/davils/konnect/ipc/core/telemetry/IpcTelemetry;
 	public final fun getTrust ()Lcom/davils/konnect/ipc/core/access/IpcAccess;
 	public final fun setAddress (Lcom/davils/konnect/ipc/core/address/IpcAddress;)V
 	public final fun setBufferSize (I)V
+	public final fun setConnectRetry (Lcom/davils/kontinuity/retry/RetryConfig;)V
 	public final fun setConnectTimeout-LRDsOJo (J)V
 	public final fun setTelemetry (Lcom/davils/konnect/ipc/core/telemetry/IpcTelemetry;)V
 	public final fun setTrust (Lcom/davils/konnect/ipc/core/access/IpcAccess;)V
@@ -130,6 +133,7 @@ public final class com/davils/konnect/ipc/client/builder/IpcClientBuilder$Compan
 public final class com/davils/konnect/ipc/client/builder/IpcClientConfiguration : com/davils/kore/core/validation/Validatable {
 	public final fun getAddress ()Lcom/davils/konnect/ipc/core/address/IpcAddress;
 	public final fun getBufferSize ()I
+	public final fun getConnectRetry ()Lcom/davils/kontinuity/retry/RetryConfig;
 	public final fun getConnectTimeout-UwyO8pc ()J
 	public final fun getTelemetry ()Lcom/davils/konnect/ipc/core/telemetry/IpcTelemetry;
 	public final fun getTrust ()Lcom/davils/konnect/ipc/core/access/IpcAccess;

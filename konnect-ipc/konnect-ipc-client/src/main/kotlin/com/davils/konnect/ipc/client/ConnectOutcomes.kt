@@ -28,3 +28,14 @@ internal val IpcConnectResult.outcome: String
         is IpcConnectResult.Unavailable -> "unavailable"
         is IpcConnectResult.Failed -> "failed"
     }
+
+internal val IpcConnectResult.isTransient: Boolean
+    get() = when (this) {
+        is IpcConnectResult.NotFound, is IpcConnectResult.TimedOut, is IpcConnectResult.Unavailable -> true
+
+        is IpcConnectResult.Connected,
+        is IpcConnectResult.AccessDenied,
+        is IpcConnectResult.ServerRejected,
+        is IpcConnectResult.Failed,
+        -> false
+    }

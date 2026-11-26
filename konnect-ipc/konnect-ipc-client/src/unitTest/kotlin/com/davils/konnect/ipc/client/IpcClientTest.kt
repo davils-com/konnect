@@ -38,6 +38,7 @@ import com.davils.konnect.ipc.core.address.IpcAddress
 import com.davils.konnect.ipc.core.telemetry.IpcTelemetry
 import com.davils.konnect.ipc.core.telemetry.ipcTelemetry
 import com.davils.konnect.testing.ipc.ScriptedChannel
+import com.davils.kontinuity.core.backoff.fixed
 import com.davils.kore.core.annotation.DavilsInternal
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
@@ -46,8 +47,10 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.currentCoroutineContext
+import kotlin.time.Duration
 
 private const val RECORDER: String = "recorder"
+private const val ATTEMPTS: Int = 3
 
 private fun client(transport: ScriptedTransport, telemetry: IpcTelemetry = IpcTelemetry.None): IpcClient {
     val builder = IpcClientBuilder()
@@ -71,7 +74,67 @@ private suspend fun withScope(block: suspend (CoroutineScope) -> Unit) {
     }
 }
 
+private fun retryingClient(transport: ScriptedTransport): IpcClient {
+    val builder = IpcClientBuilder()
+    builder.address = HELPER
+    builder.connectRetry {
+        maxAttempts = ATTEMPTS
+        backoff = fixed(Duration.ZERO)
+    }
+    return IpcClient(builder.build(), transport)
+}
+
+private fun scripted(vararg outcomes: () -> ConnectOutcome): Pair<ScriptedTransport, () -> Int> {
+    var calls = 0
+    val transport = ScriptedTransport(connecting = { outcomes[minOf(a = calls++, b = outcomes.lastIndex)]() })
+    return transport to { calls }
+}
+
 class IpcClientTest : FunSpec({
+    context("retrying a connect") {
+        test("tries again while the server is not there yet") {
+            val notFound = { ConnectOutcome.Refused(IpcConnectResult.NotFound) }
+            val accepted = { ConnectOutcome.Connected(ScriptedChannel(peer = alicePeer)) }
+            val (transport, calls) = scripted(notFound, notFound, accepted)
+
+            val result = retryingClient(transport).connect()
+
+            val connected = result.shouldBeInstanceOf<IpcConnectResult.Connected>()
+            connected.connection.close()
+            calls() shouldBe ATTEMPTS
+        }
+
+        test("returns the last result once the attempts are used up") {
+            val (transport, calls) = scripted({ ConnectOutcome.Refused(IpcConnectResult.TimedOut) })
+
+            retryingClient(transport).connect() shouldBe IpcConnectResult.TimedOut
+            calls() shouldBe ATTEMPTS
+        }
+
+        test("never tries again a server it does not trust") {
+            val (transport, calls) = scripted({ ConnectOutcome.Connected(ScriptedChannel(peer = malloryPeer)) })
+
+            val result = retryingClient(transport).connect()
+
+            result.shouldBeInstanceOf<IpcConnectResult.ServerRejected>()
+            calls() shouldBe 1
+        }
+
+        test("never tries again access that was denied") {
+            val (transport, calls) = scripted({ ConnectOutcome.Refused(IpcConnectResult.AccessDenied) })
+
+            retryingClient(transport).connect() shouldBe IpcConnectResult.AccessDenied
+            calls() shouldBe 1
+        }
+
+        test("tries once without a retry") {
+            val (transport, calls) = scripted({ ConnectOutcome.Refused(IpcConnectResult.NotFound) })
+
+            client(transport).connect() shouldBe IpcConnectResult.NotFound
+            calls() shouldBe 1
+        }
+    }
+
     context("connecting") {
         test("hands over a connection to a trusted server") {
             val result = client(connectedTo(alicePeer)).connect()
