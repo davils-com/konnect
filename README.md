@@ -12,6 +12,7 @@ processes over Unix domain sockets and Windows named pipes on the JVM, safe to f
 | `konnect-ipc-core` | `com.davils:konnect-ipc-core` | Local connections: addresses, access, peers, connections, length-prefixed framing and telemetry, over Unix domain sockets and Windows named pipes |
 | `konnect-ipc-client` | `com.davils:konnect-ipc-client` | Connecting to a local server and checking who it is, and `IpcHttp`, a Ktor client engine for HTTP/1.1 over the connection |
 | `konnect-ipc-server` | `com.davils:konnect-ipc-server` | Binding, accepting and checking peers, and `IpcHttpServer`, a Ktor server engine for HTTP/1.1 over the connection |
+| `konnect-ipc-shutdown` | `com.davils:konnect-ipc-shutdown` | Optional: closes an IPC server and drains an HTTP engine over IPC in their phases of a shutdown of [Knot](https://github.com/davils-com/knot) |
 | `konnect-testing` | `com.davils:konnect-testing` | Documentation addresses, networks and ports for tests, and on the JVM in-memory IPC connections and a scripted connector; keep it out of production class paths |
 | `konnect-bom` | `com.davils:konnect-bom` | One version for every Konnect module |
 
@@ -40,8 +41,8 @@ dependencyResolutionManagement {
 ```kotlin
 // build.gradle.kts
 dependencies {
-    implementation("com.davils:konnect-internet-protocol:1.0.0")
-    testImplementation("com.davils:konnect-testing:1.0.0")
+    implementation("com.davils:konnect-internet-protocol:1.1.0")
+    testImplementation("com.davils:konnect-testing:1.1.0")
 }
 ```
 
@@ -50,8 +51,8 @@ none, so no build receives a binary it cannot use:
 
 ```kotlin
 dependencies {
-    implementation("com.davils:konnect-ipc-client:1.0.0")
-    runtimeOnly("com.davils:konnect-ipc-core-windows-x86_64:1.0.0")
+    implementation("com.davils:konnect-ipc-client:1.1.0")
+    runtimeOnly("com.davils:konnect-ipc-core-windows-x86_64:1.1.0")
 }
 ```
 

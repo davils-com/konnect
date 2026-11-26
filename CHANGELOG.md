@@ -5,6 +5,28 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 1.1.0 - 2026-11-26
+
+### Added
+
+- **`konnect-ipc-shutdown`, the binding to the coordinated shutdown of Knot.** `ipcServer(server)` closes an IPC server
+  in the stop phase and `ipcHttpServer(engine, gracePeriod)` drains an HTTP engine over IPC in the drain phase, both
+  within the time the shutdown has left.
+- **A connect retry for clients that wait for a local server.** `connectRetry { maxAttempts = 5 }` retries a connect
+  that finds no server, is not accepted in time or finds the server unavailable through the retry of kontinuity, with
+  its backoff, jitter, budget, events and meters; a server that is not trusted or refuses access is never tried again.
+- **Converters of Kore for ports, addresses and networks.** `PortConverters.port`, `PortConverters.portRange`,
+  `AddressConverters.ipAddress` and `AddressConverters.ipNetwork` read them typed in the parameters of Kore, the
+  environment of Knot and the properties of Kontext, refusing everything else with constant text.
+
+### Changed
+
+- **The events of the IPC client and server reach the bus through the `Emitter` of konfetti 1.1.0.**
+- **The token of a staged socket and the environment of the IPC transports come from Kore 2.5.0**, `SecureEntropy` and
+  `processVariable`, instead of an own `SecureRandom` and `System.getenv`.
+- **Built with Kreate 5.5.2 and Gradle 9.9.2 on Kore 2.5.0, konfetti 1.1.0, kollect 1.1.0, kontinuity 1.1.0 and Knot
+  1.2.0**, with Ktor 3.6.1, kotlinx-io 0.9.3 and the version floors of the build tools raised.
+
 ## 1.0.0 - 2026-11-25
 
 The first version of Konnect: the network library of Davils as an open source library under the Apache License 2.0. It
