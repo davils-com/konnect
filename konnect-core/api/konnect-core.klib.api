@@ -78,6 +78,13 @@ final value class com.davils.konnect.core.port/Port : kotlin/Comparable<com.davi
     }
 }
 
+final object com.davils.konnect.core.port/PortConverters { // com.davils.konnect.core.port/PortConverters|null[0]
+    final val port // com.davils.konnect.core.port/PortConverters.port|{}port[0]
+        final fun <get-port>(): com.davils.kore.core.arguments.conversion/Converter<com.davils.konnect.core.port/Port> // com.davils.konnect.core.port/PortConverters.port.<get-port>|<get-port>(){}[0]
+    final val portRange // com.davils.konnect.core.port/PortConverters.portRange|{}portRange[0]
+        final fun <get-portRange>(): com.davils.kore.core.arguments.conversion/Converter<com.davils.konnect.core.port/PortRange> // com.davils.konnect.core.port/PortConverters.portRange.<get-portRange>|<get-portRange>(){}[0]
+}
+
 final object com.davils.konnect.core.port/PortViolationCodes { // com.davils.konnect.core.port/PortViolationCodes|null[0]
     final val INVALID_PORT // com.davils.konnect.core.port/PortViolationCodes.INVALID_PORT|{}INVALID_PORT[0]
         final fun <get-INVALID_PORT>(): com.davils.kore.core.validation.violation/ViolationCode // com.davils.konnect.core.port/PortViolationCodes.INVALID_PORT.<get-INVALID_PORT>|<get-INVALID_PORT>(){}[0]

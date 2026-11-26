@@ -39,6 +39,12 @@ public final class com/davils/konnect/core/port/PortCategory : java/lang/Enum {
 	public static fun values ()[Lcom/davils/konnect/core/port/PortCategory;
 }
 
+public final class com/davils/konnect/core/port/PortConverters {
+	public static final field INSTANCE Lcom/davils/konnect/core/port/PortConverters;
+	public final fun getPort ()Lcom/davils/kore/core/arguments/conversion/Converter;
+	public final fun getPortRange ()Lcom/davils/kore/core/arguments/conversion/Converter;
+}
+
 public final class com/davils/konnect/core/port/PortRange : com/davils/kore/core/validation/Validatable, java/lang/Iterable, kotlin/jvm/internal/markers/KMappedMarker {
 	public static final field Companion Lcom/davils/konnect/core/port/PortRange$Companion;
 	public final fun contains (Lcom/davils/konnect/core/port/PortRange;)Z
