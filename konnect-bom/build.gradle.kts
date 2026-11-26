@@ -31,6 +31,7 @@ dependencies {
         api(project(":konnect-ipc:konnect-ipc-core"))
         api(project(":konnect-ipc:konnect-ipc-client"))
         api(project(":konnect-ipc:konnect-ipc-server"))
+        api(project(":konnect-ipc:konnect-ipc-shutdown"))
         api(project(":konnect-testing"))
     }
 }

@@ -1,0 +1,7 @@
+public final class com/davils/konnect/ipc/shutdown/IpcShutdownsKt {
+	public static final fun ipcHttpServer-exY8QGI (Lcom/davils/knot/shutdown/ShutdownPlanBuilder;Lcom/davils/konnect/ipc/server/http/IpcHttpServerEngine;JLjava/lang/String;)V
+	public static synthetic fun ipcHttpServer-exY8QGI$default (Lcom/davils/knot/shutdown/ShutdownPlanBuilder;Lcom/davils/konnect/ipc/server/http/IpcHttpServerEngine;JLjava/lang/String;ILjava/lang/Object;)V
+	public static final fun ipcServer (Lcom/davils/knot/shutdown/ShutdownPlanBuilder;Lcom/davils/konnect/ipc/server/IpcServer;Ljava/lang/String;)V
+	public static synthetic fun ipcServer$default (Lcom/davils/knot/shutdown/ShutdownPlanBuilder;Lcom/davils/konnect/ipc/server/IpcServer;Ljava/lang/String;ILjava/lang/Object;)V
+}
+

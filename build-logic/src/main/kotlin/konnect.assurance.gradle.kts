@@ -93,6 +93,7 @@ kreate {
                 ":konnect-ipc:konnect-ipc-core",
                 ":konnect-ipc:konnect-ipc-client",
                 ":konnect-ipc:konnect-ipc-server",
+                ":konnect-ipc:konnect-ipc-shutdown",
                 ":konnect-testing",
             )
         }

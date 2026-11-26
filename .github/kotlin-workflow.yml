@@ -44,6 +44,7 @@ check:
       - ":konnect-ipc:konnect-ipc-core:clean"
       - ":konnect-ipc:konnect-ipc-client:clean"
       - ":konnect-ipc:konnect-ipc-server:clean"
+      - ":konnect-ipc:konnect-ipc-shutdown:clean"
       - ":konnect-testing:clean"
     tasks:
       - ":konnect-core:jvmJar"
@@ -51,6 +52,7 @@ check:
       - ":konnect-ipc:konnect-ipc-core:jar"
       - ":konnect-ipc:konnect-ipc-client:jar"
       - ":konnect-ipc:konnect-ipc-server:jar"
+      - ":konnect-ipc:konnect-ipc-shutdown:jar"
       - ":konnect-testing:jvmJar"
     artifacts:
       - "konnect-core/build/libs/*.jar"
@@ -58,6 +60,7 @@ check:
       - "konnect-ipc/konnect-ipc-core/build/libs/*.jar"
       - "konnect-ipc/konnect-ipc-client/build/libs/*.jar"
       - "konnect-ipc/konnect-ipc-server/build/libs/*.jar"
+      - "konnect-ipc/konnect-ipc-shutdown/build/libs/*.jar"
       - "konnect-testing/build/libs/*.jar"
 
 policy:
@@ -90,6 +93,7 @@ publish:
     - ":konnect-ipc:konnect-ipc-core:publishAllPublicationsToDavilsRepository"
     - ":konnect-ipc:konnect-ipc-client:publishAllPublicationsToDavilsRepository"
     - ":konnect-ipc:konnect-ipc-server:publishAllPublicationsToDavilsRepository"
+    - ":konnect-ipc:konnect-ipc-shutdown:publishAllPublicationsToDavilsRepository"
     - ":konnect-testing:publishAllPublicationsToDavilsRepository"
     - ":konnect-bom:publishAllPublicationsToDavilsRepository"
 
@@ -136,6 +140,9 @@ release:
       - path: com/davils/konnect-ipc-server
         artifact: konnect-ipc-server
         task: ":konnect-ipc:konnect-ipc-server:publishMavenPublicationToDavilsRepository"
+      - path: com/davils/konnect-ipc-shutdown
+        artifact: konnect-ipc-shutdown
+        task: ":konnect-ipc:konnect-ipc-shutdown:publishMavenPublicationToDavilsRepository"
       - path: com/davils/konnect-testing-jvm
         artifact: konnect-testing-jvm
         task: ":konnect-testing:publishJvmPublicationToDavilsRepository"
@@ -157,6 +164,7 @@ release:
       - "konnect-ipc/konnect-ipc-core/build/libs/*.jar"
       - "konnect-ipc/konnect-ipc-client/build/libs/*.jar"
       - "konnect-ipc/konnect-ipc-server/build/libs/*.jar"
+      - "konnect-ipc/konnect-ipc-shutdown/build/libs/*.jar"
       - "konnect-testing/build/libs/*.jar"
       - "konnect-testing/build/libs/*.klib"
   github-release:
