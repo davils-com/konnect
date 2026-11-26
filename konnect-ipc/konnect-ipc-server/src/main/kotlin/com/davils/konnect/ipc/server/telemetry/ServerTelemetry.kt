@@ -20,16 +20,13 @@ package com.davils.konnect.ipc.server.telemetry
 
 import com.davils.kollect.core.trace.Span
 import com.davils.kollect.core.trace.SpanKind
-import com.davils.konfetti.core.EventBus
-import com.davils.konfetti.core.Topic
-import com.davils.konfetti.core.publish.PublishResult
+import com.davils.konfetti.core.publish.Emitter
 import com.davils.konnect.ipc.core.access.IpcPeer
 import com.davils.konnect.ipc.core.address.IpcAddress
 import com.davils.konnect.ipc.core.telemetry.IpcTelemetry
 import com.davils.konnect.ipc.server.IpcServerEvent
 import com.davils.konnect.ipc.server.IpcServerTopics
 import com.davils.kore.core.annotation.DavilsInternal
-import com.davils.kore.core.failure.contained
 import kotlin.concurrent.atomics.AtomicInt
 import kotlin.concurrent.atomics.ExperimentalAtomicApi
 
@@ -42,6 +39,13 @@ internal class ServerTelemetry(private val address: IpcAddress, private val tele
     private val meters: ServerMeters = ServerMeters(telemetry.meters, address)
 
     private val active = AtomicInt(0)
+
+    private val emitter: Emitter<IpcServerEvent>? = telemetry.events?.let { bus ->
+        Emitter(
+            bus,
+            IpcServerTopics.EVENTS,
+        )
+    }
 
     val openConnections: Int get() = active.load()
 
@@ -69,19 +73,9 @@ internal class ServerTelemetry(private val address: IpcAddress, private val tele
     }
 
     fun emit(event: () -> IpcServerEvent) {
-        val bus = telemetry.events ?: return
-        val topic = topicOf(bus)
-        val isRefused = topic == null || published(topic, event) is PublishResult.Rejected
-        if (isRefused) meters.eventRejected()
+        val target = emitter ?: return
+        val isDropped = target.isBound && !target.hasConsumers
+        if (isDropped) return
+        if (!target.emit(event)) meters.eventRejected()
     }
-
-    private fun published(topic: Topic<IpcServerEvent>, event: () -> IpcServerEvent): PublishResult<IpcServerEvent>? {
-        if (!topic.hasConsumers) return null
-        return topic.offer(event())
-    }
-
-    private fun topicOf(bus: EventBus): Topic<IpcServerEvent>? = contained {
-        if (IpcServerTopics.EVENTS !in bus) bus.declare(IpcServerTopics.EVENTS)
-        bus[IpcServerTopics.EVENTS]
-    }.getOrNull()
 }
