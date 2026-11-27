@@ -229,6 +229,63 @@ class IpcServerTest : FunSpec({
         }
     }
 
+    context("waiting until idle") {
+        test("returns at once for a closed server without open connections") {
+            val server = server(accepting())
+
+            server.close()
+
+            server.awaitIdle()
+            server.openConnections shouldBe 0
+        }
+
+        test("waits for the close of the server and of every connection it handed out") {
+            val server = server(accepting(acceptedFrom(ScriptedChannel(alicePeer))))
+            server.bind()
+            val accepted = server.accept().shouldBeInstanceOf<IpcAcceptResult.Accepted>()
+
+            coroutineScope {
+                val idle = async { server.awaitIdle() }
+                yield()
+                idle.isCompleted shouldBe false
+                server.close()
+                yield()
+                idle.isCompleted shouldBe false
+                accepted.connection.close()
+                idle.await()
+            }
+            server.openConnections shouldBe 0
+        }
+
+        test("counts no connection that was refused or rejected") {
+            val server = server(accepting(acceptedFrom(ScriptedChannel(malloryPeer))))
+            server.bind()
+            server.accept().shouldBeInstanceOf<IpcAcceptResult.PeerRejected>()
+
+            server.close()
+
+            server.awaitIdle()
+        }
+
+        test("hands out no connection once the server closed while an accept waited for a slot") {
+            val listener = ScriptedListener(
+                listOf(acceptedFrom(ScriptedChannel(alicePeer)), acceptedFrom(ScriptedChannel(alicePeer))),
+            )
+            val server = server(listeningOn(listener)) { maxConnections = 1 }
+            server.bind()
+            val first = server.accept().shouldBeInstanceOf<IpcAcceptResult.Accepted>()
+
+            coroutineScope {
+                val second = async { server.accept() }
+                yield()
+                server.close()
+                first.connection.close()
+                second.await() shouldBe IpcAcceptResult.NotListening
+            }
+            server.awaitIdle()
+        }
+    }
+
     context("meters") {
         test("count the connections of the server by outcome and the open ones") {
             val registry = meterRegistry {}

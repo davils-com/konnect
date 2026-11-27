@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-@file:OptIn(DavilsInternal::class)
+@file:OptIn(DavilsInternal::class, DavilsExperimental::class)
 
 package com.davils.konnect.ipc.server
 
@@ -33,7 +33,10 @@ import com.davils.konnect.ipc.server.transport.AcceptOutcome
 import com.davils.konnect.ipc.server.transport.IpcListener
 import com.davils.konnect.ipc.server.transport.ListenOutcome
 import com.davils.konnect.ipc.server.transport.ListenTransport
+import com.davils.kore.core.annotation.DavilsExperimental
 import com.davils.kore.core.annotation.DavilsInternal
+import com.davils.kore.core.concurrency.AdmissionGate
+import com.davils.kore.core.concurrency.Permit
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -83,6 +86,8 @@ public class IpcServer internal constructor(
 
     private val slots = Semaphore(configuration.maxConnections)
 
+    private val gate = AdmissionGate()
+
     private val telemetry = ServerTelemetry(configuration.address, configuration.telemetry)
 
     /**
@@ -128,8 +133,8 @@ public class IpcServer internal constructor(
         slots.acquire()
         var isHandedOver = false
         try {
-            val span = telemetry.startAccept()
-            val result = span.traced { admitted(current.accept(), span) }
+            val admitted = gate.tryEnter()?.let { permit -> admittedWith(current, permit) }
+            val result = admitted ?: IpcAcceptResult.NotListening
             isHandedOver = result is IpcAcceptResult.Accepted
             return result
         } finally {
@@ -146,8 +151,23 @@ public class IpcServer internal constructor(
     public fun close() {
         val previous = mutableState.getAndUpdate { IpcServerState.Closed }
         if (previous == IpcServerState.Closed) return
+        gate.close()
         listener.exchange(null)?.close()
         telemetry.emit { IpcServerEvent.Closed(configuration.address) }
+    }
+
+    /**
+     * Suspends until the server is closed and every connection it handed out is closed again, so a shutdown can let
+     * the open connections finish after [close]; no connection is handed out once [close] returned.
+     *
+     * It returns at once for a closed server without open connections and waits for [close] while the server is
+     * listening. The server keeps no timer of its own: a caller that cannot wait indefinitely wraps the call in
+     * `withTimeoutOrNull`. Cancelling it ends the wait and changes nothing.
+     *
+     * @since 1.2.0
+     */
+    public suspend fun awaitIdle() {
+        gate.awaitIdle()
     }
 
     /**
@@ -188,25 +208,42 @@ public class IpcServer internal constructor(
         return IpcBindResult.Bound
     }
 
-    private fun admitted(outcome: AcceptOutcome, span: Span): IpcAcceptResult = when (outcome) {
-        is AcceptOutcome.Refused -> outcome.result
-        is AcceptOutcome.Accepted -> checked(outcome.channel, span)
+    private suspend fun admittedWith(current: IpcListener, permit: Permit): IpcAcceptResult {
+        var isHandedOver = false
+        try {
+            val span = telemetry.startAccept()
+            val result = span.traced { admitted(current.accept(), span, permit) }
+            isHandedOver = result is IpcAcceptResult.Accepted
+            return result
+        } finally {
+            if (!isHandedOver) permit.close()
+        }
     }
 
-    private fun checked(channel: IpcChannel, span: Span): IpcAcceptResult {
+    private fun admitted(outcome: AcceptOutcome, span: Span, permit: Permit): IpcAcceptResult = when (outcome) {
+        is AcceptOutcome.Refused -> outcome.result
+        is AcceptOutcome.Accepted -> checked(outcome.channel, span, permit)
+    }
+
+    private fun checked(channel: IpcChannel, span: Span, permit: Permit): IpcAcceptResult {
         val peer = channel.peer
         if (!configuration.access.permits(user = peer.user, currentUser = transport.currentUser)) {
             channel.close()
             telemetry.rejected(peer, span)
             return IpcAcceptResult.PeerRejected(peer)
         }
-        val connection = IpcConnection(channel = channel, bufferSize = configuration.bufferSize, onClose = ::released)
+        val connection = IpcConnection(
+            channel = channel,
+            bufferSize = configuration.bufferSize,
+            onClose = { released(permit) },
+        )
         telemetry.opened(peer)
         return IpcAcceptResult.Accepted(connection)
     }
 
-    private fun released() {
+    private fun released(permit: Permit) {
         telemetry.closed()
+        permit.close()
         slots.release()
     }
 }

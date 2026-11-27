@@ -1,5 +1,6 @@
 public final class com/davils/konnect/ipc/server/IpcServer : com/davils/kollect/core/health/HealthIndicator {
 	public final fun accept (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun awaitIdle (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public final fun bind (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public fun check (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public final fun close ()V
