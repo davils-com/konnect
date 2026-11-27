@@ -56,6 +56,13 @@ private fun client(transport: ScriptedTransport, telemetry: IpcTelemetry = IpcTe
     val builder = IpcClientBuilder()
     builder.address = HELPER
     builder.telemetry = telemetry
+    builder.connectRetry = null
+    return IpcClient(builder.build(), transport)
+}
+
+private fun defaultClient(transport: ScriptedTransport): IpcClient {
+    val builder = IpcClientBuilder()
+    builder.address = HELPER
     return IpcClient(builder.build(), transport)
 }
 
@@ -125,6 +132,21 @@ class IpcClientTest : FunSpec({
 
             retryingClient(transport).connect() shouldBe IpcConnectResult.AccessDenied
             calls() shouldBe 1
+        }
+
+        test("waits for a server that starts listening within the attempts of the default retry") {
+            val (transport, calls) = scripted(
+                { ConnectOutcome.Refused(IpcConnectResult.NotFound) },
+                { ConnectOutcome.Connected(ScriptedChannel(peer = alicePeer)) },
+            )
+
+            val result = defaultClient(transport).connect()
+
+            val connected = result.shouldBeInstanceOf<IpcConnectResult.Connected>()
+
+            connected.connection.close()
+            calls() shouldBe 2
+            IpcClientBuilder.DEFAULT_CONNECT_RETRY.maxAttempts shouldBe ATTEMPTS
         }
 
         test("tries once without a retry") {

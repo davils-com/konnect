@@ -22,6 +22,9 @@ import com.davils.konnect.ipc.core.access.IpcAccess
 import com.davils.konnect.ipc.core.access.IpcAccessBuilder
 import com.davils.konnect.ipc.core.address.IpcAddress
 import com.davils.konnect.ipc.core.telemetry.IpcTelemetry
+import com.davils.kontinuity.core.backoff.exponential
+import com.davils.kontinuity.core.backoff.jittered
+import com.davils.kontinuity.core.backoff.proportional
 import com.davils.kontinuity.retry.RetryConfig
 import com.davils.kontinuity.retry.RetryConfigBuilder
 import com.davils.kontinuity.retry.retryConfig
@@ -29,8 +32,13 @@ import com.davils.kore.core.annotation.DavilsDsl
 import com.davils.kore.core.annotation.DavilsInternal
 import com.davils.kore.core.dsl.ValidatingBuilder
 import kotlin.time.Duration
+import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
 import com.davils.konnect.ipc.core.Limits as CoreLimits
+
+private const val DEFAULT_CONNECT_ATTEMPTS: Int = 3
+private val FIRST_RETRY_DELAY: Duration = 100.milliseconds
+private val LONGEST_RETRY_DELAY: Duration = 1.seconds
 
 /**
  * The builder behind [com.davils.konnect.ipc.client.ipcClient], which collects the configuration of a client.
@@ -105,12 +113,13 @@ public class IpcClientBuilder internal constructor() : ValidatingBuilder<IpcClie
         }
 
     /**
-     * See [IpcClientConfiguration.connectRetry]; none unless it is set, so a client tries once.
+     * See [IpcClientConfiguration.connectRetry]; [DEFAULT_CONNECT_RETRY] unless it is set, and `null` makes a client
+     * try once.
      *
      * @throws IllegalStateException if this builder was evaluated already.
      * @since 1.1.0
      */
-    public var connectRetry: RetryConfig? = null
+    public var connectRetry: RetryConfig? = DEFAULT_CONNECT_RETRY
         set(value) {
             checkOpen()
             field = value
@@ -162,5 +171,18 @@ public class IpcClientBuilder internal constructor() : ValidatingBuilder<IpcClie
          * @since 1.0.0
          */
         public val DEFAULT_CONNECT_TIMEOUT: Duration = 5.seconds
+
+        /**
+         * The retry of a connect unless another one is given: 3 attempts with an exponential backoff from 100
+         * milliseconds to 1 second, spread by a proportional jitter, so a client that starts with its server finds it
+         * once it listens.
+         *
+         * @since 1.2.0
+         */
+        public val DEFAULT_CONNECT_RETRY: RetryConfig = retryConfig {
+            maxAttempts = DEFAULT_CONNECT_ATTEMPTS
+            val growing = exponential(initial = FIRST_RETRY_DELAY, maximum = LONGEST_RETRY_DELAY)
+            backoff = growing.jittered(proportional())
+        }
     }
 }

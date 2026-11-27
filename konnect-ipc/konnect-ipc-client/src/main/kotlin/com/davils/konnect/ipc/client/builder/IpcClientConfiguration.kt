@@ -86,7 +86,8 @@ public class IpcClientConfiguration internal constructor(builder: IpcClientBuild
     public val telemetry: IpcTelemetry = builder.telemetry
 
     /**
-     * How a connect is retried while the server is not there yet, or `null` to try once.
+     * How a connect is retried while the server is not there yet, or `null` to try once; by default
+     * [IpcClientBuilder.DEFAULT_CONNECT_RETRY], so a client that starts with its server waits for it to listen.
      *
      * Only a result that may pass is retried: [com.davils.konnect.ipc.client.IpcConnectResult.NotFound],
      * [com.davils.konnect.ipc.client.IpcConnectResult.TimedOut] and

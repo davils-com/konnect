@@ -127,6 +127,7 @@ public final class com/davils/konnect/ipc/client/builder/IpcClientBuilder : com/
 }
 
 public final class com/davils/konnect/ipc/client/builder/IpcClientBuilder$Companion {
+	public final fun getDEFAULT_CONNECT_RETRY ()Lcom/davils/kontinuity/retry/RetryConfig;
 	public final fun getDEFAULT_CONNECT_TIMEOUT-UwyO8pc ()J
 }
 
