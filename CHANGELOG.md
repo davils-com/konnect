@@ -5,6 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 1.2.0 - 2026-11-27
+
+### Added
+
+- **A server that drains.** `IpcServer.awaitIdle()` waits, through the `AdmissionGate` of Kore, until the server is
+  closed and every connection it handed out is closed again; no connection is handed out once `close` returned.
+
+### Changed
+
+- **A client retries a connect by default.** `IpcClientBuilder.connectRetry` starts as `DEFAULT_CONNECT_RETRY`, three
+  attempts with an exponential backoff from 100 milliseconds to 1 second and a proportional jitter, so a client that
+  starts with its server waits for it to listen. A server that is not trusted or refuses access is still never tried
+  again, and `connectRetry = null` makes a client try once, as 1.1.0 did by default.
+- **`ipcServer(server)` of `konnect-ipc-shutdown` waits for the open connections.** After closing the server, the task
+  waits through `awaitIdle` until the connections it handed out are closed; a connection that outlives the timeout of
+  the task is reported as a timed out task and stays with its owner.
+
 ## 1.1.0 - 2026-11-26
 
 ### Added

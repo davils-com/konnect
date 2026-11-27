@@ -41,8 +41,8 @@ dependencyResolutionManagement {
 ```kotlin
 // build.gradle.kts
 dependencies {
-    implementation("com.davils:konnect-internet-protocol:1.1.0")
-    testImplementation("com.davils:konnect-testing:1.1.0")
+    implementation("com.davils:konnect-internet-protocol:1.2.0")
+    testImplementation("com.davils:konnect-testing:1.2.0")
 }
 ```
 
@@ -51,8 +51,8 @@ none, so no build receives a binary it cannot use:
 
 ```kotlin
 dependencies {
-    implementation("com.davils:konnect-ipc-client:1.1.0")
-    runtimeOnly("com.davils:konnect-ipc-core-windows-x86_64:1.1.0")
+    implementation("com.davils:konnect-ipc-client:1.2.0")
+    runtimeOnly("com.davils:konnect-ipc-core-windows-x86_64:1.2.0")
 }
 ```
 
