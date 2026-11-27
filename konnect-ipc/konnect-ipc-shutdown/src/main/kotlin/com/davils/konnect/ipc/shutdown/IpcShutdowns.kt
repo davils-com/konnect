@@ -28,7 +28,9 @@ private val stopMargin: Duration = 1.seconds
 
 /**
  * Closes [server] in the stop phase of the shutdown, in a task named [name]: the server stops listening and removes its
- * socket, while the connections it handed out stay open for their owners to finish.
+ * socket, and the task waits through [IpcServer.awaitIdle] until the connections it handed out are closed by their
+ * owners. A connection that outlives the timeout of the task stays open and the report of the shutdown names the task
+ * as timed out, so a connection that never ends is visible.
  *
  * Closing a server that is closed already does nothing, so the task never fails because the application closed the
  * server first.
@@ -39,7 +41,12 @@ private val stopMargin: Duration = 1.seconds
  */
 public fun ShutdownPlanBuilder<*>.ipcServer(server: IpcServer, name: String = DEFAULT_SERVER_NAME) {
     stop {
-        task(name) { action { server.close() } }
+        task(name) {
+            action {
+                server.close()
+                server.awaitIdle()
+            }
+        }
     }
 }
 
